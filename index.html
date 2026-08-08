@@ -645,6 +645,27 @@
       transform: translateY(100%);
     }
 
+    /* Hero content stays hidden (behind the full-screen loader) until
+       revealHero() runs, so nothing "pops" visible and then flashes
+       away right as the loader clears. If JS fails entirely, the
+       .no-js-fallback class (added by a hard failsafe) forces these
+       back to opacity:1 so content is never permanently stuck hidden. */
+    .hero-badge,
+    .hero-subtitle,
+    .hero-cta,
+    .hero-scroll-hint {
+      opacity: 0;
+    }
+
+    body.no-js-fallback .hero-badge,
+    body.no-js-fallback .hero-subtitle,
+    body.no-js-fallback .hero-cta,
+    body.no-js-fallback .hero-scroll-hint,
+    body.no-js-fallback .hero-title .char {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
     .hero-subtitle {
       font-size: clamp(1rem, 2vw, 1.2rem);
       font-weight: 400;
@@ -737,12 +758,24 @@
       border-color: var(--border);
     }
 
-    /* Hero Marquee — full-bleed continuous sliding ticker band */
+    /* Hero Marquee — full-bleed continuous sliding ticker band.
+       #hero is `display:flex; align-items:center`, so the marquee is a
+       centered flex child. The `position:relative; left:50%; right:50%;
+       margin-left:-50vw` breakout trick assumes a plain block-flow
+       static position and does NOT compute correctly for a flex item
+       being centered that way — it compounds into a large offset
+       instead of a clean edge-to-edge bleed (measured ~920px short of
+       the left edge on a 1920px-wide screen, i.e. a visible gap).
+       `margin-inline: calc(50% - 50vw)` is the formula that works
+       correctly regardless of the parent's alignment, because it's
+       pure margin math with no positioning offset layered on top. */
     .hero-marquee {
       position: relative;
       z-index: 1;
-      width: 100%;
-      margin: 64px calc(-1 * var(--hero-pad-x)) 0;
+      width: 100vw;
+      margin-top: 64px;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
       padding: 20px 0;
       overflow: hidden;
       background: repeating-linear-gradient(
@@ -763,6 +796,13 @@
       width: max-content;
       animation: marquee-scroll 24s linear infinite;
       will-change: transform;
+    }
+
+    .hero-marquee-set {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-shrink: 0;
     }
 
     .hero-marquee:hover .hero-marquee-track {
@@ -802,7 +842,7 @@
     }
 
     @media (max-width: 640px) {
-      .hero-marquee { margin: 44px calc(-1 * var(--hero-pad-x)) 0; padding: 16px 0; }
+      .hero-marquee { margin-top: 44px; padding: 16px 0; }
     }
 
     .hero-scroll-hint {
@@ -2027,21 +2067,27 @@
       </div>
     </div>
 
-    <div class="hero-marquee" aria-hidden="true">
-      <div class="hero-marquee-track">
-        <span class="hero-marquee-text">Frontend Developer</span>
-        <span class="hero-marquee-sep"></span>
-        <span class="hero-marquee-text">Based in Karachi</span>
-        <span class="hero-marquee-sep"></span>
-        <span class="hero-marquee-text">Available for Work</span>
-        <span class="hero-marquee-sep"></span>
-        <!-- duplicate set for seamless infinite loop -->
-        <span class="hero-marquee-text">Frontend Developer</span>
-        <span class="hero-marquee-sep"></span>
-        <span class="hero-marquee-text">Based in Karachi</span>
-        <span class="hero-marquee-sep"></span>
-        <span class="hero-marquee-text">Available for Work</span>
-        <span class="hero-marquee-sep"></span>
+    <div class="hero-marquee" id="hero-marquee" aria-hidden="true">
+      <div class="hero-marquee-track" id="hero-marquee-track">
+        <div class="hero-marquee-set">
+          <span class="hero-marquee-text">Frontend Developer</span>
+          <span class="hero-marquee-sep"></span>
+          <span class="hero-marquee-text">Based in Karachi</span>
+          <span class="hero-marquee-sep"></span>
+          <span class="hero-marquee-text">Available for Work</span>
+          <span class="hero-marquee-sep"></span>
+        </div>
+        <!-- duplicate set for the base seamless loop; more are cloned in
+             automatically at runtime on wide screens so the strip always
+             fully covers the viewport with no gap at either end -->
+        <div class="hero-marquee-set">
+          <span class="hero-marquee-text">Frontend Developer</span>
+          <span class="hero-marquee-sep"></span>
+          <span class="hero-marquee-text">Based in Karachi</span>
+          <span class="hero-marquee-sep"></span>
+          <span class="hero-marquee-text">Available for Work</span>
+          <span class="hero-marquee-sep"></span>
+        </div>
       </div>
     </div>
 
@@ -2679,13 +2725,17 @@
     /* ============================================
        FAILSAFE — guarantees the page is usable even
        if a CDN script (GSAP, Lenis, etc.) fails to load.
-       Uses no external dependencies.
+       Uses no external dependencies. Also forces the hero
+       content visible via the .no-js-fallback CSS class,
+       since without GSAP the hero elements would otherwise
+       stay at opacity:0 forever.
     ============================================ */
     setTimeout(() => {
       const loader = document.getElementById('loader');
       if (loader && loader.style.display !== 'none') {
         loader.style.display = 'none';
         document.body.classList.remove('loading');
+        document.body.classList.add('no-js-fallback');
       }
     }, 5000);
   </script>
@@ -2702,6 +2752,72 @@
       } else {
         console.warn('Lucide failed to load from CDN — icons will not render, but the page will continue to work.');
       }
+
+      /* ============================================
+         HERO MARQUEE — fill-to-width
+         The strip only ships with 2 copies of the phrase set in the
+         HTML. On any screen wider than roughly 1500px that's not
+         enough content to cover the bar, so the translateX(-50%) loop
+         showed empty background (the section's plain color) at both
+         the left and right edges. This clones extra sets in pairs
+         (keeping the total count even, which is what keeps the -50%
+         loop seamless) until the track is at least double the visible
+         width, then rebalances the animation duration so the scroll
+         speed stays visually constant no matter how many copies it
+         took to fill a given screen.
+      ============================================ */
+      (function setupMarquee() {
+        const marquee = document.getElementById('hero-marquee');
+        const track = document.getElementById('hero-marquee-track');
+        if (!marquee || !track) return;
+
+        const baseSets = Array.from(track.querySelectorAll('.hero-marquee-set'));
+        if (!baseSets.length) return;
+
+        function fillTrack() {
+          track.querySelectorAll('.hero-marquee-set[data-cloned="true"]').forEach(el => el.remove());
+
+          const containerWidth = marquee.clientWidth;
+          // 2.4x (not just 2x) so there's a buffer against sub-pixel
+          // rounding and any small width change once web fonts finish
+          // swapping in — running short by even a few px re-exposes a
+          // gap at the edges once the loop reaches that point.
+          const targetWidth = containerWidth * 2.4;
+          let guard = 0;
+          while (track.scrollWidth < targetWidth && guard < 60) {
+            baseSets.forEach(set => {
+              const clone = set.cloneNode(true);
+              clone.setAttribute('data-cloned', 'true');
+              track.appendChild(clone);
+            });
+            guard++;
+          }
+
+          const totalSets = track.querySelectorAll('.hero-marquee-set').length;
+          const oneSetWidth = track.scrollWidth / totalSets;
+          const pxPerSecond = 60; // matches the original 24s pace at desktop widths
+          track.style.animationDuration = Math.max(oneSetWidth / pxPerSecond, 8) + 's';
+        }
+
+        fillTrack();
+
+        // 'Archivo Black' (used for the marquee text) is a web font that
+        // can still be loading at DOMContentLoaded — if the fallback font
+        // it swaps in from is narrower, the initial measurement above can
+        // undercount how much content is needed. Re-measure once the real
+        // font is confirmed loaded, and once more after full page load as
+        // a final safety net.
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(fillTrack).catch(() => {});
+        }
+        window.addEventListener('load', fillTrack);
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(fillTrack, 200);
+        });
+      })();
 
       /* ---- Register GSAP Plugins ---- */
       gsap.registerPlugin(ScrollTrigger);
@@ -2736,29 +2852,38 @@
         loaderCount.textContent = count + '%';
       }, 80);
 
+      // Guard so the loader-hide + hero-reveal sequence only ever runs
+      // once, no matter which of the timers/listeners below fires first.
+      // Previously the "load" listener and the fallback timer could both
+      // fire (e.g. on a slow connection), triggering initHeroAnimations()
+      // twice — the second gsap.from() call snapped the hero badge,
+      // subtitle, buttons and scroll hint back to opacity 0 and replayed
+      // the fade-in, which looked like the buttons "disappearing".
+      let loaderHidden = false;
+      function hideLoaderAndReveal() {
+        if (loaderHidden) return;
+        loaderHidden = true;
+        clearInterval(countInterval);
+        loaderCount.textContent = '100%';
+        gsap.to(loader, {
+          opacity: 0,
+          duration: 0.5,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            loader.style.display = 'none';
+            document.body.classList.remove('loading');
+            initHeroAnimations();
+          }
+        });
+      }
+
       window.addEventListener('load', () => {
-        setTimeout(() => {
-          gsap.to(loader, {
-            opacity: 0,
-            duration: 0.6,
-            ease: 'power2.inOut',
-            onComplete: () => {
-              loader.style.display = 'none';
-              document.body.classList.remove('loading');
-              initHeroAnimations();
-            }
-          });
-        }, 1200);
+        setTimeout(hideLoaderAndReveal, 600);
       });
 
-      // Fallback
-      setTimeout(() => {
-        if (loader.style.display !== 'none') {
-          loader.style.display = 'none';
-          document.body.classList.remove('loading');
-          initHeroAnimations();
-        }
-      }, 2800);
+      // Fallback in case the "load" event is delayed (slow assets, etc.)
+      // — still routes through the same guarded function above.
+      setTimeout(hideLoaderAndReveal, 3200);
 
       /* ============================================
          LENIS SMOOTH SCROLL
@@ -2904,7 +3029,10 @@
       /* ============================================
          HERO ANIMATIONS
       ============================================ */
+      let heroAnimated = false;
       function initHeroAnimations() {
+        if (heroAnimated) return;
+        heroAnimated = true;
         try {
           // SplitType on hero title
           const heroTitle = document.querySelector('.hero-title');
@@ -2930,16 +3058,19 @@
             gsap.from(heroTitle, { opacity: 0, y: 40, duration: 0.9, ease: 'power3.out', delay: 0.1 });
           }
 
-          // These elements are visible by default in CSS (in case JS fails to
-          // run at all); when it does run, animate them in from a hidden state.
-          gsap.from('.hero-badge', { opacity: 0, y: 12, duration: 0.7, ease: 'power2.out', delay: 0.05 });
-          gsap.from('.hero-subtitle', { opacity: 0, y: 12, duration: 0.8, ease: 'power2.out', delay: 0.5 });
-          gsap.from('.hero-cta', { opacity: 0, y: 12, duration: 0.8, ease: 'power2.out', delay: 0.7 });
-          gsap.from('.hero-scroll-hint', { opacity: 0, duration: 0.8, ease: 'power2.out', delay: 1.2 });
+          // These elements start at opacity:0 in CSS (hidden behind the
+          // loader), so we animate them TO their visible end state with an
+          // explicit fromTo — this avoids the flash/"disappear" glitch a
+          // plain gsap.from() can cause if it ever re-runs or races with
+          // another tween, since both the start and end values are pinned.
+          gsap.fromTo('.hero-badge', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.05 });
+          gsap.fromTo('.hero-subtitle', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.5 });
+          gsap.fromTo('.hero-cta', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.7 });
+          gsap.fromTo('.hero-scroll-hint', { opacity: 0 }, { opacity: 1, duration: 0.8, ease: 'power2.out', delay: 1.2 });
         } catch (err) {
           // If anything above fails, make sure the hero content is still visible.
           console.error('Hero animation failed, showing static content instead:', err);
-          document.querySelectorAll('.hero-title .char').forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+          document.body.classList.add('no-js-fallback');
         }
       }
 
