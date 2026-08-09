@@ -639,6 +639,7 @@
       text-transform: uppercase;
       color: var(--text);
       margin-bottom: 28px;
+      perspective: 900px;
     }
 
     .hero-title .word {
@@ -650,6 +651,8 @@
       display: inline-block;
       opacity: 0;
       transform: translateY(100%);
+      backface-visibility: hidden;
+      will-change: transform, opacity;
     }
 
     /* Hero content stays hidden (behind the full-screen loader) until
@@ -657,6 +660,7 @@
        away right as the loader clears. If JS fails entirely, the
        .no-js-fallback class (added by a hard failsafe) forces these
        back to opacity:1 so content is never permanently stuck hidden. */
+    .hero-title,
     .hero-badge,
     .hero-subtitle,
     .hero-cta,
@@ -664,6 +668,7 @@
       opacity: 0;
     }
 
+    body.no-js-fallback .hero-title,
     body.no-js-fallback .hero-badge,
     body.no-js-fallback .hero-subtitle,
     body.no-js-fallback .hero-cta,
@@ -3124,24 +3129,30 @@
           const heroTitle = document.querySelector('.hero-title');
           if (heroTitle && window.SplitType) {
             const split = new SplitType(heroTitle, { types: 'chars,words' });
+            // The container itself starts at opacity:0 (see CSS) so the
+            // raw, un-split text never flashes visible before SplitType
+            // has a chance to break it into individually-hidden chars.
+            // Reveal the container the instant the chars are ready —
+            // each .char is still opacity:0 on its own, so nothing pops.
+            gsap.set(heroTitle, { opacity: 1 });
             // IMPORTANT: use fromTo with an explicit end state. The .char class
             // keeps opacity:0/translateY(100%) permanently in CSS, so a plain
             // gsap.from() had no visible "end" value to animate toward and the
             // characters faded back out to invisible after appearing.
             gsap.fromTo(split.chars,
-              { opacity: 0, y: 60, rotateX: -40 },
+              { opacity: 0, y: 40, rotateX: -25 },
               {
                 opacity: 1,
                 y: 0,
                 rotateX: 0,
-                stagger: 0.025,
-                duration: 0.9,
-                ease: 'power3.out',
+                stagger: 0.03,
+                duration: 1.1,
+                ease: 'power2.out',
                 delay: 0.1,
               }
             );
           } else if (heroTitle) {
-            gsap.from(heroTitle, { opacity: 0, y: 40, duration: 0.9, ease: 'power3.out', delay: 0.1 });
+            gsap.fromTo(heroTitle, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.1 });
           }
 
           // These elements start at opacity:0 in CSS (hidden behind the
