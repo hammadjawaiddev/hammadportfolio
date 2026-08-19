@@ -1349,6 +1349,88 @@
       background: var(--card);
     }
 
+    .project-visual-gaming {
+      background: var(--card);
+    }
+
+    .gaming-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 20px 20px;
+      opacity: 0.25;
+    }
+
+    .gaming-crosshair {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120px;
+      height: 120px;
+      transform: translate(-50%, -50%);
+      border: 2px solid var(--accent);
+      border-radius: 0;
+      animation: crosshairPulse 2.4s ease-in-out infinite;
+    }
+
+    .gaming-crosshair::before,
+    .gaming-crosshair::after {
+      content: "";
+      position: absolute;
+      background: var(--accent);
+    }
+
+    .gaming-crosshair::before {
+      top: 50%;
+      left: -20px;
+      width: 20px;
+      height: 2px;
+      transform: translateY(-50%);
+    }
+
+    .gaming-crosshair::after {
+      top: 50%;
+      right: -20px;
+      width: 20px;
+      height: 2px;
+      transform: translateY(-50%);
+    }
+
+    .gaming-crosshair-v1,
+    .gaming-crosshair-v2 {
+      position: absolute;
+      left: 50%;
+      width: 2px;
+      height: 20px;
+      background: var(--accent);
+    }
+
+    .gaming-crosshair-v1 { top: -20px; transform: translateX(-50%); }
+    .gaming-crosshair-v2 { bottom: -20px; transform: translateX(-50%); }
+
+    .gaming-scanline {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      opacity: 0.5;
+      animation: scanMove 3s linear infinite;
+    }
+
+    @keyframes crosshairPulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+      50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.5; }
+    }
+
+    @keyframes scanMove {
+      0% { top: 0%; opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { top: 100%; opacity: 0; }
+    }
+
     .project-visual-physio {
       background: var(--card);
     }
@@ -2499,30 +2581,32 @@
         <div class="project-card reveal tilt-card">
           <div class="project-thumb">
             <div class="project-thumb-inner">
-              <div class="project-visual project-visual-solar">
-                <div class="project-visual-orb solar-orb1"></div>
-                <div class="solar-ring"></div>
-                <div class="solar-ring solar-ring2"></div>
-                <span class="project-visual-label">Solar</span>
+              <div class="project-visual project-visual-gaming">
+                <div class="gaming-grid"></div>
+                <div class="gaming-scanline"></div>
+                <div class="gaming-crosshair">
+                  <div class="gaming-crosshair-v1"></div>
+                  <div class="gaming-crosshair-v2"></div>
+                </div>
+                <span class="project-visual-label">CtrlZone</span>
               </div>
             </div>
             <div class="project-spotlight"></div>
           </div>
           <div class="project-body">
             <div class="project-number">03 / 03</div>
-            <h3 class="project-title">Solar Explorer</h3>
+            <h3 class="project-title">CtrlZone</h3>
             <p class="project-desc">
-              A data-driven web app presenting information about our solar system. Features smooth
-              animations, responsive data cards, and accessible markup throughout.
+              An e-commerce storefront for gaming peripherals, featuring product listings, a clean
+              catalog layout, and a responsive shopping experience.
             </p>
             <div class="project-stack">
               <span class="tag">HTML</span>
               <span class="tag">CSS</span>
               <span class="tag">JavaScript</span>
-              <span class="tag">API</span>
             </div>
             <div class="project-actions">
-              <a href="https://hammadjawaiddev.github.io/Solar-Explorer/" class="btn-project btn-project-primary magnetic">
+              <a href="http://ctrlzone.infinityfreeapp.com/" class="btn-project btn-project-primary magnetic">
                 <i data-lucide="external-link" style="width:13px;height:13px;"></i>
                 Live
               </a>
