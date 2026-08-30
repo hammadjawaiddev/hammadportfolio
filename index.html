@@ -508,14 +508,14 @@
        HERO SECTION
     ============================================ */
     #hero {
-      min-height: 100vh;
+      min-height: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       position: relative;
       overflow: hidden;
-      padding: 120px var(--hero-pad-x) 80px;
+      padding: 96px var(--hero-pad-x) 64px;
     }
 
     /* Animated blob background */
@@ -778,13 +778,13 @@
 
     .hero-title {
       font-family: 'Archivo Black', sans-serif;
-      font-size: clamp(2.6rem, 7.4vw, 6.6rem);
+      font-size: clamp(2.2rem, 5.2vw, 4.4rem);
       font-weight: 400;
-      line-height: 0.98;
+      line-height: 1.02;
       letter-spacing: -0.015em;
       text-transform: uppercase;
       color: var(--text);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       perspective: 900px;
     }
 
@@ -829,12 +829,12 @@
     }
 
     .hero-subtitle {
-      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-size: clamp(1rem, 2vw, 1.1rem);
       font-weight: 400;
       color: var(--text-secondary);
       line-height: 1.7;
       max-width: 540px;
-      margin-bottom: 44px;
+      margin-bottom: 32px;
     }
 
     .hero-stack-line {
@@ -1303,22 +1303,11 @@
     #terminal-input::placeholder { color: var(--text-secondary); opacity: 0.6; }
 
     .term-cursor {
-      width: 8px;
-      height: 16px;
-      background: var(--accent);
-      display: inline-block;
-      flex-shrink: 0;
-      animation: termBlink 1s step-end infinite;
+      display: none;
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .term-cursor { animation: none; opacity: 1; }
       .terminal-status-dot::before { animation: none; }
-    }
-
-    @keyframes termBlink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
     }
 
     .terminal-hints {
@@ -1851,6 +1840,144 @@
       text-transform: uppercase;
       letter-spacing: 0.01em;
       color: var(--text);
+    }
+
+    /* ============================================
+       ARCHITECTURE DIAGRAM
+       Vertical request-flow visualization: USER -> FRONTEND ->
+       API -> BACKEND -> DATABASE. Hovering/focusing/tapping a
+       layer highlights it plus its adjoining connectors and
+       dims the rest, so the flow reads as one connected system
+       rather than a static stack of boxes.
+    ============================================ */
+    #architecture {
+      background: var(--surface);
+    }
+
+    .arch-diagram {
+      max-width: 620px;
+      margin: 64px auto 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .arch-layer {
+      position: relative;
+      z-index: 1;
+      padding: 20px 24px;
+      border: var(--border-width) solid var(--border);
+      background: var(--card);
+      cursor: pointer;
+      transition: opacity 0.3s ease, border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+    }
+
+    .arch-layer:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .arch-diagram.is-active .arch-layer:not(.is-active) {
+      opacity: 0.35;
+    }
+
+    .arch-layer.is-active {
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .arch-layer-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .arch-layer-num {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    .arch-layer-name {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .arch-layer-desc {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 440px;
+    }
+
+    .arch-layer-tech {
+      margin-top: 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .arch-layer-tech span {
+      color: var(--accent);
+      margin: 0 2px;
+    }
+
+    /* Connector: a short vertical line joining two layers, with a
+       small "packet" square that continuously drifts down it to
+       suggest data in motion. Reduced-motion users get a static line. */
+    .arch-connector {
+      position: relative;
+      width: var(--border-width);
+      height: 40px;
+      margin: 0 auto;
+      background: var(--border);
+      align-self: center;
+      transition: background 0.25s ease;
+    }
+
+    .arch-connector.is-active {
+      background: var(--accent);
+    }
+
+    .arch-packet {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      transform: translate(-50%, -50%);
+      opacity: 0.6;
+      animation: archPacketDrop 2.2s ease-in-out infinite;
+    }
+
+    .arch-connector.is-active .arch-packet {
+      opacity: 1;
+      animation-duration: 0.9s;
+    }
+
+    @keyframes archPacketDrop {
+      0%   { top: 0%; opacity: 0; }
+      10%  { opacity: 0.8; }
+      90%  { opacity: 0.8; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .arch-packet { animation: none; opacity: 0.8; top: 50%; }
+      .arch-layer.is-active { transform: none; }
+    }
+
+    @media (max-width: 640px) {
+      .arch-layer { padding: 16px 18px; }
+      .arch-layer-name { font-size: 1rem; }
     }
 
     /* ============================================
@@ -3440,6 +3567,7 @@
     <ul class="nav-links" role="list">
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Stack</a></li>
+      <li><a href="#architecture">Architecture</a></li>
       <li><a href="#terminal">Terminal</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -3467,6 +3595,7 @@
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Stack</a></li>
+      <li><a href="#architecture">Architecture</a></li>
       <li><a href="#terminal">Terminal</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -3914,6 +4043,82 @@
 
   <div class="section-divider" aria-hidden="true"></div>
 
+  <!-- ========== ARCHITECTURE SECTION ========== -->
+  <section id="architecture" aria-labelledby="architecture-title">
+    <div class="section-inner">
+      <div class="section-label reveal">Architecture</div>
+      <h2 class="section-title reveal" id="architecture-title">How a request travels</h2>
+      <p class="section-desc reveal">
+        The path data takes through a typical build, from the browser down to storage and back.
+        Hover — or tap — a layer to trace it.
+      </p>
+
+      <div class="arch-diagram reveal" id="arch-diagram">
+        <div class="arch-layer" data-layer="0" tabindex="0" role="button" aria-label="User layer">
+          <div class="arch-layer-head">
+            <span class="arch-layer-num">00</span>
+            <span class="arch-layer-name">User</span>
+          </div>
+          <p class="arch-layer-desc">Opens the site, clicks around, submits a form.</p>
+        </div>
+
+        <div class="arch-connector" data-connector="0" aria-hidden="true">
+          <span class="arch-packet"></span>
+        </div>
+
+        <div class="arch-layer" data-layer="1" tabindex="0" role="button" aria-label="Frontend layer">
+          <div class="arch-layer-head">
+            <span class="arch-layer-num">01</span>
+            <span class="arch-layer-name">Frontend</span>
+          </div>
+          <p class="arch-layer-desc">Renders the interface and handles interaction in the browser.</p>
+          <div class="arch-layer-tech">HTML <span>•</span> CSS <span>•</span> JavaScript</div>
+        </div>
+
+        <div class="arch-connector" data-connector="1" aria-hidden="true">
+          <span class="arch-packet"></span>
+        </div>
+
+        <div class="arch-layer" data-layer="2" tabindex="0" role="button" aria-label="API layer">
+          <div class="arch-layer-head">
+            <span class="arch-layer-num">02</span>
+            <span class="arch-layer-name">API Layer</span>
+          </div>
+          <p class="arch-layer-desc">Endpoints that take requests from the frontend and route them to server logic.</p>
+          <div class="arch-layer-tech">REST APIs</div>
+        </div>
+
+        <div class="arch-connector" data-connector="2" aria-hidden="true">
+          <span class="arch-packet"></span>
+        </div>
+
+        <div class="arch-layer" data-layer="3" tabindex="0" role="button" aria-label="Backend layer">
+          <div class="arch-layer-head">
+            <span class="arch-layer-num">03</span>
+            <span class="arch-layer-name">Backend</span>
+          </div>
+          <p class="arch-layer-desc">Server-side logic — validation, auth, and the rules behind the interface.</p>
+          <div class="arch-layer-tech">PHP <span>•</span> Node.js</div>
+        </div>
+
+        <div class="arch-connector" data-connector="3" aria-hidden="true">
+          <span class="arch-packet"></span>
+        </div>
+
+        <div class="arch-layer" data-layer="4" tabindex="0" role="button" aria-label="Database layer">
+          <div class="arch-layer-head">
+            <span class="arch-layer-num">04</span>
+            <span class="arch-layer-name">Database</span>
+          </div>
+          <p class="arch-layer-desc">Where the data lives — queried here and returned back up the chain.</p>
+          <div class="arch-layer-tech">MySQL <span>•</span> MongoDB</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"></div>
+
   <!-- ========== TERMINAL SECTION ========== -->
   <section id="terminal" aria-labelledby="terminal-title">
     <div class="section-inner">
@@ -3946,6 +4151,7 @@
       <div class="terminal-hints" aria-hidden="true">
         <button type="button" class="term-hint-btn" data-term-cmd="whoami">whoami</button>
         <button type="button" class="term-hint-btn" data-term-cmd="stack">stack</button>
+        <button type="button" class="term-hint-btn" data-term-cmd="architecture">architecture</button>
         <button type="button" class="term-hint-btn" data-term-cmd="projects">projects</button>
         <button type="button" class="term-hint-btn" data-term-cmd="experience">experience</button>
         <button type="button" class="term-hint-btn" data-term-cmd="contact">contact</button>
@@ -4628,6 +4834,11 @@
         <li class="cmdk-item" role="option" data-label="Stack skills tech" data-href="#skills">
           <i data-lucide="layout-grid" style="width:15px;height:15px;"></i>
           <span>Stack</span>
+          <span class="cmdk-item-hint">Jump to section</span>
+        </li>
+        <li class="cmdk-item" role="option" data-label="Architecture system diagram" data-href="#architecture">
+          <i data-lucide="git-fork" style="width:15px;height:15px;"></i>
+          <span>Architecture</span>
           <span class="cmdk-item-hint">Jump to section</span>
         </li>
         <li class="cmdk-item" role="option" data-label="Terminal CLI whoami stack" data-href="#terminal">
@@ -5354,6 +5565,43 @@
       }
 
       /* ============================================
+         ARCHITECTURE DIAGRAM INTERACTION
+         Hovering, focusing, or tapping a layer highlights it and
+         the connectors directly above/below it, and dims every
+         other layer — so the request path reads as one system
+         instead of a static stack. Click/tap toggles on touch
+         devices where there's no hover to rely on.
+      ============================================ */
+      (function initArchitectureDiagram() {
+        const diagram = document.getElementById('arch-diagram');
+        if (!diagram) return;
+        const layers = Array.from(diagram.querySelectorAll('.arch-layer'));
+        const connectors = Array.from(diagram.querySelectorAll('.arch-connector'));
+
+        function setActive(index) {
+          diagram.classList.toggle('is-active', index !== null);
+          layers.forEach((layer, i) => layer.classList.toggle('is-active', i === index));
+          connectors.forEach((conn, i) => {
+            // Connector i sits between layer i and layer i+1
+            conn.classList.toggle('is-active', index !== null && (i === index || i === index - 1));
+          });
+        }
+
+        layers.forEach((layer, i) => {
+          layer.addEventListener('mouseenter', () => setActive(i));
+          layer.addEventListener('focus', () => setActive(i));
+          layer.addEventListener('mouseleave', () => setActive(null));
+          layer.addEventListener('blur', () => setActive(null));
+          layer.addEventListener('click', () => {
+            const alreadyActive = layer.classList.contains('is-active');
+            setActive(alreadyActive ? null : i);
+          });
+        });
+
+        diagram.addEventListener('mouseleave', () => setActive(null));
+      })();
+
+      /* ============================================
          PROCESS DIAGRAM PROGRESSIVE LINE
       ============================================ */
       (function initProcessDiagram() {
@@ -5743,6 +5991,7 @@
             [
               ['whoami', 'basic info about me'],
               ['stack', 'technologies I work with'],
+              ['architecture', 'see how a request flows end to end'],
               ['projects', 'scroll to featured work'],
               ['experience', 'scroll to work history'],
               ['contact', 'scroll to contact section'],
@@ -5765,6 +6014,10 @@
             addLine('PHP · Node.js');
             addLine('DATABASE', 'term-heading');
             addLine('MySQL · MongoDB');
+          },
+          architecture() {
+            addLine('Scrolling to Architecture…', 'term-accent');
+            jumpTo('#architecture');
           },
           projects() {
             addLine('Scrolling to Projects…', 'term-accent');
