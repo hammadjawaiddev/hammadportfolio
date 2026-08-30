@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Frontend Developer portfolio — crafting minimal, performant, and beautiful web experiences." />
-  <meta name="keywords" content="Frontend Developer, Portfolio, HTML, CSS, JavaScript, UI, Web Design" />
+  <meta name="description" content="Hammad Jawaid — Full-Stack Developer building responsive frontends, PHP/Node.js backends, REST APIs, and MySQL/MongoDB-driven web applications." />
+  <meta name="keywords" content="Full Stack Developer, Web Developer, PHP Developer, Node.js Developer, MySQL, MongoDB, JavaScript, Backend Development, Frontend Development, REST API, Web Applications" />
   <meta name="author" content="Hammad Jawaid" />
-  <meta property="og:title" content="Hammad Jawaid — Frontend Developer" />
-  <meta property="og:description" content="Crafting minimal, performant, and beautiful web experiences." />
+  <meta property="og:title" content="Hammad Jawaid — Full-Stack Developer" />
+  <meta property="og:description" content="I build modern interfaces, powerful backends, and database-driven web applications." />
   <meta property="og:type" content="website" />
-  <title>Hammad Jawaid — Frontend Developer</title>
+  <title>Hammad Jawaid — Full-Stack Developer</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -214,6 +214,17 @@
       border: var(--border-width) solid var(--text);
       opacity: 0;
       animation: loaderFadeIn 0.4s linear 0.15s forwards;
+    }
+
+    .loader-status {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      opacity: 0;
+      animation: loaderFadeIn 0.4s linear 0.2s forwards;
+      margin-top: -18px;
     }
 
     .loader-bar-wrap {
@@ -671,6 +682,7 @@
     body.no-js-fallback .hero-title,
     body.no-js-fallback .hero-badge,
     body.no-js-fallback .hero-subtitle,
+    body.no-js-fallback .hero-stack-line,
     body.no-js-fallback .hero-cta,
     body.no-js-fallback .hero-scroll-hint,
     body.no-js-fallback .hero-title .char {
@@ -685,6 +697,25 @@
       line-height: 1.7;
       max-width: 540px;
       margin-bottom: 44px;
+    }
+
+    .hero-stack-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      opacity: 0;
+    }
+
+    .hero-stack-dot {
+      color: var(--accent);
+      font-weight: 700;
     }
 
     .hero-cta {
@@ -1019,6 +1050,73 @@
       letter-spacing: 0.04em;
     }
 
+    /* Stack flow diagram: Frontend -> API/Server -> Database */
+    .stack-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      margin-top: 36px;
+      max-width: 360px;
+    }
+
+    .stack-flow-layer {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      background: var(--card);
+      border: var(--border-width) solid var(--border);
+      box-shadow: var(--shadow-off) var(--shadow-off) 0 0 var(--shadow);
+      transition: transform 0.15s linear, box-shadow 0.15s linear;
+    }
+
+    .stack-flow-layer:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: calc(var(--shadow-off) + 3px) calc(var(--shadow-off) + 3px) 0 0 var(--shadow);
+    }
+
+    .stack-flow-icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: var(--accent-text);
+      border: 2px solid var(--border);
+    }
+
+    .stack-flow-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--text);
+      margin-right: auto;
+    }
+
+    .stack-flow-sub {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-align: right;
+      letter-spacing: 0.02em;
+    }
+
+    .stack-flow-arrow {
+      display: flex;
+      justify-content: center;
+      color: var(--accent);
+      padding: 6px 0;
+    }
+
+    @media (max-width: 480px) {
+      .stack-flow-layer { flex-wrap: wrap; row-gap: 6px; }
+      .stack-flow-sub { text-align: left; width: 100%; padding-left: 50px; }
+    }
+
     .about-visual {
       position: relative;
       display: flex;
@@ -1132,27 +1230,166 @@
 
     .skill-level {
       font-size: 0.72rem;
-      color: var(--text-secondary);
-      font-weight: 600;
+      color: var(--accent);
+      font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
-    .skill-bar {
+    .skill-desc {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+
+    /* Discrete level indicator — no fabricated percentages, just a
+       relative sense of how much a technology gets used day to day */
+    .skill-level-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .skill-dot {
+      width: 16px;
       height: 6px;
       background: var(--card);
       border: 2px solid var(--border);
-      border-radius: 0;
-      overflow: hidden;
+      transition: background 0.5s cubic-bezier(0.25,0.46,0.45,0.94), border-color 0.2s linear;
     }
 
-    .skill-bar-fill {
-      height: 100%;
+    .skill-dot.filled {
       background: var(--accent);
-      border-radius: 0;
-      width: 0%;
-      transition: width 1.2s cubic-bezier(0.25,0.46,0.45,0.94);
+      border-color: var(--accent);
+    }
+
+    /* Skill category grouping */
+    .skill-category {
+      margin-bottom: 56px;
+    }
+
+    .skill-category:last-child {
+      margin-bottom: 0;
+    }
+
+    .skill-category-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .skill-category-num {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    .skill-category-name {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      color: var(--text);
+    }
+
+    /* ============================================
+       PROCESS DIAGRAM ("HOW I BUILD")
+    ============================================ */
+    #process {
+      background: var(--surface);
+    }
+
+    .process-diagram {
+      position: relative;
+      margin-top: 64px;
+      padding-left: 44px;
+    }
+
+    .process-line {
+      position: absolute;
+      left: 15px;
+      top: 10px;
+      bottom: 10px;
+      width: var(--border-width);
+      background: var(--border);
+    }
+
+    .process-line-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 0%;
+      background: var(--accent);
+      transform-origin: top;
+    }
+
+    .process-step {
+      position: relative;
+      padding-bottom: 48px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 20px;
+      row-gap: 4px;
+    }
+
+    .process-step:last-child {
+      padding-bottom: 0;
+    }
+
+    .process-step-dot {
+      position: absolute;
+      left: -44px;
+      top: 2px;
+      width: 17px;
+      height: 17px;
+      background: var(--bg);
+      border: var(--border-width) solid var(--border);
+      transition: background 0.2s linear, border-color 0.2s linear;
+    }
+
+    .process-step.is-active .process-step-dot {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .process-step-num {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 0.85rem;
+      color: var(--accent);
+      grid-column: 1;
+      align-self: start;
+    }
+
+    .process-step-name {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: var(--text);
+      grid-column: 2;
+    }
+
+    .process-step-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      grid-column: 2;
+      max-width: 460px;
+    }
+
+    @media (max-width: 640px) {
+      .process-diagram { padding-left: 34px; }
+      .process-line { left: 10px; }
+      .process-step-dot { left: -34px; width: 13px; height: 13px; }
+      .process-step-name { font-size: 1.1rem; }
     }
 
     /* ============================================
@@ -1406,6 +1643,149 @@
       padding: 24px 28px 28px;
     }
 
+    /* Role badge (Frontend / Backend / Database / Full-Stack) */
+    .project-role-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 3;
+      padding: 5px 11px;
+      background: var(--bg);
+      border: 2px solid var(--text);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .project-role-badge.role-fullstack {
+      background: var(--accent);
+      color: var(--accent-text);
+      border-color: var(--accent);
+    }
+
+    .project-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .project-meta-label {
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .project-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .feature-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--text-secondary);
+      border: 1px dashed var(--border);
+    }
+
+    .feature-tag::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* Expandable architecture blueprint */
+    .btn-architecture {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 0;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      background: transparent;
+      border: 2px dashed var(--border);
+      color: var(--text-secondary);
+      transition: color 0.15s linear, border-color 0.15s linear;
+    }
+
+    .btn-architecture:hover,
+    .btn-architecture[aria-expanded="true"] {
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    .btn-architecture i {
+      transition: transform 0.25s ease;
+    }
+
+    .btn-architecture[aria-expanded="true"] i {
+      transform: rotate(180deg);
+    }
+
+    .architecture-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.65,0,0.35,1);
+    }
+
+    .architecture-panel-inner {
+      margin-top: 18px;
+      padding: 18px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .arch-layer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      background: var(--card);
+      border: 2px solid var(--border);
+    }
+
+    .arch-layer-name {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+
+    .arch-layer-tech {
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .arch-arrow {
+      display: flex;
+      justify-content: center;
+      color: var(--accent);
+      padding: 2px 0;
+    }
+
     .project-number {
       font-size: 0.68rem;
       font-weight: 700;
@@ -1537,6 +1917,64 @@
       font-size: 0.82rem;
       color: var(--text-secondary);
       line-height: 1.65;
+    }
+
+    /* ============================================
+       WHAT I CAN BUILD (CAPABILITIES)
+    ============================================ */
+    #capabilities {
+      background: var(--surface);
+    }
+
+    .capability-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 64px;
+    }
+
+    .capability-card {
+      padding: 24px;
+      background: var(--card);
+      border: var(--border-width) solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--shadow-off) var(--shadow-off) 0 0 var(--shadow);
+      transition: transform 0.15s linear, box-shadow 0.15s linear;
+    }
+
+    .capability-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: calc(var(--shadow-off) + 3px) calc(var(--shadow-off) + 3px) 0 0 var(--shadow);
+    }
+
+    .capability-num {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 0.85rem;
+      color: var(--accent);
+    }
+
+    .capability-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      color: var(--text);
+    }
+
+    .capability-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 1024px) {
+      .capability-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .capability-grid { grid-template-columns: 1fr; }
     }
 
     /* ============================================
@@ -1933,18 +2371,23 @@
       .contact-grid { gap: 40px; }
       .skills-header { flex-direction: column; align-items: flex-start; }
       .skills-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+      .stack-flow { max-width: 100%; }
+      .arch-layer { flex-wrap: wrap; row-gap: 4px; }
+      .arch-layer-tech { text-align: left; }
     }
 
     @media (max-width: 600px) {
       .hero-title { font-size: clamp(2.4rem, 10vw, 3.5rem); }
       .hero-cta { flex-direction: column; }
       .hero-cta .btn-primary, .hero-cta .btn-secondary, .hero-cta .btn-ghost { justify-content: center; }
+      .hero-stack-line { font-size: 0.68rem; gap: 6px; }
       .why-grid { grid-template-columns: 1fr; }
       .about-stats { grid-template-columns: 1fr; }
       .achievements-grid { grid-template-columns: 1fr; }
       .footer-center { display: none; }
       #back-to-top { bottom: 20px; right: 20px; }
       .project-thumb { height: 200px; }
+      .project-role-badge { font-size: 0.6rem; padding: 4px 8px; }
       .timeline-item { padding-left: 32px; }
       footer { grid-template-columns: 1fr; justify-items: center; text-align: center; }
       .footer-left, .footer-socials { justify-self: center; }
@@ -1971,6 +2414,13 @@
 
       .skills-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
       .skill-card { padding: 18px; }
+      .skill-category { margin-bottom: 40px; }
+      .skill-category-head { margin-bottom: 18px; }
+
+      .stack-flow-layer { padding: 12px 14px; }
+      .stack-flow-icon { width: 30px; height: 30px; }
+
+      .capability-card { padding: 18px; }
 
       .achievements-grid { grid-template-columns: 1fr; gap: 14px; }
       .achievement-card { padding: 22px; }
@@ -2049,7 +2499,8 @@
 
   <!-- ========== LOADING SCREEN ========== -->
   <div id="loader" aria-hidden="true">
-    <div class="loader-logo">HJ</div>
+    <div class="loader-logo">HJ.DEV</div>
+    <div class="loader-status" id="loader-status">INITIALIZING SYSTEM</div>
     <div class="loader-bar-wrap">
       <div class="loader-bar"></div>
     </div>
@@ -2062,9 +2513,10 @@
 
     <ul class="nav-links" role="list">
       <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
+      <li><a href="#skills">Stack</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#process">Process</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
 
@@ -2083,9 +2535,10 @@
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <ul>
       <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
+      <li><a href="#skills">Stack</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="#process">Process</a></li>
       <li><a href="#achievements">Achievements</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -2112,13 +2565,17 @@
       </div>
 
       <h1 class="hero-title" id="hero-title">
-        Code.<br />Design.<br /><em style="font-style:normal;background:var(--accent);color:var(--accent-text);padding:0 10px;box-decoration-break:clone;-webkit-box-decoration-break:clone;">Experience.</em>
+        Build.<br />Connect.<br /><em style="font-style:normal;background:var(--accent);color:var(--accent-text);padding:0 10px;box-decoration-break:clone;-webkit-box-decoration-break:clone;">Deploy.</em>
       </h1>
 
       <p class="hero-subtitle">
-        Hi, I'm <strong>Hammad Jawaid</strong> — a Frontend Developer passionate about building clean, fast, and
-        beautiful web interfaces. Open to freelance work and full-time opportunities.
+        Hi, I'm <strong>Hammad Jawaid</strong> — a Full-Stack Developer. I build modern interfaces, powerful
+        backends, and database-driven web applications, end to end.
       </p>
+
+      <div class="hero-stack-line" aria-label="Core technologies">
+        <span>HTML</span><span class="hero-stack-dot">•</span><span>CSS</span><span class="hero-stack-dot">•</span><span>JavaScript</span><span class="hero-stack-dot">•</span><span>PHP</span><span class="hero-stack-dot">•</span><span>Node.js</span><span class="hero-stack-dot">•</span><span>MySQL</span><span class="hero-stack-dot">•</span><span>MongoDB</span>
+      </div>
 
       <div class="hero-cta">
         <a href="#projects" class="btn-primary magnetic">
@@ -2139,9 +2596,9 @@
     <div class="hero-marquee" id="hero-marquee" aria-hidden="true">
       <div class="hero-marquee-track" id="hero-marquee-track">
         <div class="hero-marquee-set">
-          <span class="hero-marquee-text">Frontend Developer</span>
+          <span class="hero-marquee-text">Full-Stack Developer</span>
           <span class="hero-marquee-sep"></span>
-          <span class="hero-marquee-text">Crafting Digital Experiences</span>
+          <span class="hero-marquee-text">Frontend + Backend + Database</span>
           <span class="hero-marquee-sep"></span>
           <span class="hero-marquee-text">Available for Work</span>
           <span class="hero-marquee-sep"></span>
@@ -2150,9 +2607,9 @@
              automatically at runtime on wide screens so the strip always
              fully covers the viewport with no gap at either end -->
         <div class="hero-marquee-set">
-          <span class="hero-marquee-text">Frontend Developer</span>
+          <span class="hero-marquee-text">Full-Stack Developer</span>
           <span class="hero-marquee-sep"></span>
-          <span class="hero-marquee-text">Crafting Digital Experiences</span>
+          <span class="hero-marquee-text">Frontend + Backend + Database</span>
           <span class="hero-marquee-sep"></span>
           <span class="hero-marquee-text">Available for Work</span>
           <span class="hero-marquee-sep"></span>
@@ -2177,19 +2634,42 @@
       <div class="about-grid">
         <div class="about-text reveal">
           <p>
-            I'm a <strong>Frontend Developer</strong> at the beginning of my journey — curious, motivated,
-            and genuinely excited about the craft of building for the web. I believe the best interfaces
-            feel invisible: they just work, beautifully.
+            I'm a <strong>Full-Stack Developer</strong> at the beginning of my journey — curious, motivated,
+            and genuinely excited about the craft of building for the web, on both sides of the request.
+            I enjoy building complete web experiences: responsive interfaces, backend logic, APIs,
+            authentication, CRUD systems, and the databases that hold it all together.
           </p>
           <p>
-            My focus is on writing <strong>clean, maintainable code</strong> that performs well across all
-            devices. I care deeply about accessibility and responsive design — because great experiences
-            should be for everyone.
+            On the frontend, I write <strong>clean, maintainable code</strong> that performs well across
+            devices. On the backend, I work with <strong>PHP and Node.js</strong> to build REST APIs and
+            server-side logic, backed by <strong>MySQL and MongoDB</strong> for storing and modeling real
+            data.
           </p>
           <p>
-            I'm currently sharpening my skills through real-world projects, internships, and continuous
-            self-learning. Every project is a chance to improve, and I take that seriously.
+            I'm currently sharpening these skills through real-world projects and continuous self-learning
+            — not just following tutorials, but shipping things end to end. Every project is a chance to
+            connect one more piece of the stack, and I take that seriously.
           </p>
+
+          <div class="stack-flow" role="img" aria-label="Development flow: Frontend to API and Server to Database">
+            <div class="stack-flow-layer reveal">
+              <span class="stack-flow-icon"><i data-lucide="layout-template" style="width:18px;height:18px;"></i></span>
+              <span class="stack-flow-label">Frontend</span>
+              <span class="stack-flow-sub">HTML · CSS · JavaScript</span>
+            </div>
+            <div class="stack-flow-arrow" aria-hidden="true"><i data-lucide="arrow-down" style="width:16px;height:16px;"></i></div>
+            <div class="stack-flow-layer reveal">
+              <span class="stack-flow-icon"><i data-lucide="server" style="width:18px;height:18px;"></i></span>
+              <span class="stack-flow-label">API / Server</span>
+              <span class="stack-flow-sub">PHP · Node.js · REST APIs</span>
+            </div>
+            <div class="stack-flow-arrow" aria-hidden="true"><i data-lucide="arrow-down" style="width:16px;height:16px;"></i></div>
+            <div class="stack-flow-layer reveal">
+              <span class="stack-flow-icon"><i data-lucide="database" style="width:18px;height:18px;"></i></span>
+              <span class="stack-flow-label">Database</span>
+              <span class="stack-flow-sub">MySQL · MongoDB</span>
+            </div>
+          </div>
 
           <div class="about-stats">
             <div class="stat-card reveal">
@@ -2252,95 +2732,302 @@
     <div class="section-inner">
       <div class="skills-header">
         <div>
-          <div class="section-label reveal">Skills</div>
-          <h2 class="section-title reveal" id="skills-title">My toolkit</h2>
+          <div class="section-label reveal">Stack</div>
+          <h2 class="section-title reveal" id="skills-title">The full stack</h2>
         </div>
         <p class="section-desc reveal" style="max-width:320px;margin:0;">
-          A focused set of skills I've been deliberately building and refining.
+          What I use to take a project from interface to server to database.
         </p>
       </div>
 
-      <div class="skills-grid">
-        <!-- Skill cards -->
-        <div class="skill-card reveal tilt-card" data-tilt>
-          <div class="skill-icon-wrap"><i data-lucide="file-code" style="width:20px;height:20px;"></i></div>
-          <div>
-            <div class="skill-name">HTML5</div>
-            <div class="skill-level">Proficient</div>
-            <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+      <!-- 01 — FRONTEND -->
+      <div class="skill-category reveal">
+        <div class="skill-category-head">
+          <span class="skill-category-num">01</span>
+          <span class="skill-category-name">Frontend</span>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card reveal tilt-card" data-tilt>
+            <div class="skill-icon-wrap"><i data-lucide="file-code" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">HTML</div>
+              <div class="skill-level">Comfortable</div>
+              <p class="skill-desc">Semantic, accessible markup as the foundation of every page.</p>
+              <div class="skill-level-dots" data-level="4" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap"><i data-lucide="paintbrush" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">CSS</div>
+              <div class="skill-level">Comfortable</div>
+              <p class="skill-desc">Layout systems, responsive breakpoints, and the visual language of a page.</p>
+              <div class="skill-level-dots" data-level="4" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap"><i data-lucide="terminal" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">JavaScript</div>
+              <div class="skill-level">Building With</div>
+              <p class="skill-desc">DOM interactions, client-side logic, and connecting the UI to real data.</p>
+              <div class="skill-level-dots" data-level="3" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap"><i data-lucide="layout" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">Responsive Design</div>
+              <div class="skill-level">Comfortable</div>
+              <p class="skill-desc">Interfaces that hold up cleanly from a phone screen to a desktop monitor.</p>
+              <div class="skill-level-dots" data-level="4" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap"><i data-lucide="wand-2" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">UI / UX</div>
+              <div class="skill-level">Building With</div>
+              <p class="skill-desc">Turning designs and rough ideas into interfaces that feel intentional.</p>
+              <div class="skill-level-dots" data-level="3" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="skill-card reveal tilt-card">
-          <div class="skill-icon-wrap"><i data-lucide="paintbrush" style="width:20px;height:20px;"></i></div>
-          <div>
-            <div class="skill-name">CSS3</div>
-            <div class="skill-level">Proficient</div>
-            <div class="skill-bar"><div class="skill-bar-fill" data-width="85"></div></div>
+      <!-- 02 — BACKEND -->
+      <div class="skill-category reveal">
+        <div class="skill-category-head">
+          <span class="skill-category-num">02</span>
+          <span class="skill-category-name">Backend</span>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap"><i data-lucide="server" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">PHP</div>
+              <div class="skill-level">Building With</div>
+              <p class="skill-desc">Server-side logic, form handling, and page rendering for dynamic sites.</p>
+              <div class="skill-level-dots" data-level="3" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap"><i data-lucide="hexagon" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">Node.js</div>
+              <div class="skill-level">Working Knowledge</div>
+              <p class="skill-desc">Building lightweight servers and APIs on top of JavaScript.</p>
+              <div class="skill-level-dots" data-level="2" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap"><i data-lucide="plug-zap" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">REST APIs</div>
+              <div class="skill-level">Working Knowledge</div>
+              <p class="skill-desc">Designing endpoints that move data cleanly between frontend and server.</p>
+              <div class="skill-level-dots" data-level="2" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap"><i data-lucide="cpu" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">Server-side Logic</div>
+              <div class="skill-level">Building With</div>
+              <p class="skill-desc">Auth flows, validation, and the logic that sits behind the interface.</p>
+              <div class="skill-level-dots" data-level="3" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="skill-card reveal tilt-card">
-          <div class="skill-icon-wrap"><i data-lucide="terminal" style="width:20px;height:20px;"></i></div>
-          <div>
-            <div class="skill-name">JavaScript</div>
-            <div class="skill-level">Intermediate</div>
-            <div class="skill-bar"><div class="skill-bar-fill" data-width="72"></div></div>
+      <!-- 03 — DATABASE -->
+      <div class="skill-category reveal">
+        <div class="skill-category-head">
+          <span class="skill-category-num">03</span>
+          <span class="skill-category-name">Database</span>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap"><i data-lucide="database" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">MySQL</div>
+              <div class="skill-level">Building With</div>
+              <p class="skill-desc">Relational schemas, joins, and queries for structured application data.</p>
+              <div class="skill-level-dots" data-level="3" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap"><i data-lucide="leaf" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">MongoDB</div>
+              <div class="skill-level">Working Knowledge</div>
+              <p class="skill-desc">Document-based storage for flexible, JSON-shaped data.</p>
+              <div class="skill-level-dots" data-level="2" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap"><i data-lucide="repeat" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">CRUD</div>
+              <div class="skill-level">Building With</div>
+              <p class="skill-desc">Create, read, update, delete — the core of any data-driven app.</p>
+              <div class="skill-level-dots" data-level="3" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap"><i data-lucide="workflow" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">Data Modeling</div>
+              <div class="skill-level">Working Knowledge</div>
+              <p class="skill-desc">Shaping schemas around how an application actually uses its data.</p>
+              <div class="skill-level-dots" data-level="2" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="skill-card reveal tilt-card">
-          <div class="skill-icon-wrap"><i data-lucide="git-branch" style="width:20px;height:20px;"></i></div>
-          <div>
-            <div class="skill-name">Git & GitHub</div>
-            <div class="skill-level">Comfortable</div>
-            <div class="skill-bar"><div class="skill-bar-fill" data-width="70"></div></div>
+      <!-- 04 — TOOLS -->
+      <div class="skill-category reveal">
+        <div class="skill-category-head">
+          <span class="skill-category-num">04</span>
+          <span class="skill-category-name">Tools</span>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap"><i data-lucide="git-branch" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">Git</div>
+              <div class="skill-level">Comfortable</div>
+              <p class="skill-desc">Version control for every project, from first commit to deploy.</p>
+              <div class="skill-level-dots" data-level="4" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;flex-shrink:0;"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15 0 1.55-.01 2.8-.01 3.18 0 .31.21.68.8.56A10.98 10.98 0 0 0 23.5 12c0-6.27-5.23-11.5-11.5-11.5z"/></svg>
+            </div>
+            <div>
+              <div class="skill-name">GitHub</div>
+              <div class="skill-level">Comfortable</div>
+              <p class="skill-desc">Hosting repos, tracking issues, and shipping projects in public.</p>
+              <div class="skill-level-dots" data-level="4" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-card reveal tilt-card">
+            <div class="skill-icon-wrap"><i data-lucide="code" style="width:20px;height:20px;"></i></div>
+            <div>
+              <div class="skill-name">VS Code</div>
+              <div class="skill-level">Comfortable</div>
+              <p class="skill-desc">My daily editor for everything from markup to backend scripts.</p>
+              <div class="skill-level-dots" data-level="4" aria-hidden="true">
+                <span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span><span class="skill-dot"></span>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="skill-card reveal tilt-card">
-          <div class="skill-icon-wrap"><i data-lucide="layout" style="width:20px;height:20px;"></i></div>
-          <div>
-            <div class="skill-name">Responsive Design</div>
-            <div class="skill-level">Proficient</div>
-            <div class="skill-bar"><div class="skill-bar-fill" data-width="88"></div></div>
-          </div>
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <!-- ========== HOW I BUILD (PROCESS) SECTION ========== -->
+  <section id="process" aria-labelledby="process-title">
+    <div class="section-inner">
+      <div class="section-label reveal">Process</div>
+      <h2 class="section-title reveal" id="process-title">How I build</h2>
+      <p class="section-desc reveal">
+        A straightforward system, run the same way every time — idea to something live.
+      </p>
+
+      <div class="process-diagram" id="process-diagram">
+        <div class="process-line" aria-hidden="true">
+          <div class="process-line-fill" id="process-line-fill"></div>
         </div>
 
-        <div class="skill-card reveal tilt-card">
-          <div class="skill-icon-wrap"><i data-lucide="wand-2" style="width:20px;height:20px;"></i></div>
-          <div>
-            <div class="skill-name">UI Implementation</div>
-            <div class="skill-level">Proficient</div>
-            <div class="skill-bar"><div class="skill-bar-fill" data-width="82"></div></div>
-          </div>
+        <div class="process-step reveal" data-step="1">
+          <div class="process-step-dot"></div>
+          <div class="process-step-num">01</div>
+          <div class="process-step-name">Idea</div>
+          <div class="process-step-desc">Define what the app needs to do and who it's for.</div>
         </div>
 
-        <div class="skill-card reveal tilt-card">
-          <div class="skill-icon-wrap"><i data-lucide="sparkles" style="width:20px;height:20px;"></i></div>
-          <div>
-            <div class="skill-name">Animation</div>
-            <div class="skill-level">Intermediate</div>
-            <div class="skill-bar"><div class="skill-bar-fill" data-width="68"></div></div>
-          </div>
+        <div class="process-step reveal" data-step="2">
+          <div class="process-step-dot"></div>
+          <div class="process-step-num">02</div>
+          <div class="process-step-name">Frontend</div>
+          <div class="process-step-desc">Build the interface — structure, styling, interaction.</div>
         </div>
 
-        <div class="skill-card reveal tilt-card">
-          <div class="skill-icon-wrap"><i data-lucide="search" style="width:20px;height:20px;"></i></div>
-          <div>
-            <div class="skill-name">Basic SEO</div>
-            <div class="skill-level">Learning</div>
-            <div class="skill-bar"><div class="skill-bar-fill" data-width="55"></div></div>
-          </div>
+        <div class="process-step reveal" data-step="3">
+          <div class="process-step-dot"></div>
+          <div class="process-step-num">03</div>
+          <div class="process-step-name">Backend / API</div>
+          <div class="process-step-desc">Write the server logic and the endpoints that connect to it.</div>
         </div>
 
-        <div class="skill-card reveal tilt-card">
-          <div class="skill-icon-wrap"><i data-lucide="gauge" style="width:20px;height:20px;"></i></div>
-          <div>
-            <div class="skill-name">Performance</div>
-            <div class="skill-level">Learning</div>
-            <div class="skill-bar"><div class="skill-bar-fill" data-width="60"></div></div>
-          </div>
+        <div class="process-step reveal" data-step="4">
+          <div class="process-step-dot"></div>
+          <div class="process-step-num">04</div>
+          <div class="process-step-name">Database</div>
+          <div class="process-step-desc">Model the data and wire up storage and queries.</div>
+        </div>
+
+        <div class="process-step reveal" data-step="5">
+          <div class="process-step-dot"></div>
+          <div class="process-step-num">05</div>
+          <div class="process-step-name">Test</div>
+          <div class="process-step-desc">Check the flows, edge cases, and how it behaves on real devices.</div>
+        </div>
+
+        <div class="process-step reveal" data-step="6">
+          <div class="process-step-dot"></div>
+          <div class="process-step-num">06</div>
+          <div class="process-step-name">Deploy</div>
+          <div class="process-step-desc">Ship it, and keep an eye on it once it's live.</div>
         </div>
       </div>
     </div>
@@ -2354,7 +3041,7 @@
       <div class="section-label reveal">Experience</div>
       <h2 class="section-title reveal" id="experience-title">Where I've worked</h2>
       <p class="section-desc reveal" style="margin-bottom:0;">
-        Early in my career, but deeply invested in learning through real work.
+        Early in my career, but deeply invested in learning through real work across the stack.
       </p>
 
       <div class="timeline">
@@ -2362,19 +3049,23 @@
         <div class="timeline-item reveal">
           <div class="timeline-dot"></div>
           <div class="timeline-period">2025 — Present</div>
-          <div class="timeline-role">Frontend Freelancer</div>
+          <div class="timeline-role">Web Developer, Freelance</div>
           <div class="timeline-company">Self-employed · Remote</div>
           <ul class="timeline-list">
             <li>Built responsive, mobile-first websites for small businesses and individuals</li>
             <li>Converted Figma and wireframe designs into clean, semantic HTML/CSS</li>
+            <li>Extended select projects with PHP and MySQL to add real database-driven functionality</li>
             <li>Improved page load times through asset optimization and best practices</li>
             <li>Collaborated with clients to iterate on designs and implement feedback</li>
-            <li>Maintained code quality with consistent naming conventions and documentation</li>
+            <li>Maintained code quality with consistent naming conventions, version control, and documentation</li>
           </ul>
           <div class="timeline-tags">
             <span class="tag">HTML</span>
             <span class="tag">CSS</span>
             <span class="tag">JavaScript</span>
+            <span class="tag">PHP</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Git & GitHub</span>
             <span class="tag">Responsive</span>
           </div>
         </div>
@@ -2397,6 +3088,7 @@
 
         <!-- Project 1: PhysioSync -->
         <div class="project-card reveal tilt-card" data-tilt>
+          <span class="project-role-badge role-frontend">Frontend</span>
           <div class="project-thumb">
             <div class="project-thumb-inner">
               <div class="project-visual project-visual-physio">
@@ -2414,11 +3106,16 @@
               A clean, professional landing page for a physiotherapy clinic. Emphasizes trust, clarity,
               and conversion — with a fully accessible, mobile-first layout.
             </p>
+            <div class="project-meta-row"><span class="project-meta-label">Role:</span><span class="project-meta-label" style="color:var(--text);">Frontend</span></div>
             <div class="project-stack">
               <span class="tag">HTML</span>
               <span class="tag">CSS</span>
               <span class="tag">JavaScript</span>
               <span class="tag">SEO</span>
+            </div>
+            <div class="project-features">
+              <span class="feature-tag">Responsive UI</span>
+              <span class="feature-tag">SEO Optimized</span>
             </div>
             <div class="project-actions">
               <a href="https://physiosync-pk.vercel.app/" class="btn-project btn-project-primary magnetic">
@@ -2435,6 +3132,7 @@
 
         <!-- Project 2: Cosmos -->
         <div class="project-card reveal tilt-card">
+          <span class="project-role-badge role-frontend">Frontend</span>
           <div class="project-thumb">
             <div class="project-thumb-inner">
               <div class="project-visual project-visual-cosmos">
@@ -2452,11 +3150,16 @@
               An interactive space-themed landing page with parallax scrolling, animated star fields, and smooth
               section transitions. Focused on immersive visual storytelling through pure CSS and JS.
             </p>
+            <div class="project-meta-row"><span class="project-meta-label">Role:</span><span class="project-meta-label" style="color:var(--text);">Frontend</span></div>
             <div class="project-stack">
               <span class="tag">HTML</span>
               <span class="tag">CSS</span>
               <span class="tag">JavaScript</span>
               <span class="tag">Canvas</span>
+            </div>
+            <div class="project-features">
+              <span class="feature-tag">Responsive UI</span>
+              <span class="feature-tag">Canvas Animation</span>
             </div>
             <div class="project-actions">
               <a href="https://cosmos-pk.netlify.app/" class="btn-project btn-project-primary magnetic">
@@ -2471,8 +3174,9 @@
           </div>
         </div>
 
-        <!-- Project 3: Solar Explorer -->
+        <!-- Project 3: CTRL Zone -->
         <div class="project-card reveal tilt-card">
+          <span class="project-role-badge role-fullstack">Full-Stack</span>
           <div class="project-thumb">
             <div class="project-thumb-inner">
               <div class="project-visual project-visual-gaming">
@@ -2489,27 +3193,59 @@
             <p class="project-desc">
               A full-stack e-commerce platform for gaming gear, styled in a bold neo-brutalist design system with a dark/light theme toggle, hard-shadow UI, and a canvas-animated hero. Built with PHP, MySQL, and vanilla JS — complete with cart, checkout, auth, and an admin dashboard.
             </p>
+            <div class="project-meta-row"><span class="project-meta-label">Role:</span><span class="project-meta-label" style="color:var(--text);">Full-Stack</span></div>
             <div class="project-stack">
               <span class="tag">PHP</span>
               <span class="tag">MYSQL</span>
               <span class="tag">Vanilla JavaScript</span>
               <span class="tag">CSS</span>
             </div>
+            <div class="project-features">
+              <span class="feature-tag">Authentication</span>
+              <span class="feature-tag">CRUD</span>
+              <span class="feature-tag">Database</span>
+              <span class="feature-tag">Admin Dashboard</span>
+              <span class="feature-tag">Responsive UI</span>
+            </div>
             <div class="project-actions">
               <a href="http://ctrlzone.infinityfreeapp.com/" class="btn-project btn-project-primary magnetic">
                 <i data-lucide="external-link" style="width:13px;height:13px;"></i>
                 Live
               </a>
+              <button type="button" class="btn-architecture magnetic" aria-expanded="false" aria-controls="arch-ctrlzone">
+                <i data-lucide="chevron-down" style="width:14px;height:14px;"></i>
+                Architecture
+              </button>
               <!-- <a href="#" class="btn-project btn-project-ghost magnetic">
                 <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="width:13px;height:13px;flex-shrink:0;"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15 0 1.55-.01 2.8-.01 3.18 0 .31.21.68.8.56A10.98 10.98 0 0 0 23.5 12c0-6.27-5.23-11.5-11.5-11.5z"/></svg>
                 GitHub
               </a> -->
+            </div>
+
+            <div class="architecture-panel" id="arch-ctrlzone">
+              <div class="architecture-panel-inner">
+                <div class="arch-layer">
+                  <span class="arch-layer-name">Frontend</span>
+                  <span class="arch-layer-tech">HTML / CSS / Vanilla JS</span>
+                </div>
+                <div class="arch-arrow" aria-hidden="true"><i data-lucide="arrow-down" style="width:14px;height:14px;"></i></div>
+                <div class="arch-layer">
+                  <span class="arch-layer-name">Backend</span>
+                  <span class="arch-layer-tech">PHP</span>
+                </div>
+                <div class="arch-arrow" aria-hidden="true"><i data-lucide="arrow-down" style="width:14px;height:14px;"></i></div>
+                <div class="arch-layer">
+                  <span class="arch-layer-name">Database</span>
+                  <span class="arch-layer-tech">MySQL</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Project 4: PathSeeker -->
         <div class="project-card reveal tilt-card">
+          <span class="project-role-badge role-frontend">Frontend</span>
           <div class="project-thumb">
             <div class="project-thumb-inner">
               <div class="project-visual project-visual-path">
@@ -2528,11 +3264,16 @@
               them and maps out the road to get there — built with a focus on guided, personalized
               self-exploration.
             </p>
+            <div class="project-meta-row"><span class="project-meta-label">Role:</span><span class="project-meta-label" style="color:var(--text);">Frontend</span></div>
             <div class="project-stack">
               <span class="tag">React</span>
               <span class="tag">JavaScript</span>
               <span class="tag">CSS</span>
               <span class="tag">Vercel</span>
+            </div>
+            <div class="project-features">
+              <span class="feature-tag">Responsive UI</span>
+              <span class="feature-tag">Guided UX</span>
             </div>
             <div class="project-actions">
               <a href="https://careerpassporttw.vercel.app/" class="btn-project btn-project-primary magnetic">
@@ -2579,7 +3320,7 @@
           </div>
           <div class="achievement-title">Personal Projects</div>
           <div class="achievement-desc">
-            Built and deployed multiple frontend projects, exploring modern UI, responsive design, animations, and interactive experiences.
+            Built and deployed multiple projects across the stack — from responsive, animated frontends to a full-stack store with a PHP/MySQL backend.
           </div>
         </div>
 
@@ -2619,8 +3360,64 @@
           </div>
           <div class="achievement-title">Continuous Learner</div>
           <div class="achievement-desc">
-            Dedicated daily learner — studying design systems, web performance, and emerging frontend patterns.
+            Dedicated daily learner — studying design systems, backend patterns, and database design across the stack.
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <!-- ========== WHAT I CAN BUILD ========== -->
+  <section id="capabilities" aria-labelledby="capabilities-title">
+    <div class="section-inner">
+      <div class="section-label reveal">Capabilities</div>
+      <h2 class="section-title reveal" id="capabilities-title">What I can build</h2>
+      <p class="section-desc reveal">
+        Practical, working software — not just interfaces.
+      </p>
+
+      <div class="capability-grid">
+        <div class="capability-card reveal">
+          <div class="capability-num">01</div>
+          <div class="capability-title">Dynamic Websites</div>
+          <div class="capability-desc">Sites driven by server-side logic instead of static pages, so content can change without editing code.</div>
+        </div>
+        <div class="capability-card reveal">
+          <div class="capability-num">02</div>
+          <div class="capability-title">Database-Driven Applications</div>
+          <div class="capability-desc">Applications backed by MySQL or MongoDB, where data is stored, queried, and kept in sync with the UI.</div>
+        </div>
+        <div class="capability-card reveal">
+          <div class="capability-num">03</div>
+          <div class="capability-title">REST APIs</div>
+          <div class="capability-desc">Endpoints built with PHP or Node.js that let a frontend, or another service, talk to your data.</div>
+        </div>
+        <div class="capability-card reveal">
+          <div class="capability-num">04</div>
+          <div class="capability-title">Authentication Systems</div>
+          <div class="capability-desc">Login, sessions, and access control so the right people can reach the right parts of an app.</div>
+        </div>
+        <div class="capability-card reveal">
+          <div class="capability-num">05</div>
+          <div class="capability-title">CRUD Applications</div>
+          <div class="capability-desc">Create, read, update, and delete flows — the working core behind most real-world apps.</div>
+        </div>
+        <div class="capability-card reveal">
+          <div class="capability-num">06</div>
+          <div class="capability-title">Admin Dashboards</div>
+          <div class="capability-desc">Internal panels for managing content, orders, or users without touching the database directly.</div>
+        </div>
+        <div class="capability-card reveal">
+          <div class="capability-num">07</div>
+          <div class="capability-title">Responsive Frontends</div>
+          <div class="capability-desc">Interfaces that hold together across phones, tablets, and desktops without compromise.</div>
+        </div>
+        <div class="capability-card reveal">
+          <div class="capability-num">08</div>
+          <div class="capability-title">Full-Stack Web Applications</div>
+          <div class="capability-desc">Complete products where the frontend, backend, and database are built to work as one system.</div>
         </div>
       </div>
     </div>
@@ -2640,33 +3437,18 @@
       <div class="why-grid">
         <div class="why-card reveal">
           <div class="why-num">01</div>
-          <div class="why-title">Clean, Readable Code</div>
-          <div class="why-desc">I write code as if the next person reading it matters — because they do. Organized, commented, and easy to maintain.</div>
+          <div class="why-title">Full-Stack Thinking</div>
+          <div class="why-desc">I understand how the frontend, backend, APIs, and database work together — not just one layer in isolation.</div>
         </div>
         <div class="why-card reveal">
           <div class="why-num">02</div>
-          <div class="why-title">Fast Learner</div>
-          <div class="why-desc">Give me a new tool, framework, or challenge — I'll have it figured out quickly. Adaptability is something I've trained deliberately.</div>
+          <div class="why-title">Building to Learn</div>
+          <div class="why-desc">I learn by building real applications instead of only following tutorials. Every project connects one more piece of the stack.</div>
         </div>
         <div class="why-card reveal">
           <div class="why-num">03</div>
-          <div class="why-title">Pixel-Perfect UI</div>
-          <div class="why-desc">I notice the details most people scroll past — spacing, alignment, hierarchy. Good design is in the details.</div>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-num">04</div>
-          <div class="why-title">Problem Solver</div>
-          <div class="why-desc">I don't stop at the first solution. I think through trade-offs, consider edge cases, and choose approaches that last.</div>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-num">05</div>
-          <div class="why-title">Ownership Mindset</div>
-          <div class="why-desc">I treat every project like it's my own. Deadlines, quality, communication — I take all of it seriously.</div>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-num">06</div>
-          <div class="why-title">Always Improving</div>
-          <div class="why-desc">I review my own work critically and am not afraid to rebuild something to make it better. Growth is the goal.</div>
+          <div class="why-title">Detail + Function</div>
+          <div class="why-desc">I care about both visual quality and how the application actually works underneath.</div>
         </div>
       </div>
     </div>
@@ -2724,9 +3506,9 @@
   <section id="contact" aria-labelledby="contact-title">
     <div class="section-inner">
       <div class="section-label reveal">Contact</div>
-      <h2 class="section-title reveal" id="contact-title">Let's talk</h2>
+      <h2 class="section-title reveal" id="contact-title">Got a project?<br />Let's build the whole thing.</h2>
       <p class="section-desc reveal">
-        Have a project in mind, or just want to connect? I'd love to hear from you.
+        Have an idea in mind, or just want to connect? I'd love to hear from you.
       </p>
 
       <div class="contact-grid">
@@ -2737,6 +3519,10 @@
               I'm currently available for freelance work and full-time opportunities.
               Whether you have a question or just want to say hi — my inbox is always open.
             </p>
+          </div>
+
+          <div class="hero-stack-line" style="justify-content:center;opacity:1;">
+            <span>HTML</span><span class="hero-stack-dot">•</span><span>CSS</span><span class="hero-stack-dot">•</span><span>JavaScript</span><span class="hero-stack-dot">•</span><span>PHP</span><span class="hero-stack-dot">•</span><span>Node.js</span><span class="hero-stack-dot">•</span><span>MySQL</span><span class="hero-stack-dot">•</span><span>MongoDB</span>
           </div>
 
           <div class="contact-links">
@@ -2784,7 +3570,7 @@
   <footer>
     <div class="footer-left">
       Hammad Jawaid
-      <span>Frontend Developer · 2025</span>
+      <span>Full-Stack Developer · 2025</span>
     </div>
 
     <div class="footer-center">
@@ -2949,11 +3735,17 @@
       ============================================ */
       const loader = document.getElementById('loader');
       const loaderCount = document.getElementById('loader-count');
+      const loaderStatus = document.getElementById('loader-status');
+      const loaderStages = ['INITIALIZING SYSTEM', 'LOADING STACK', 'CONNECTING MODULES', 'READY'];
       let count = 0;
       const countInterval = setInterval(() => {
         count += Math.floor(Math.random() * 12) + 4;
         if (count >= 100) { count = 100; clearInterval(countInterval); }
         loaderCount.textContent = count + '%';
+        if (loaderStatus) {
+          const stageIndex = Math.min(loaderStages.length - 1, Math.floor((count / 100) * (loaderStages.length - 1)));
+          loaderStatus.textContent = loaderStages[stageIndex];
+        }
       }, 80);
 
       // Guard so the loader-hide + hero-reveal sequence only ever runs
@@ -2969,6 +3761,7 @@
         loaderHidden = true;
         clearInterval(countInterval);
         loaderCount.textContent = '100%';
+        if (loaderStatus) loaderStatus.textContent = 'READY';
         gsap.to(loader, {
           opacity: 0,
           duration: 0.5,
@@ -3120,6 +3913,24 @@
       });
 
       /* ============================================
+         PROJECT ARCHITECTURE TOGGLE
+      ============================================ */
+      document.querySelectorAll('.btn-architecture').forEach(btn => {
+        const panelId = btn.getAttribute('aria-controls');
+        const panel = document.getElementById(panelId);
+        if (!panel) return;
+        btn.addEventListener('click', () => {
+          const isOpen = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!isOpen));
+          if (isOpen) {
+            panel.style.maxHeight = '0px';
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          }
+        });
+      });
+
+      /* ============================================
          TILT EFFECT ON CARDS
       ============================================ */
       // Tilt effect disabled: brutalist cards stay flat and rigid,
@@ -3175,6 +3986,7 @@
           // another tween, since both the start and end values are pinned.
           gsap.fromTo('.hero-badge', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.05 });
           gsap.fromTo('.hero-subtitle', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.5 });
+          gsap.fromTo('.hero-stack-line', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.6 });
           gsap.fromTo('.hero-cta', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.7 });
           gsap.fromTo('.hero-scroll-hint', { opacity: 0 }, { opacity: 1, duration: 0.8, ease: 'power2.out', delay: 1.2 });
         } catch (err) {
@@ -3208,15 +4020,20 @@
       revealOnScroll();
 
       /* ============================================
-         SKILL BARS ANIMATION
+         SKILL LEVEL DOTS ANIMATION
       ============================================ */
-      document.querySelectorAll('.skill-bar-fill').forEach(bar => {
-        const targetWidth = bar.getAttribute('data-width') + '%';
+      document.querySelectorAll('.skill-level-dots').forEach(dotsEl => {
+        const level = parseInt(dotsEl.getAttribute('data-level'), 10) || 0;
+        const dots = dotsEl.querySelectorAll('.skill-dot');
         ScrollTrigger.create({
-          trigger: bar,
+          trigger: dotsEl,
           start: 'top 90%',
           onEnter: () => {
-            gsap.to(bar, { width: targetWidth, duration: 1.2, ease: 'power2.out', delay: 0.1 });
+            dots.forEach((dot, i) => {
+              if (i < level) {
+                gsap.delayedCall(0.1 + i * 0.08, () => dot.classList.add('filled'));
+              }
+            });
           },
           once: true,
         });
@@ -3277,9 +4094,40 @@
         });
       }
 
+      /* ============================================
+         PROCESS DIAGRAM PROGRESSIVE LINE
+      ============================================ */
+      (function initProcessDiagram() {
+        const diagram = document.getElementById('process-diagram');
+        const lineFill = document.getElementById('process-line-fill');
+        if (!diagram || !lineFill) return;
+        const steps = gsap.utils.toArray('.process-step');
+
+        gsap.to(lineFill, {
+          height: '100%',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: diagram,
+            start: 'top 65%',
+            end: 'bottom 70%',
+            scrub: 0.4,
+          }
+        });
+
+        steps.forEach(step => {
+          ScrollTrigger.create({
+            trigger: step,
+            start: 'top 65%',
+            onEnter: () => step.classList.add('is-active'),
+            onLeaveBack: () => step.classList.remove('is-active'),
+          });
+        });
+      })();
+
       staggerReveal('.skill-card', 0.07);
       staggerReveal('.project-card', 0.1);
       staggerReveal('.achievement-card', 0.08);
+      staggerReveal('.capability-card', 0.06);
       staggerReveal('.why-card', 0.07);
 
       /* ============================================
