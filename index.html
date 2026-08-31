@@ -41,11 +41,11 @@
       --card: #000000;
       --text: #FAFAFA;
       --text-secondary: #C7C7C7;
-      --accent: #FF3B00;
+      --accent: #1E3A8A;
       --accent-text: #FFFFFF;
       --border: #FAFAFA;
-      --shadow: #FF3B00;
-      --cursor-color: #FF3B00;
+      --shadow: #1E3A8A;
+      --cursor-color: #1E3A8A;
       --nav-blur: #050505;
       --border-width: 3px;
       --shadow-off: 6px;
@@ -59,11 +59,11 @@
       --card: #FFFFFF;
       --text: #0A0A0A;
       --text-secondary: #3A3A3A;
-      --accent: #FF3B00;
+      --accent: #1E3A8A;
       --accent-text: #FFFFFF;
       --border: #0A0A0A;
       --shadow: #0A0A0A;
-      --cursor-color: #FF3B00;
+      --cursor-color: #1E3A8A;
       --nav-blur: #F5F3EC;
     }
 
@@ -373,6 +373,38 @@
       gap: 16px;
       justify-self: end;
       grid-column: 3;
+    }
+
+    /* Local clock readout — professional status-bar feel */
+    .nav-status {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      line-height: 1.25;
+      border-left: 1px solid var(--border);
+      padding-left: 16px;
+      white-space: nowrap;
+    }
+
+    .nav-status-time {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .nav-status-date {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 900px) {
+      .nav-status { border-left: none; padding-left: 0; }
+      .nav-status-date { display: none; }
     }
 
     /* Theme Toggle */
@@ -690,7 +722,7 @@
       .hero-spotlight { display: none; }
     }
 
-    /* Live developer status readout — a small terminal-style info
+    /* Live developer status readout — a small developer-style info
        card that reinforces the technical/dev-tool identity of the
        hero without competing with the headline. */
     .hero-status-panel {
@@ -769,6 +801,30 @@
       border-radius: 50%;
       background: #4ade80;
       animation: pulse 2s ease-in-out infinite;
+    }
+
+    .hero-badge-prompt {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .hero-badge-cursor {
+      display: inline-block;
+      width: 7px;
+      height: 1em;
+      margin-left: 3px;
+      background: var(--accent);
+      vertical-align: text-bottom;
+      animation: badgeBlink 1.1s steps(1, end) infinite;
+    }
+
+    @keyframes badgeBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-badge-cursor { display: none; }
     }
 
     @keyframes pulse {
@@ -1075,10 +1131,8 @@
     }
 
     .hero-scroll-hint {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
+      position: relative;
+      margin-top: 28px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1168,344 +1222,6 @@
     .reveal {
       opacity: 0;
       transform: translateY(40px);
-    }
-
-    /* ============================================
-       TERMINAL SECTION
-    ============================================ */
-    #terminal {
-      background: var(--bg);
-    }
-
-    .terminal-window {
-      max-width: 780px;
-      margin: 0 auto;
-      background: var(--card);
-      border: var(--border-width) solid var(--border);
-      box-shadow: var(--shadow-off) var(--shadow-off) 0 var(--shadow);
-    }
-
-    .terminal-titlebar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      border-bottom: var(--border-width) solid var(--border);
-      background: var(--surface);
-    }
-
-    .terminal-titlebar-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .terminal-dots {
-      display: flex;
-      gap: 6px;
-    }
-
-    .terminal-dots span {
-      width: 9px;
-      height: 9px;
-      background: var(--text-secondary);
-      opacity: 0.35;
-    }
-
-    .terminal-titlebar-name {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-    }
-
-    .terminal-status-dot {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-    }
-
-    .terminal-status-dot::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #2ECC71;
-      box-shadow: 0 0 0 0 rgba(46,204,113,0.6);
-      animation: termPulse 2s ease-out infinite;
-    }
-
-    @keyframes termPulse {
-      0% { box-shadow: 0 0 0 0 rgba(46,204,113,0.5); }
-      70% { box-shadow: 0 0 0 6px rgba(46,204,113,0); }
-      100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); }
-    }
-
-    .terminal-body {
-      height: 380px;
-      overflow-y: auto;
-      padding: 20px 22px;
-      font-size: 0.84rem;
-      line-height: 1.75;
-      scrollbar-width: thin;
-      scrollbar-color: var(--border) transparent;
-    }
-
-    .terminal-body::-webkit-scrollbar { width: 6px; }
-    .terminal-body::-webkit-scrollbar-thumb { background: var(--border); }
-
-    .term-line { white-space: pre-wrap; word-break: break-word; }
-
-    .term-line.term-prompt-line {
-      color: var(--text);
-      display: flex;
-      gap: 8px;
-    }
-
-    .term-prompt-sign { color: var(--accent); font-weight: 700; flex-shrink: 0; }
-
-    .term-line.term-output { color: var(--text-secondary); }
-    .term-line.term-output strong { color: var(--text); font-weight: 700; }
-    .term-line.term-output.term-accent { color: var(--accent); font-weight: 700; }
-    .term-line.term-error { color: var(--accent); }
-    .term-line.term-heading { color: var(--text); font-weight: 700; margin-top: 4px; }
-    .term-gap { height: 10px; }
-
-    .terminal-inputrow {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-top: var(--border-width) solid var(--border);
-      padding: 14px 22px;
-    }
-
-    .terminal-inputrow .term-prompt-sign {
-      font-size: 0.84rem;
-    }
-
-    #terminal-input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: var(--text);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.84rem;
-      caret-color: var(--accent);
-    }
-
-    #terminal-input::placeholder { color: var(--text-secondary); opacity: 0.6; }
-
-    .term-cursor {
-      display: none;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .terminal-status-dot::before { animation: none; }
-    }
-
-    .terminal-hints {
-      max-width: 780px;
-      margin: 14px auto 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .term-hint-btn {
-      padding: 5px 12px;
-      background: var(--surface);
-      border: 2px solid var(--border);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      color: var(--text-secondary);
-      font-family: 'JetBrains Mono', monospace;
-      transition: background 0.15s linear, color 0.15s linear, border-color 0.15s linear, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
-    }
-
-    .term-hint-btn:hover {
-      background: var(--accent);
-      color: var(--accent-text);
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    @media (max-width: 600px) {
-      .terminal-body { height: 320px; font-size: 0.78rem; padding: 16px; }
-      .terminal-inputrow { padding: 12px 16px; }
-    }
-
-    /* ============================================
-       PROJECT CASE STUDY MODAL
-    ============================================ */
-    .case-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 10001;
-      background: color-mix(in srgb, var(--bg) 88%, transparent);
-      backdrop-filter: blur(6px);
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      overflow-y: auto;
-      padding: 60px 24px;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0s linear 0.3s;
-    }
-
-    .case-overlay.open {
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.3s ease, visibility 0s linear 0s;
-    }
-
-    .case-panel {
-      width: 100%;
-      max-width: 920px;
-      background: var(--card);
-      border: var(--border-width) solid var(--border);
-      box-shadow: 10px 10px 0 0 var(--accent);
-      position: relative;
-      transform: translateY(30px) scale(0.98);
-      opacity: 0;
-    }
-
-    .case-overlay.open .case-panel {
-      animation: caseIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
-    }
-
-    @keyframes caseIn {
-      to { transform: translateY(0) scale(1); opacity: 1; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .case-overlay { transition: none; }
-      .case-overlay.open .case-panel { animation: none; transform: none; opacity: 1; }
-    }
-
-    .case-close {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      z-index: 2;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--card);
-      border: 2px solid var(--border);
-      color: var(--text);
-      transition: background 0.15s linear, color 0.15s linear, transform 0.2s ease;
-    }
-
-    .case-close:hover {
-      background: var(--accent);
-      color: var(--accent-text);
-      border-color: var(--accent);
-      transform: rotate(90deg);
-    }
-
-    .case-visual {
-      height: 260px;
-      position: relative;
-      border-bottom: var(--border-width) solid var(--border);
-      overflow: hidden;
-    }
-
-    .case-body {
-      padding: 40px 44px 44px;
-    }
-
-    .case-category {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 14px;
-    }
-
-    .case-title {
-      font-family: 'Archivo Black', sans-serif;
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      font-weight: 400;
-      line-height: 1.1;
-      text-transform: uppercase;
-      color: var(--text);
-      margin-bottom: 20px;
-    }
-
-    .case-desc {
-      font-size: 0.98rem;
-      line-height: 1.8;
-      color: var(--text-secondary);
-      max-width: 640px;
-      margin-bottom: 32px;
-    }
-
-    .case-section-label {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-      margin-bottom: 12px;
-    }
-
-    .case-block { margin-bottom: 30px; }
-    .case-block:last-of-type { margin-bottom: 36px; }
-
-    .case-tags, .case-features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .case-architecture {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .case-arch-layer {
-      padding: 10px 16px;
-      background: var(--surface);
-      border: 2px solid var(--border);
-      font-size: 0.76rem;
-    }
-
-    .case-arch-layer strong {
-      display: block;
-      color: var(--text);
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-
-    .case-arch-layer span {
-      color: var(--text-secondary);
-    }
-
-    .case-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    @media (max-width: 640px) {
-      .case-visual { height: 180px; }
-      .case-body { padding: 28px 22px 32px; }
     }
 
     /* ============================================
@@ -1843,144 +1559,6 @@
     }
 
     /* ============================================
-       ARCHITECTURE DIAGRAM
-       Vertical request-flow visualization: USER -> FRONTEND ->
-       API -> BACKEND -> DATABASE. Hovering/focusing/tapping a
-       layer highlights it plus its adjoining connectors and
-       dims the rest, so the flow reads as one connected system
-       rather than a static stack of boxes.
-    ============================================ */
-    #architecture {
-      background: var(--surface);
-    }
-
-    .arch-diagram {
-      max-width: 620px;
-      margin: 64px auto 0;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .arch-layer {
-      position: relative;
-      z-index: 1;
-      padding: 20px 24px;
-      border: var(--border-width) solid var(--border);
-      background: var(--card);
-      cursor: pointer;
-      transition: opacity 0.3s ease, border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
-    }
-
-    .arch-layer:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-    }
-
-    .arch-diagram.is-active .arch-layer:not(.is-active) {
-      opacity: 0.35;
-    }
-
-    .arch-layer.is-active {
-      border-color: var(--accent);
-      transform: translateX(4px);
-    }
-
-    .arch-layer-head {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      margin-bottom: 6px;
-    }
-
-    .arch-layer-num {
-      font-family: 'Archivo Black', sans-serif;
-      font-size: 0.8rem;
-      color: var(--accent);
-    }
-
-    .arch-layer-name {
-      font-family: 'Archivo Black', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 400;
-      text-transform: uppercase;
-      letter-spacing: -0.01em;
-      color: var(--text);
-    }
-
-    .arch-layer-desc {
-      font-size: 0.84rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      max-width: 440px;
-    }
-
-    .arch-layer-tech {
-      margin-top: 10px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--text);
-    }
-
-    .arch-layer-tech span {
-      color: var(--accent);
-      margin: 0 2px;
-    }
-
-    /* Connector: a short vertical line joining two layers, with a
-       small "packet" square that continuously drifts down it to
-       suggest data in motion. Reduced-motion users get a static line. */
-    .arch-connector {
-      position: relative;
-      width: var(--border-width);
-      height: 40px;
-      margin: 0 auto;
-      background: var(--border);
-      align-self: center;
-      transition: background 0.25s ease;
-    }
-
-    .arch-connector.is-active {
-      background: var(--accent);
-    }
-
-    .arch-packet {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      width: 8px;
-      height: 8px;
-      background: var(--accent);
-      transform: translate(-50%, -50%);
-      opacity: 0.6;
-      animation: archPacketDrop 2.2s ease-in-out infinite;
-    }
-
-    .arch-connector.is-active .arch-packet {
-      opacity: 1;
-      animation-duration: 0.9s;
-    }
-
-    @keyframes archPacketDrop {
-      0%   { top: 0%; opacity: 0; }
-      10%  { opacity: 0.8; }
-      90%  { opacity: 0.8; }
-      100% { top: 100%; opacity: 0; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .arch-packet { animation: none; opacity: 0.8; top: 50%; }
-      .arch-layer.is-active { transform: none; }
-    }
-
-    @media (max-width: 640px) {
-      .arch-layer { padding: 16px 18px; }
-      .arch-layer-name { font-size: 1rem; }
-    }
-
-    /* ============================================
        PROCESS DIAGRAM ("HOW I BUILD")
     ============================================ */
     #process {
@@ -2246,6 +1824,64 @@
       margin-top: 64px;
     }
 
+    /* Horizontal pinned reel (desktop only, opt-in via JS).
+       The .is-horizontal class is added by initProjectReel() so that if
+       JS/GSAP ever fails to load, the cards gracefully stay in the normal
+       2-column grid instead of becoming an unreachable horizontal row. */
+    @media (min-width: 901px) {
+      .projects-reel.is-horizontal .projects-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 24px;
+        align-items: stretch;
+      }
+      .projects-reel.is-horizontal .reel-card-wrap {
+        flex: 0 0 auto;
+        width: clamp(400px, 38vw, 560px);
+        will-change: transform;
+      }
+      .projects-reel.is-horizontal .project-card {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    /* Reel HUD — live progress line + project counter, only in
+       horizontal mode. Sits pinned with the card row so you always
+       know where you are in the slide. */
+    .reel-hud { display: none; }
+    @media (min-width: 901px) {
+      .projects-reel.is-horizontal .reel-hud {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin-bottom: 28px;
+      }
+      .reel-progress {
+        flex: 1;
+        height: 3px;
+        background: var(--border);
+        position: relative;
+        overflow: hidden;
+      }
+      .reel-progress-fill {
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 0%;
+        background: var(--accent);
+      }
+      .reel-counter {
+        font-family: 'Archivo Black', sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        color: var(--text);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      .reel-counter-current { color: var(--accent); }
+    }
+
     .project-card {
       background: var(--card);
       border: var(--border-width) solid var(--border);
@@ -2424,42 +2060,6 @@
       .project-card:hover .project-spotlight {
         opacity: 1;
       }
-    }
-
-    /* "VIEW PROJECT →" label that follows the cursor inside the
-       thumbnail — desktop only, positioned via the same --mx/--my
-       the spotlight already reads. */
-    .project-view-label {
-      position: absolute;
-      top: var(--my, 50%);
-      left: var(--mx, 50%);
-      transform: translate(-50%, -50%) scale(0.85);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      background: var(--text);
-      color: var(--bg);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
-      z-index: 4;
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-      .project-card:hover .project-view-label {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
-    }
-
-    .project-thumb {
-      cursor: pointer;
     }
 
     .project-body {
@@ -3385,145 +2985,48 @@
     }
 
     /* ============================================
-       COMMAND PALETTE
+       THEME WIPE CURTAIN
     ============================================ */
-    .cmdk-trigger {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      height: 36px;
-      padding: 0 12px;
-      border: var(--border-width) solid var(--border);
-      background: var(--surface);
-      color: var(--text-secondary);
-      transition: color 0.2s ease, border-color 0.2s ease;
-    }
-
-    .cmdk-trigger:hover {
-      color: var(--text);
-      border-color: var(--accent);
-    }
-
-    .cmdk-trigger-key {
-      font-size: 0.66rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-    }
-
-    @media (max-width: 900px) {
-      .cmdk-trigger { display: none; }
-    }
-
-    .cmdk-overlay {
+    #theme-curtain {
       position: fixed;
       inset: 0;
-      z-index: 20000;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(3px);
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 14vh;
-      opacity: 0;
+      z-index: 9000;
+      background: #1E3A8A;
       pointer-events: none;
-      transition: opacity 0.2s ease;
+      transform: translateY(-100%);
+      will-change: transform;
     }
 
-    .cmdk-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .cmdk-panel {
-      width: min(560px, 90vw);
-      max-height: 60vh;
-      background: var(--card);
-      border: var(--border-width) solid var(--text);
-      box-shadow: var(--shadow-off) var(--shadow-off) 0 0 var(--accent);
-      display: flex;
-      flex-direction: column;
-      transform: translateY(-14px) scale(0.98);
-      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
-    }
-
-    .cmdk-overlay.open .cmdk-panel {
-      transform: translateY(0) scale(1);
-    }
-
-    .cmdk-input-row {
+    /* ============================================
+       FOOTER SYSTEM LOG
+    ============================================ */
+    .syslog {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 16px 18px;
-      border-bottom: 2px solid var(--border);
-      color: var(--text-secondary);
-    }
-
-    .cmdk-input {
-      flex: 1;
-      background: none;
-      border: none;
-      outline: none;
-      font-family: inherit;
-      font-size: 0.95rem;
-      color: var(--text);
-    }
-
-    .cmdk-input::placeholder {
-      color: var(--text-secondary);
-    }
-
-    .cmdk-esc {
-      font-family: inherit;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px 26px;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      padding: 3px 6px;
-      border: 2px solid var(--border);
-      color: var(--text-secondary);
-    }
-
-    .cmdk-list {
-      list-style: none;
-      overflow-y: auto;
-      padding: 8px;
-    }
-
-    .cmdk-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 12px;
-      cursor: none;
-      color: var(--text-secondary);
-      border-left: 3px solid transparent;
-      transition: background 0.12s linear, color 0.12s linear, border-color 0.12s linear;
-    }
-
-    .cmdk-item span:first-of-type {
-      font-size: 0.85rem;
-      font-weight: 700;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
-      color: var(--text);
-    }
-
-    .cmdk-item.is-active {
-      background: var(--surface);
-      border-left-color: var(--accent);
-      color: var(--text);
-    }
-
-    .cmdk-item-hint {
-      margin-left: auto;
-      font-size: 0.66rem;
       color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      text-align: center;
     }
 
-    @media (hover: none), (pointer: coarse) {
-      .cmdk-item { cursor: pointer; }
+    .syslog-prompt { color: var(--accent); font-weight: 700; }
+
+    .syslog-caret {
+      display: inline-block;
+      width: 6px;
+      height: 1em;
+      background: var(--accent);
+      animation: badgeBlink 1.1s steps(1, end) infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .syslog-caret { display: none; }
     }
 
     /* ============================================
@@ -3544,6 +3047,9 @@
 
   <!-- ========== SCROLL PROGRESS ========== -->
   <div id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- ========== THEME WIPE CURTAIN ========== -->
+  <div id="theme-curtain" aria-hidden="true"></div>
 
   <!-- ========== CUSTOM CURSOR ========== -->
   <div id="cursor" aria-hidden="true"></div>
@@ -3567,8 +3073,6 @@
     <ul class="nav-links" role="list">
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Stack</a></li>
-      <li><a href="#architecture">Architecture</a></li>
-      <li><a href="#terminal">Terminal</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#process">Process</a></li>
@@ -3576,10 +3080,10 @@
     </ul>
 
     <div class="nav-right">
-      <button class="cmdk-trigger" id="cmdk-trigger" aria-label="Open command palette" title="Command palette">
-        <i data-lucide="command" style="width:13px;height:13px;"></i>
-        <span class="cmdk-trigger-key">Ctrl K</span>
-      </button>
+      <div class="nav-status" aria-label="Local time">
+        <span class="nav-status-time" id="nav-status-time">--:--</span>
+        <span class="nav-status-date" id="nav-status-date">—</span>
+      </div>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
         <i data-lucide="sun" class="theme-icon sun"></i>
         <i data-lucide="moon" class="theme-icon moon"></i>
@@ -3595,12 +3099,10 @@
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Stack</a></li>
-      <li><a href="#architecture">Architecture</a></li>
-      <li><a href="#terminal">Terminal</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#projects">Projects</a></li>
-      <li><a href="#process">Process</a></li>
       <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#process">Process</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
@@ -3624,7 +3126,9 @@
     <div class="hero-content">
       <div class="hero-badge">
         <span class="hero-badge-dot"></span>
-        Available for opportunities
+        <span class="hero-badge-prompt" aria-hidden="true">&gt;</span>
+        <span class="hero-badge-text" id="hero-badge-text">Available for opportunities</span>
+        <span class="hero-badge-cursor" aria-hidden="true"></span>
       </div>
 
       <h1 class="hero-title" id="hero-title">
@@ -4043,187 +3547,6 @@
 
   <div class="section-divider" aria-hidden="true"></div>
 
-  <!-- ========== ARCHITECTURE SECTION ========== -->
-  <section id="architecture" aria-labelledby="architecture-title">
-    <div class="section-inner">
-      <div class="section-label reveal">Architecture</div>
-      <h2 class="section-title reveal" id="architecture-title">How a request travels</h2>
-      <p class="section-desc reveal">
-        The path data takes through a typical build, from the browser down to storage and back.
-        Hover — or tap — a layer to trace it.
-      </p>
-
-      <div class="arch-diagram reveal" id="arch-diagram">
-        <div class="arch-layer" data-layer="0" tabindex="0" role="button" aria-label="User layer">
-          <div class="arch-layer-head">
-            <span class="arch-layer-num">00</span>
-            <span class="arch-layer-name">User</span>
-          </div>
-          <p class="arch-layer-desc">Opens the site, clicks around, submits a form.</p>
-        </div>
-
-        <div class="arch-connector" data-connector="0" aria-hidden="true">
-          <span class="arch-packet"></span>
-        </div>
-
-        <div class="arch-layer" data-layer="1" tabindex="0" role="button" aria-label="Frontend layer">
-          <div class="arch-layer-head">
-            <span class="arch-layer-num">01</span>
-            <span class="arch-layer-name">Frontend</span>
-          </div>
-          <p class="arch-layer-desc">Renders the interface and handles interaction in the browser.</p>
-          <div class="arch-layer-tech">HTML <span>•</span> CSS <span>•</span> JavaScript</div>
-        </div>
-
-        <div class="arch-connector" data-connector="1" aria-hidden="true">
-          <span class="arch-packet"></span>
-        </div>
-
-        <div class="arch-layer" data-layer="2" tabindex="0" role="button" aria-label="API layer">
-          <div class="arch-layer-head">
-            <span class="arch-layer-num">02</span>
-            <span class="arch-layer-name">API Layer</span>
-          </div>
-          <p class="arch-layer-desc">Endpoints that take requests from the frontend and route them to server logic.</p>
-          <div class="arch-layer-tech">REST APIs</div>
-        </div>
-
-        <div class="arch-connector" data-connector="2" aria-hidden="true">
-          <span class="arch-packet"></span>
-        </div>
-
-        <div class="arch-layer" data-layer="3" tabindex="0" role="button" aria-label="Backend layer">
-          <div class="arch-layer-head">
-            <span class="arch-layer-num">03</span>
-            <span class="arch-layer-name">Backend</span>
-          </div>
-          <p class="arch-layer-desc">Server-side logic — validation, auth, and the rules behind the interface.</p>
-          <div class="arch-layer-tech">PHP <span>•</span> Node.js</div>
-        </div>
-
-        <div class="arch-connector" data-connector="3" aria-hidden="true">
-          <span class="arch-packet"></span>
-        </div>
-
-        <div class="arch-layer" data-layer="4" tabindex="0" role="button" aria-label="Database layer">
-          <div class="arch-layer-head">
-            <span class="arch-layer-num">04</span>
-            <span class="arch-layer-name">Database</span>
-          </div>
-          <p class="arch-layer-desc">Where the data lives — queried here and returned back up the chain.</p>
-          <div class="arch-layer-tech">MySQL <span>•</span> MongoDB</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-divider" aria-hidden="true"></div>
-
-  <!-- ========== TERMINAL SECTION ========== -->
-  <section id="terminal" aria-labelledby="terminal-title">
-    <div class="section-inner">
-      <div class="section-label reveal">Terminal</div>
-      <h2 class="section-title reveal" id="terminal-title">Explore the CLI way</h2>
-      <p class="section-desc reveal">
-        A live terminal wired to this site. Type <strong style="color:var(--text);">help</strong> to see what
-        it can do, or click a command below.
-      </p>
-
-      <div class="terminal-window reveal" role="group" aria-label="Interactive developer terminal">
-        <div class="terminal-titlebar">
-          <div class="terminal-titlebar-left">
-            <div class="terminal-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-            <span class="terminal-titlebar-name">HJ.DEV — terminal</span>
-          </div>
-          <span class="terminal-status-dot">Online</span>
-        </div>
-
-        <div class="terminal-body" id="terminal-body" role="log" aria-live="polite" aria-label="Terminal output"></div>
-
-        <div class="terminal-inputrow">
-          <span class="term-prompt-sign">$</span>
-          <input type="text" id="terminal-input" autocomplete="off" autocapitalize="off" spellcheck="false"
-                 aria-label="Terminal command input" placeholder="Type a command…" />
-          <span class="term-cursor" aria-hidden="true"></span>
-        </div>
-      </div>
-
-      <div class="terminal-hints" aria-hidden="true">
-        <button type="button" class="term-hint-btn" data-term-cmd="whoami">whoami</button>
-        <button type="button" class="term-hint-btn" data-term-cmd="stack">stack</button>
-        <button type="button" class="term-hint-btn" data-term-cmd="architecture">architecture</button>
-        <button type="button" class="term-hint-btn" data-term-cmd="projects">projects</button>
-        <button type="button" class="term-hint-btn" data-term-cmd="experience">experience</button>
-        <button type="button" class="term-hint-btn" data-term-cmd="contact">contact</button>
-        <button type="button" class="term-hint-btn" data-term-cmd="resume">resume</button>
-        <button type="button" class="term-hint-btn" data-term-cmd="help">help</button>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-divider" aria-hidden="true"></div>
-
-  <!-- ========== HOW I BUILD (PROCESS) SECTION ========== -->
-  <section id="process" aria-labelledby="process-title">
-    <div class="section-inner">
-      <div class="section-label reveal">Process</div>
-      <h2 class="section-title reveal" id="process-title">How I build</h2>
-      <p class="section-desc reveal">
-        A straightforward system, run the same way every time — idea to something live.
-      </p>
-
-      <div class="process-diagram" id="process-diagram">
-        <div class="process-line" aria-hidden="true">
-          <div class="process-line-fill" id="process-line-fill"></div>
-        </div>
-
-        <div class="process-step reveal" data-step="1">
-          <div class="process-step-dot"></div>
-          <div class="process-step-num">01</div>
-          <div class="process-step-name">Idea</div>
-          <div class="process-step-desc">Define what the app needs to do and who it's for.</div>
-        </div>
-
-        <div class="process-step reveal" data-step="2">
-          <div class="process-step-dot"></div>
-          <div class="process-step-num">02</div>
-          <div class="process-step-name">Frontend</div>
-          <div class="process-step-desc">Build the interface — structure, styling, interaction.</div>
-        </div>
-
-        <div class="process-step reveal" data-step="3">
-          <div class="process-step-dot"></div>
-          <div class="process-step-num">03</div>
-          <div class="process-step-name">Backend / API</div>
-          <div class="process-step-desc">Write the server logic and the endpoints that connect to it.</div>
-        </div>
-
-        <div class="process-step reveal" data-step="4">
-          <div class="process-step-dot"></div>
-          <div class="process-step-num">04</div>
-          <div class="process-step-name">Database</div>
-          <div class="process-step-desc">Model the data and wire up storage and queries.</div>
-        </div>
-
-        <div class="process-step reveal" data-step="5">
-          <div class="process-step-dot"></div>
-          <div class="process-step-num">05</div>
-          <div class="process-step-name">Test</div>
-          <div class="process-step-desc">Check the flows, edge cases, and how it behaves on real devices.</div>
-        </div>
-
-        <div class="process-step reveal" data-step="6">
-          <div class="process-step-dot"></div>
-          <div class="process-step-num">06</div>
-          <div class="process-step-name">Deploy</div>
-          <div class="process-step-desc">Ship it, and keep an eye on it once it's live.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-divider" aria-hidden="true"></div>
-
   <!-- ========== EXPERIENCE SECTION ========== -->
   <section id="experience" aria-labelledby="experience-title">
     <div class="section-inner">
@@ -4274,7 +3597,12 @@
         A selection of projects that reflect my growth, curiosity, and attention to craft.
       </p>
 
-      <div class="projects-grid">
+      <div class="projects-reel" id="projects-reel">
+        <div class="reel-hud" aria-hidden="true">
+          <div class="reel-progress"><div class="reel-progress-fill" id="reel-progress-fill"></div></div>
+          <div class="reel-counter"><span class="reel-counter-current" id="reel-counter-current">01</span>&nbsp;/&nbsp;<span id="reel-counter-total">04</span></div>
+        </div>
+        <div class="projects-grid" id="projects-grid">
 
         <!-- Project 1: PhysioSync -->
         <div class="project-card reveal tilt-card" data-tilt>
@@ -4288,7 +3616,7 @@
               </div>
             </div>
             <div class="project-spotlight"></div>
-            <div class="project-view-label" aria-hidden="true"><i data-lucide="eye" style="width:12px;height:12px;"></i>View Project</div>
+            
           </div>
           <div class="project-body">
             <div class="project-number">01 / 04</div>
@@ -4333,7 +3661,7 @@
               </div>
             </div>
             <div class="project-spotlight"></div>
-            <div class="project-view-label" aria-hidden="true"><i data-lucide="eye" style="width:12px;height:12px;"></i>View Project</div>
+            
           </div>
           <div class="project-body">
             <div class="project-number">02 / 04</div>
@@ -4378,7 +3706,7 @@
               </div>
             </div>
             <div class="project-spotlight"></div>
-            <div class="project-view-label" aria-hidden="true"><i data-lucide="eye" style="width:12px;height:12px;"></i>View Project</div>
+            
           </div>
           <div class="project-body">
             <div class="project-number">03 / 04</div>
@@ -4448,7 +3776,7 @@
               </div>
             </div>
             <div class="project-spotlight"></div>
-            <div class="project-view-label" aria-hidden="true"><i data-lucide="eye" style="width:12px;height:12px;"></i>View Project</div>
+            
           </div>
           <div class="project-body">
             <div class="project-number">04 / 04</div>
@@ -4507,6 +3835,7 @@
           </div>
         </div>
 
+        </div>
       </div>
     </div>
   </section>
@@ -4721,6 +4050,67 @@
 
   <div class="section-divider" aria-hidden="true"></div>
 
+  <!-- ========== HOW I BUILD (PROCESS) SECTION ========== -->
+  <section id="process" aria-labelledby="process-title">
+    <div class="section-inner">
+      <div class="section-label reveal">Process</div>
+      <h2 class="section-title reveal" id="process-title">How I build</h2>
+      <p class="section-desc reveal">
+        A straightforward system, run the same way every time — idea to something live.
+      </p>
+
+      <div class="process-diagram" id="process-diagram">
+        <div class="process-line" aria-hidden="true">
+          <div class="process-line-fill" id="process-line-fill"></div>
+        </div>
+
+        <div class="process-step reveal" data-step="1">
+          <div class="process-step-dot"></div>
+          <div class="process-step-num">01</div>
+          <div class="process-step-name">Idea</div>
+          <div class="process-step-desc">Define what the app needs to do and who it's for.</div>
+        </div>
+
+        <div class="process-step reveal" data-step="2">
+          <div class="process-step-dot"></div>
+          <div class="process-step-num">02</div>
+          <div class="process-step-name">Frontend</div>
+          <div class="process-step-desc">Build the interface — structure, styling, interaction.</div>
+        </div>
+
+        <div class="process-step reveal" data-step="3">
+          <div class="process-step-dot"></div>
+          <div class="process-step-num">03</div>
+          <div class="process-step-name">Backend / API</div>
+          <div class="process-step-desc">Write the server logic and the endpoints that connect to it.</div>
+        </div>
+
+        <div class="process-step reveal" data-step="4">
+          <div class="process-step-dot"></div>
+          <div class="process-step-num">04</div>
+          <div class="process-step-name">Database</div>
+          <div class="process-step-desc">Model the data and wire up storage and queries.</div>
+        </div>
+
+        <div class="process-step reveal" data-step="5">
+          <div class="process-step-dot"></div>
+          <div class="process-step-num">05</div>
+          <div class="process-step-name">Test</div>
+          <div class="process-step-desc">Check the flows, edge cases, and how it behaves on real devices.</div>
+        </div>
+
+        <div class="process-step reveal" data-step="6">
+          <div class="process-step-dot"></div>
+          <div class="process-step-num">06</div>
+          <div class="process-step-name">Deploy</div>
+          <div class="process-step-desc">Ship it, and keep an eye on it once it's live.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"></div>
+
   <!-- ========== CONTACT SECTION ========== -->
   <section id="contact" aria-labelledby="contact-title">
     <div class="section-inner">
@@ -4745,13 +4135,13 @@
           </div>
 
           <div class="contact-links">
-            <a href="mailto:droidhammad2006@gmail.com" class="contact-link magnetic">
+            <a href="/cdn-cgi/l/email-protection#86e2f4e9efe2eee7ebebe7e2b4b6b6b0c6e1ebe7efeaa8e5e9eb" class="contact-link magnetic">
               <div class="contact-link-icon">
                 <i data-lucide="mail" style="width:16px;height:16px;"></i>
               </div>
               <div class="contact-link-info">
                 <span>Email</span>
-                <strong>droidhammad2006@gmail.com</strong>
+                <strong><span class="__cf_email__" data-cfemail="6d091f020409050c00000c095f5d5d5b2d0a000c0401430e0200">[email&#160;protected]</span></strong>
               </div>
             </a>
             <a href="https://www.linkedin.com/in/hammad-jawaid-4610793ba/" target="_blank" rel="noopener noreferrer" class="contact-link magnetic">
@@ -4812,100 +4202,22 @@
     </div>
   </footer>
 
+  <!-- ========== FOOTER SYSTEM LOG ========== -->
+  <div class="syslog" aria-hidden="true">
+    <span class="syslog-prompt">&gt;</span>
+    <span id="syslog-line">portfolio online · all systems nominal</span>
+    <span class="syslog-caret"></span>
+  </div>
+
   <!-- ========== BACK TO TOP ========== -->
   <button id="back-to-top" aria-label="Back to top">
     <i data-lucide="arrow-up" style="width:18px;height:18px;"></i>
   </button>
 
-  <!-- ========== COMMAND PALETTE ========== -->
-  <div class="cmdk-overlay" id="cmdk-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Command palette">
-    <div class="cmdk-panel">
-      <div class="cmdk-input-row">
-        <i data-lucide="search" style="width:15px;height:15px;flex-shrink:0;"></i>
-        <input type="text" id="cmdk-input" class="cmdk-input" placeholder="Jump to…" autocomplete="off" spellcheck="false" aria-label="Search commands" />
-        <kbd class="cmdk-esc">ESC</kbd>
-      </div>
-      <ul class="cmdk-list" id="cmdk-list" role="listbox">
-        <li class="cmdk-item is-active" role="option" data-label="Projects featured work" data-href="#projects">
-          <i data-lucide="layers" style="width:15px;height:15px;"></i>
-          <span>Projects</span>
-          <span class="cmdk-item-hint">Jump to section</span>
-        </li>
-        <li class="cmdk-item" role="option" data-label="Stack skills tech" data-href="#skills">
-          <i data-lucide="layout-grid" style="width:15px;height:15px;"></i>
-          <span>Stack</span>
-          <span class="cmdk-item-hint">Jump to section</span>
-        </li>
-        <li class="cmdk-item" role="option" data-label="Architecture system diagram" data-href="#architecture">
-          <i data-lucide="git-fork" style="width:15px;height:15px;"></i>
-          <span>Architecture</span>
-          <span class="cmdk-item-hint">Jump to section</span>
-        </li>
-        <li class="cmdk-item" role="option" data-label="Terminal CLI whoami stack" data-href="#terminal">
-          <i data-lucide="terminal" style="width:15px;height:15px;"></i>
-          <span>Terminal</span>
-          <span class="cmdk-item-hint">Jump to section</span>
-        </li>
-        <li class="cmdk-item" role="option" data-label="Process how I build" data-href="#process">
-          <i data-lucide="git-branch" style="width:15px;height:15px;"></i>
-          <span>Process</span>
-          <span class="cmdk-item-hint">Jump to section</span>
-        </li>
-        <li class="cmdk-item" role="option" data-label="GitHub" data-href="https://github.com/hammadjawaiddev" data-external="true">
-          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="width:15px;height:15px;flex-shrink:0;"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15 0 1.55-.01 2.8-.01 3.18 0 .31.21.68.8.56A10.98 10.98 0 0 0 23.5 12c0-6.27-5.23-11.5-11.5-11.5z"/></svg>
-          <span>GitHub</span>
-          <span class="cmdk-item-hint">Open in new tab</span>
-        </li>
-        <li class="cmdk-item" role="option" data-label="Contact say hello email" data-href="#contact">
-          <i data-lucide="mail" style="width:15px;height:15px;"></i>
-          <span>Contact</span>
-          <span class="cmdk-item-hint">Jump to section</span>
-        </li>
-        <li class="cmdk-item" role="option" data-label="Resume CV download" data-href="Hammad Jawaid CV.pdf" data-external="true">
-          <i data-lucide="download" style="width:15px;height:15px;"></i>
-          <span>Resume</span>
-          <span class="cmdk-item-hint">Download PDF</span>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- ========== PROJECT CASE STUDY MODAL ========== -->
-  <div class="case-overlay" id="case-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="case-title">
-    <div class="case-panel">
-      <button type="button" class="case-close" id="case-close" aria-label="Close case study">
-        <i data-lucide="x" style="width:18px;height:18px;"></i>
-      </button>
-      <div class="case-visual" id="case-visual"></div>
-      <div class="case-body">
-        <div class="case-category" id="case-category"></div>
-        <h3 class="case-title" id="case-title"></h3>
-        <p class="case-desc" id="case-desc"></p>
-
-        <div class="case-block">
-          <div class="case-section-label">Technologies</div>
-          <div class="case-tags" id="case-tags"></div>
-        </div>
-
-        <div class="case-block">
-          <div class="case-section-label">Key Features</div>
-          <div class="case-features" id="case-features"></div>
-        </div>
-
-        <div class="case-block" id="case-arch-block" style="display:none;">
-          <div class="case-section-label">Architecture</div>
-          <div class="case-architecture" id="case-architecture"></div>
-        </div>
-
-        <div class="case-actions" id="case-actions"></div>
-      </div>
-    </div>
-  </div>
-
   <!-- ============================================
        JAVASCRIPT
   ============================================ -->
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     /* ============================================
        THEME — Apply before paint to avoid flash
     ============================================ */
@@ -5029,6 +4341,15 @@
          THEME TOGGLE
       ============================================ */
       const themeToggle = document.getElementById('theme-toggle');
+      const themeCurtain = document.getElementById('theme-curtain');
+      // The curtain's CSS uses `transform: translateY(-100%)` to stay off-screen
+      // before JS runs. GSAP reads that as a fixed -100vh pixel offset, which
+      // then stacks with every `yPercent` tween and freezes the curtain mid-wipe.
+      // Explicitly zeroing `y` while setting `yPercent` clears that cache so the
+      // wipe animates cleanly every time.
+      if (themeCurtain && !prefersReducedMotion) {
+        gsap.set(themeCurtain, { y: 0, yPercent: -100 });
+      }
       let currentTheme = localStorage.getItem('theme') || 'light';
 
       function applyTheme(theme) {
@@ -5037,9 +4358,28 @@
         currentTheme = theme;
       }
 
+      // Navy curtain sweeps across the screen while the theme swaps,
+      // turning the light/dark flip into a deliberate cinematic beat.
+      function wipeTheme(next) {
+        if (prefersReducedMotion || !themeCurtain) {
+          applyTheme(next);
+          return;
+        }
+        gsap.set(themeCurtain, { y: 0, yPercent: -100 });
+        gsap.to(themeCurtain, {
+          yPercent: 0,
+          duration: 0.28,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            applyTheme(next);
+            gsap.to(themeCurtain, { yPercent: 100, duration: 0.32, ease: 'power2.inOut', delay: 0.04, onComplete: () => gsap.set(themeCurtain, { y: 0, yPercent: -100 }) });
+          }
+        });
+      }
+
       themeToggle.addEventListener('click', () => {
         const next = currentTheme === 'dark' ? 'light' : 'dark';
-        applyTheme(next);
+        wipeTheme(next);
         gsap.fromTo(themeToggle, { rotate: 0 }, { rotate: 360, duration: 0.5, ease: 'power2.inOut' });
       });
 
@@ -5182,12 +4522,10 @@
 
         // Hover states via delegation — using mouseover/mouseout with
         // closest() instead of binding each element individually means
-        // this keeps working for content created later (e.g. the case
-        // study modal's Live Demo / Close buttons), not just whatever
+        // this keeps working for content created later, not just whatever
         // existed in the DOM at page load.
-        const plainHoverSelector = 'a, button, .project-card, .skill-card, .contact-link, .social-link, .cmdk-item';
+        const plainHoverSelector = 'a, button, .project-card, .skill-card, .contact-link, .social-link';
         const labelMap = [
-          { selector: '.project-thumb', text: 'View' },
           { selector: '.project-logo-img', text: 'Explore' },
           { selector: '.contact-link, .social-link, a[href^="mailto:"]', text: 'Talk' },
           { selector: 'a[target="_blank"]', text: 'Open' },
@@ -5372,6 +4710,57 @@
       /* ============================================
          HERO ANIMATIONS
       ============================================ */
+
+      /* Typewriter effect for the hero status badge — types the
+         availability text out once the hero reveals. Reduced-motion
+         users (and the no-JS fallback, where the text is already
+         present in the markup) get the static text instead. */
+      function typeHeroStatus() {
+        const el = document.getElementById('hero-badge-text');
+        if (!el) return;
+        // Reduced-motion / no-JS users keep the static text in the markup.
+        if (prefersReducedMotion) return;
+
+        const phrases = [
+          'Available for opportunities',
+          'Open to freelance work',
+          'Building end-to-end apps',
+          'Currently taking on projects'
+        ];
+        const typeSpeed = 42;
+        const deleteSpeed = 20;
+        const holdTime = 2300;
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let deleting = false;
+
+        function tick() {
+          const full = phrases[phraseIndex];
+          if (!deleting) {
+            charIndex++;
+            el.textContent = full.slice(0, charIndex);
+            if (charIndex === full.length) {
+              deleting = true;
+              setTimeout(tick, holdTime);
+              return;
+            }
+            setTimeout(tick, typeSpeed);
+          } else {
+            charIndex--;
+            el.textContent = full.slice(0, charIndex);
+            if (charIndex === 0) {
+              deleting = false;
+              phraseIndex = (phraseIndex + 1) % phrases.length;
+              setTimeout(tick, 420);
+              return;
+            }
+            setTimeout(tick, deleteSpeed);
+          }
+        }
+
+        tick();
+      }
+
       let heroAnimated = false;
       function initHeroAnimations() {
         if (heroAnimated) return;
@@ -5412,6 +4801,9 @@
           // explicit fromTo — this avoids the flash/"disappear" glitch a
           // plain gsap.from() can cause if it ever re-runs or races with
           // another tween, since both the start and end values are pinned.
+          // Start the typewriter immediately (text is cleared before the
+          // badge fades in), so there's no full-text flash before typing.
+          typeHeroStatus();
           gsap.fromTo('.hero-badge', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.05 });
           gsap.fromTo('.hero-subtitle', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.5 });
           gsap.fromTo('.hero-stack-line', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.6 });
@@ -5565,43 +4957,6 @@
       }
 
       /* ============================================
-         ARCHITECTURE DIAGRAM INTERACTION
-         Hovering, focusing, or tapping a layer highlights it and
-         the connectors directly above/below it, and dims every
-         other layer — so the request path reads as one system
-         instead of a static stack. Click/tap toggles on touch
-         devices where there's no hover to rely on.
-      ============================================ */
-      (function initArchitectureDiagram() {
-        const diagram = document.getElementById('arch-diagram');
-        if (!diagram) return;
-        const layers = Array.from(diagram.querySelectorAll('.arch-layer'));
-        const connectors = Array.from(diagram.querySelectorAll('.arch-connector'));
-
-        function setActive(index) {
-          diagram.classList.toggle('is-active', index !== null);
-          layers.forEach((layer, i) => layer.classList.toggle('is-active', i === index));
-          connectors.forEach((conn, i) => {
-            // Connector i sits between layer i and layer i+1
-            conn.classList.toggle('is-active', index !== null && (i === index || i === index - 1));
-          });
-        }
-
-        layers.forEach((layer, i) => {
-          layer.addEventListener('mouseenter', () => setActive(i));
-          layer.addEventListener('focus', () => setActive(i));
-          layer.addEventListener('mouseleave', () => setActive(null));
-          layer.addEventListener('blur', () => setActive(null));
-          layer.addEventListener('click', () => {
-            const alreadyActive = layer.classList.contains('is-active');
-            setActive(alreadyActive ? null : i);
-          });
-        });
-
-        diagram.addEventListener('mouseleave', () => setActive(null));
-      })();
-
-      /* ============================================
          PROCESS DIAGRAM PROGRESSIVE LINE
       ============================================ */
       (function initProcessDiagram() {
@@ -5636,6 +4991,104 @@
       staggerReveal('.achievement-card', 0.08);
       staggerReveal('.capability-card', 0.06);
       staggerReveal('.why-card', 0.07);
+
+      /* ============================================
+         HORIZONTAL PROJECT REEL
+         On desktop the Projects section pins in place while the
+         card row slides left, driven by vertical scroll. Gated
+         behind gsap.matchMedia so mobile keeps the stacked grid
+         and reduced-motion users get the normal 2-column layout.
+      ============================================ */
+      (function initProjectReel() {
+        if (prefersReducedMotion) return;
+        const mm = gsap.matchMedia();
+        mm.add('(min-width: 901px)', () => {
+          const reel = document.getElementById('projects-reel');
+          const track = reel && reel.querySelector('.projects-grid');
+          if (!reel || !track) return;
+
+          reel.classList.add('is-horizontal');
+
+          // Wrap each card in a neutral shell so the depth scale below never
+          // clobbers the card's own hover-tilt transform (which is driven by
+          // CSS custom properties, not GSAP).
+          track.querySelectorAll('.project-card').forEach((card) => {
+            if (card.parentElement.classList.contains('reel-card-wrap')) return;
+            const wrap = document.createElement('div');
+            wrap.className = 'reel-card-wrap';
+            card.parentNode.insertBefore(wrap, card);
+            wrap.appendChild(card);
+          });
+
+          const wraps = Array.from(track.querySelectorAll('.reel-card-wrap'));
+          const cards = wraps.map((w) => w.querySelector('.project-card'));
+
+          const totalEl = document.getElementById('reel-counter-total');
+          if (totalEl) totalEl.textContent = String(cards.length).padStart(2, '0');
+          const fillEl = document.getElementById('reel-progress-fill');
+          const curEl = document.getElementById('reel-counter-current');
+
+          const distance = () => Math.max(0, track.scrollWidth - reel.clientWidth);
+
+          // Velocity-reactive skew — the track leans into the scroll and
+          // eases back upright as it slows, like a physical deck.
+          const skewTo = gsap.quickTo(track, 'skewX', { duration: 0.35, ease: 'power2.out' });
+
+          const tween = gsap.to(track, {
+            x: () => -distance(),
+            ease: 'none',
+            scrollTrigger: {
+              trigger: reel,
+              start: 'top top',
+              end: () => '+=' + distance(),
+              pin: true,
+              scrub: 1,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+              onUpdate: (self) => {
+                const p = self.progress;
+                if (fillEl) fillEl.style.width = (p * 100).toFixed(2) + '%';
+                if (curEl) curEl.textContent = String(Math.min(cards.length - 1, Math.round(p * (cards.length - 1))) + 1).padStart(2, '0');
+                const v = self.getVelocity();
+                skewTo(Math.abs(v) > 200 ? gsap.utils.clamp(-4, 4, v * -0.0008) : 0);
+              },
+              // When the scrub settles (scrolling stops), ease the lean
+              // back upright — onUpdate alone only fires mid-scroll, so
+              // without this the track would freeze at its last skew.
+              onScrubComplete: () => skewTo(0)
+            }
+          });
+
+          // Depth — each card scales up to full size as it reaches the
+          // center of the viewport, then stays put.
+          const depthTweens = wraps.map((wrap, i) => gsap.fromTo(wrap,
+            { scale: 0.88 },
+            {
+              scale: 1,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: cards[i],
+                containerAnimation: tween,
+                start: 'left 80%',
+                end: 'left 42%',
+                scrub: true,
+                invalidateOnRefresh: true,
+              }
+            }
+          ));
+
+          return () => {
+            reel.classList.remove('is-horizontal');
+            depthTweens.forEach((t) => { if (t.scrollTrigger) t.scrollTrigger.kill(); t.kill(); });
+            wraps.forEach((w) => {
+              while (w.firstChild) w.parentNode.insertBefore(w.firstChild, w);
+              w.remove();
+            });
+            if (tween.scrollTrigger) tween.scrollTrigger.kill();
+            tween.kill();
+          };
+        });
+      })();
 
       /* ============================================
          ACTIVE NAV LINK
@@ -5826,450 +5279,70 @@
             scrub: 0.5,
           }
         });
+        gsap.to('.hero-title', {
+          scale: 1.06,
+          letterSpacing: '-0.035em',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.5,
+          }
+        });
       }
 
       /* ============================================
-         COMMAND PALETTE — Ctrl/Cmd + K
+         FOOTER SYSTEM LOG — cycles pseudo status lines
+         so the page feels "live" rather than a static
+         document. Reduced-motion users get the static line.
       ============================================ */
-      (function initCommandPalette() {
-        const overlay = document.getElementById('cmdk-overlay');
-        const input = document.getElementById('cmdk-input');
-        const list = document.getElementById('cmdk-list');
-        const trigger = document.getElementById('cmdk-trigger');
-        if (!overlay || !input || !list) return;
-
-        const items = Array.from(list.querySelectorAll('.cmdk-item'));
-        let activeIndex = 0;
-        let lastFocused = null;
-
-        function setActive(index) {
-          activeIndex = (index + items.length) % items.length;
-          items.forEach((item, i) => item.classList.toggle('is-active', i === activeIndex));
-          const active = items[activeIndex];
-          if (active) active.scrollIntoView({ block: 'nearest' });
-        }
-
-        function filterItems() {
-          const q = input.value.trim().toLowerCase();
-          let firstVisible = -1;
-          items.forEach((item, i) => {
-            const text = item.getAttribute('data-label').toLowerCase();
-            const match = text.includes(q);
-            item.style.display = match ? '' : 'none';
-            if (match && firstVisible === -1) firstVisible = i;
-          });
-          setActive(firstVisible === -1 ? 0 : firstVisible);
-        }
-
-        function openPalette() {
-          lastFocused = document.activeElement;
-          overlay.classList.add('open');
-          overlay.setAttribute('aria-hidden', 'false');
-          input.value = '';
-          filterItems();
-          document.body.style.overflow = 'hidden';
-          setTimeout(() => input.focus(), 30);
-        }
-
-        function closePalette() {
-          overlay.classList.remove('open');
-          overlay.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
-          if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
-        }
-
-        function activateItem(item) {
-          if (!item) return;
-          const href = item.getAttribute('data-href');
-          const external = item.getAttribute('data-external') === 'true';
-          closePalette();
-          if (!href) return;
-          if (external) {
-            window.open(href, '_blank', 'noopener');
-          } else if (href.startsWith('#')) {
-            const target = document.getElementById(href.slice(1));
-            if (target) {
-              setTimeout(() => lenis.scrollTo(target, { offset: -68, duration: 1.2 }), 50);
-            }
-          } else {
-            window.location.href = href;
-          }
-        }
-
-        document.addEventListener('keydown', (e) => {
-          const isK = e.key === 'k' || e.key === 'K';
-          if ((e.metaKey || e.ctrlKey) && isK) {
-            e.preventDefault();
-            overlay.classList.contains('open') ? closePalette() : openPalette();
-          } else if (e.key === 'Escape' && overlay.classList.contains('open')) {
-            closePalette();
-          } else if (overlay.classList.contains('open')) {
-            if (e.key === 'ArrowDown') {
-              e.preventDefault();
-              const visible = items.filter(it => it.style.display !== 'none');
-              const currentPos = visible.indexOf(items[activeIndex]);
-              const next = visible[(currentPos + 1 + visible.length) % visible.length];
-              setActive(items.indexOf(next));
-            } else if (e.key === 'ArrowUp') {
-              e.preventDefault();
-              const visible = items.filter(it => it.style.display !== 'none');
-              const currentPos = visible.indexOf(items[activeIndex]);
-              const prev = visible[(currentPos - 1 + visible.length) % visible.length];
-              setActive(items.indexOf(prev));
-            } else if (e.key === 'Enter') {
-              e.preventDefault();
-              activateItem(items[activeIndex]);
-            }
-          }
-        });
-
-        if (trigger) trigger.addEventListener('click', openPalette);
-        overlay.addEventListener('click', (e) => {
-          if (e.target === overlay) closePalette();
-        });
-        input.addEventListener('input', filterItems);
-        items.forEach(item => {
-          item.addEventListener('click', () => activateItem(item));
-          item.addEventListener('mouseenter', () => setActive(items.indexOf(item)));
-        });
+      (function initSyslog() {
+        const line = document.getElementById('syslog-line');
+        if (!line) return;
+        const lines = [
+          'portfolio online · all systems nominal',
+          'compiling: html · css · javascript',
+          'backend: php + node.js · running',
+          'database: mysql + mongodb · connected',
+          'deploying: hammad.dev · v2',
+          'uptime: since 2025 · no downtime'
+        ];
+        if (prefersReducedMotion) { line.textContent = lines[0]; return; }
+        let i = 0;
+        setInterval(() => {
+          i = (i + 1) % lines.length;
+          line.textContent = lines[i];
+          gsap.fromTo(line, { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
+        }, 4200);
       })();
 
       /* ============================================
-         INTERACTIVE DEVELOPER TERMINAL
+         LIVE "NOW" CLOCK — shows local time (Asia/Karachi)
+         with a live HH:MM:SS tick and full date, so the
+         section feels genuinely present rather than static.
       ============================================ */
-      (function initTerminal() {
-        const body = document.getElementById('terminal-body');
-        const input = document.getElementById('terminal-input');
-        if (!body || !input) return;
+      (function initNavClock() {
+        const timeEl = document.getElementById('nav-status-time');
+        const dateEl = document.getElementById('nav-status-date');
+        if (!timeEl || !dateEl) return;
 
-        const RESUME_HREF = 'Hammad Jawaid CV.pdf';
-        let history = [];
-        let historyIndex = -1;
+        const timeZone = 'Asia/Karachi';
+        const pad = (n) => String(n).padStart(2, '0');
 
-        function scrollToBottom() {
-          body.scrollTop = body.scrollHeight;
+        function render() {
+          const now = new Date();
+          const t = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone });
+          const tp = {};
+          t.formatToParts(now).forEach(p => { if (p.type !== 'literal') tp[p.type] = p.value; });
+          timeEl.textContent = pad(parseInt(tp.hour, 10)) + ':' + pad(parseInt(tp.minute, 10));
+
+          const d = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone });
+          dateEl.textContent = d.format(now).replace(',', ' ·').toUpperCase();
         }
 
-        function addLine(html, cls = 'term-output') {
-          const line = document.createElement('div');
-          line.className = 'term-line ' + cls;
-          line.innerHTML = html;
-          body.appendChild(line);
-          scrollToBottom();
-          return line;
-        }
-
-        function addGap() {
-          const gap = document.createElement('div');
-          gap.className = 'term-gap';
-          body.appendChild(gap);
-        }
-
-        function addPromptEcho(cmd) {
-          addLine('<span class="term-prompt-sign">$</span> ' + escapeHtml(cmd), 'term-prompt-line');
-        }
-
-        function escapeHtml(str) {
-          const div = document.createElement('div');
-          div.textContent = str;
-          return div.innerHTML;
-        }
-
-        function jumpTo(hash) {
-          const el = document.querySelector(hash);
-          if (!el) return;
-          if (typeof lenis !== 'undefined' && lenis) {
-            lenis.scrollTo(el, { offset: -60, duration: 1.2 });
-          } else {
-            el.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
-          }
-        }
-
-        const commands = {
-          help() {
-            addLine('AVAILABLE COMMANDS', 'term-heading');
-            [
-              ['whoami', 'basic info about me'],
-              ['stack', 'technologies I work with'],
-              ['architecture', 'see how a request flows end to end'],
-              ['projects', 'scroll to featured work'],
-              ['experience', 'scroll to work history'],
-              ['contact', 'scroll to contact section'],
-              ['resume', 'download my resume (PDF)'],
-              ['clear', 'clear the terminal'],
-              ['help', 'show this list again'],
-            ].forEach(([cmd, desc]) => {
-              addLine('<strong>' + cmd.padEnd(11, ' ').replace(/ /g, '&nbsp;') + '</strong>' + desc);
-            });
-          },
-          whoami() {
-            addLine('<strong>Hammad Jawaid</strong>');
-            addLine('Full-Stack Developer — Frontend + Backend + Database');
-            addLine('Based in Pakistan · open to opportunities', 'term-accent');
-          },
-          stack() {
-            addLine('FRONTEND', 'term-heading');
-            addLine('HTML · CSS · JavaScript');
-            addLine('BACKEND', 'term-heading');
-            addLine('PHP · Node.js');
-            addLine('DATABASE', 'term-heading');
-            addLine('MySQL · MongoDB');
-          },
-          architecture() {
-            addLine('Scrolling to Architecture…', 'term-accent');
-            jumpTo('#architecture');
-          },
-          projects() {
-            addLine('Scrolling to Projects…', 'term-accent');
-            jumpTo('#projects');
-          },
-          experience() {
-            addLine('Scrolling to Experience…', 'term-accent');
-            jumpTo('#experience');
-          },
-          contact() {
-            addLine('Scrolling to Contact…', 'term-accent');
-            jumpTo('#contact');
-          },
-          resume() {
-            addLine('Downloading resume…', 'term-accent');
-            const a = document.createElement('a');
-            a.href = RESUME_HREF;
-            a.setAttribute('download', '');
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-          },
-          clear() {
-            body.innerHTML = '';
-          },
-          status() {
-            addLine('OPEN TO OPPORTUNITIES ✓', 'term-accent');
-          },
-          sudo() {
-            addLine("Nice try. I only take requests through the contact section.", 'term-error');
-          },
-        };
-        commands['./contact'] = commands.contact;
-
-        function runCommand(raw) {
-          const cmd = raw.trim();
-          if (!cmd) return;
-          addPromptEcho(cmd);
-          history.push(cmd);
-          historyIndex = history.length;
-
-          const key = cmd.toLowerCase().replace(/^\$\s*/, '');
-          const fn = commands[key];
-          if (fn) {
-            fn();
-          } else {
-            addLine('command not found: ' + escapeHtml(cmd), 'term-error');
-            addLine("type <strong>help</strong> to see available commands", 'term-output');
-          }
-          addGap();
-        }
-
-        input.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            runCommand(input.value);
-            input.value = '';
-          } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            if (history.length && historyIndex > 0) {
-              historyIndex--;
-              input.value = history[historyIndex];
-            }
-          } else if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            if (historyIndex < history.length - 1) {
-              historyIndex++;
-              input.value = history[historyIndex];
-            } else {
-              historyIndex = history.length;
-              input.value = '';
-            }
-          }
-        });
-
-        document.querySelectorAll('.term-hint-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const cmd = btn.getAttribute('data-term-cmd');
-            input.value = cmd;
-            input.focus();
-            runCommand(cmd);
-            input.value = '';
-          });
-        });
-
-        body.addEventListener('click', () => input.focus());
-
-        /* Boot sequence: type out a welcome whoami on first view */
-        let booted = false;
-        function bootSequence() {
-          if (booted) return;
-          booted = true;
-          const welcome = [
-            "Welcome. This terminal is wired to the site — try 'help'.",
-          ];
-          if (prefersReducedMotion) {
-            welcome.forEach(l => addLine(l, 'term-output'));
-            addGap();
-            commands.whoami();
-            addGap();
-            return;
-          }
-          let i = 0;
-          const line = addLine('', 'term-output');
-          const text = welcome[0];
-          const typer = setInterval(() => {
-            line.textContent = text.slice(0, i + 1);
-            i++;
-            scrollToBottom();
-            if (i >= text.length) {
-              clearInterval(typer);
-              addGap();
-              commands.whoami();
-              addGap();
-            }
-          }, 18);
-        }
-
-        ScrollTrigger.create({
-          trigger: '#terminal',
-          start: 'top 75%',
-          onEnter: bootSequence,
-          once: true,
-        });
-      })();
-
-      /* ============================================
-         PROJECT CASE STUDY MODAL
-         Reads content straight out of the clicked project
-         card's own DOM (title, desc, tags, features, live
-         link, architecture layers if present) so the modal
-         can never drift out of sync with — or invent — data.
-      ============================================ */
-      (function initCaseStudyModal() {
-        const overlay = document.getElementById('case-overlay');
-        if (!overlay) return;
-        const closeBtn = document.getElementById('case-close');
-        const visualEl = document.getElementById('case-visual');
-        const categoryEl = document.getElementById('case-category');
-        const titleEl = document.getElementById('case-title');
-        const descEl = document.getElementById('case-desc');
-        const tagsEl = document.getElementById('case-tags');
-        const featuresEl = document.getElementById('case-features');
-        const archBlock = document.getElementById('case-arch-block');
-        const archEl = document.getElementById('case-architecture');
-        const actionsEl = document.getElementById('case-actions');
-        let lastTrigger = null;
-
-        function openModal(card) {
-          const visual = card.querySelector('.project-visual');
-          const roleBadge = card.querySelector('.project-role-badge');
-          const title = card.querySelector('.project-title');
-          const desc = card.querySelector('.project-desc');
-          const tags = card.querySelectorAll('.project-stack .tag');
-          const features = card.querySelectorAll('.project-features .feature-tag');
-          const archLayers = card.querySelectorAll('.architecture-panel .arch-layer');
-          const liveLink = card.querySelector('.btn-project-primary');
-
-          visualEl.innerHTML = visual ? visual.outerHTML : '';
-          categoryEl.textContent = roleBadge ? roleBadge.textContent.trim() : 'Project';
-          titleEl.textContent = title ? title.textContent.trim() : '';
-          descEl.textContent = desc ? desc.textContent.trim() : '';
-
-          tagsEl.innerHTML = '';
-          tags.forEach(t => {
-            const span = document.createElement('span');
-            span.className = 'tag';
-            span.textContent = t.textContent.trim();
-            tagsEl.appendChild(span);
-          });
-
-          featuresEl.innerHTML = '';
-          features.forEach(f => {
-            const span = document.createElement('span');
-            span.className = 'feature-tag';
-            span.textContent = f.textContent.trim();
-            featuresEl.appendChild(span);
-          });
-
-          if (archLayers.length) {
-            archBlock.style.display = '';
-            archEl.innerHTML = '';
-            archLayers.forEach(layer => {
-              const name = layer.querySelector('.arch-layer-name');
-              const tech = layer.querySelector('.arch-layer-tech');
-              const div = document.createElement('div');
-              div.className = 'case-arch-layer';
-              div.innerHTML = '<strong>' + (name ? name.textContent.trim() : '') + '</strong><span>' + (tech ? tech.textContent.trim() : '') + '</span>';
-              archEl.appendChild(div);
-            });
-          } else {
-            archBlock.style.display = 'none';
-          }
-
-          actionsEl.innerHTML = '';
-          if (liveLink) {
-            const a = document.createElement('a');
-            a.href = liveLink.href;
-            a.target = '_blank';
-            a.rel = 'noopener';
-            a.className = 'btn-primary magnetic';
-            a.innerHTML = '<i data-lucide="external-link" style="width:15px;height:15px;"></i> Live Demo';
-            actionsEl.appendChild(a);
-          }
-          const closeAction = document.createElement('button');
-          closeAction.type = 'button';
-          closeAction.className = 'btn-ghost magnetic';
-          closeAction.textContent = 'Close';
-          closeAction.addEventListener('click', closeModal);
-          actionsEl.appendChild(closeAction);
-
-          if (window.lucide) lucide.createIcons();
-
-          overlay.classList.add('open');
-          overlay.setAttribute('aria-hidden', 'false');
-          document.body.style.overflow = 'hidden';
-          closeBtn.focus();
-        }
-
-        function closeModal() {
-          overlay.classList.remove('open');
-          overlay.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
-          if (lastTrigger) lastTrigger.focus();
-        }
-
-        document.querySelectorAll('.project-thumb').forEach(thumb => {
-          thumb.setAttribute('tabindex', '0');
-          thumb.setAttribute('role', 'button');
-          thumb.setAttribute('aria-haspopup', 'dialog');
-          thumb.setAttribute('aria-label', 'View project case study');
-
-          const trigger = (e) => {
-            lastTrigger = thumb;
-            const card = thumb.closest('.project-card');
-            if (card) openModal(card);
-          };
-          thumb.addEventListener('click', trigger);
-          thumb.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              trigger(e);
-            }
-          });
-        });
-
-        closeBtn.addEventListener('click', closeModal);
-        overlay.addEventListener('click', (e) => {
-          if (e.target === overlay) closeModal();
-        });
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
-        });
+        render();
+        setInterval(render, 1000);
       })();
 
       /* ============================================
@@ -6302,5 +5375,5 @@
     }); // END DOMContentLoaded
   </script>
 
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a33db4355ba53485',t:'MTc4ODE5NjgwNQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
