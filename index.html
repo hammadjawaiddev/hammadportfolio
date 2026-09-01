@@ -2514,6 +2514,16 @@
       margin-top: 2px;
     }
 
+    /* Left column = screenshot carousel + snapshot block layered under it,
+       so the column height matches the narrative side instead of leaving a
+       big empty gap below the screenshot. */
+    .study-left {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+      min-width: 0;
+    }
+
     /* Screenshot */
     .study-shot {
       margin: 0;
@@ -2905,6 +2915,149 @@
       margin-top: 4px;
     }
 
+    /* ---- Project snapshot (fills the space under the screenshots) ---- */
+    .study-snapshot {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      padding: 22px 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ---- Logo bar (top of the snapshot) ----
+       Drop your logo PNG at the path below and it appears automatically.
+       Until the file exists, a styled wordmark shows instead (via the
+       .missing class added onload-error), so the box never shows a
+       broken image. */
+    .study-logo-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 40px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .study-logo-img {
+      height: 40px;
+      max-width: 200px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Wordmark fallback — shown only while the logo file is absent */
+    .study-logo-text {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--text);
+      display: none;
+      line-height: 1;
+    }
+
+    .study-logo-bar.missing .study-logo-img { display: none; }
+    .study-logo-bar.missing .study-logo-text { display: block; }
+
+    .snapshot-kicker {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-text);
+      background: var(--accent);
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 4px 10px;
+    }
+
+    /* Fact rows */
+    .snapshot-facts {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .snapshot-facts li {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 12px;
+      align-items: baseline;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--border);
+      font-size: 0.78rem;
+    }
+
+    .snapshot-facts li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .snapshot-facts dt {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .snapshot-facts dd {
+      margin: 0;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    /* Highlights list */
+    .snapshot-highlights-label {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .snapshot-highlights-label::before {
+      content: '';
+      width: 14px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .snapshot-highlights {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .snapshot-highlights li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .snapshot-highlights li i {
+      color: var(--accent);
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
     /* "Click to open" hint on the row head */
     .study-open-hint {
       font-size: 0.64rem;
@@ -2924,6 +3077,7 @@
         gap: 26px;
       }
       .study-chips { display: none; }
+      .study-left { gap: 20px; }
     }
 
     @media (max-width: 600px) {
@@ -3700,7 +3854,8 @@
           <div class="study-panel" id="panel-physio" role="region" aria-labelledby="study-physio-title">
             <div class="study-panel-inner">
               <!-- Screenshot -->
-                            <figure class="study-shot">
+                            <div class="study-left">
+<figure class="study-shot">
                 <div class="study-carousel" data-carousel>
                   <div class="study-viewport" role="group" aria-label="Screenshot gallery">
                     <div class="study-track">
@@ -3720,6 +3875,26 @@
                   <div class="car-dots" aria-hidden="true"></div>
                 </div>
               </figure>
+<aside class="study-snapshot">
+                <div class="study-logo-bar">
+                  <img class="study-logo-img" src="images/logos/physiosync-logo.png" alt="PhysioSync logo" onerror="this.closest('.study-logo-bar').classList.add('missing')" />
+                  <span class="study-logo-text">PhysioSync</span>
+                </div>
+                <span class="snapshot-kicker">Project snapshot</span>
+                            <ul class="snapshot-facts" role="list">
+                <li><dt>Role</dt><dd>Frontend</dd></li>
+                <li><dt>Type</dt><dd>Landing page</dd></li>
+                <li><dt>Focus</dt><dd>Trust & conversion</dd></li>
+                <li><dt>Status</dt><dd>Live</dd></li>
+              </ul>
+                <div>
+                <div class="snapshot-highlights-label">Key highlights</div>
+                <ul class="snapshot-highlights" role="list">
+                  <li><i data-lucide="check" style="width:14px;height:14px;"></i>Responsive, mobile-first layout</li><li><i data-lucide="check" style="width:14px;height:14px;"></i>Semantic, accessible markup</li><li><i data-lucide="check" style="width:14px;height:14px;"></i>SEO & performance pass</li><li><i data-lucide="check" style="width:14px;height:14px;"></i>One clear call to action</li>
+                </ul>
+              </div>
+              </aside>
+            </div>
 
               <!-- Narrative -->
               <div class="study-body">
@@ -3797,7 +3972,8 @@
 
           <div class="study-panel" id="panel-cosmos" role="region" aria-labelledby="study-cosmos-title">
             <div class="study-panel-inner">
-                            <figure class="study-shot">
+                            <div class="study-left">
+<figure class="study-shot">
                 <div class="study-carousel" data-carousel>
                   <div class="study-viewport" role="group" aria-label="Screenshot gallery">
                     <div class="study-track">
@@ -3817,6 +3993,26 @@
                   <div class="car-dots" aria-hidden="true"></div>
                 </div>
               </figure>
+<aside class="study-snapshot">
+                <div class="study-logo-bar">
+                  <img class="study-logo-img" src="images/logos/cosmos-logo.png" alt="Cosmos logo" onerror="this.closest('.study-logo-bar').classList.add('missing')" />
+                  <span class="study-logo-text">Cosmos</span>
+                </div>
+                <span class="snapshot-kicker">Project snapshot</span>
+                            <ul class="snapshot-facts" role="list">
+                <li><dt>Role</dt><dd>Frontend</dd></li>
+                <li><dt>Type</dt><dd>Immersive single page</dd></li>
+                <li><dt>Focus</dt><dd>Motion & storytelling</dd></li>
+                <li><dt>Status</dt><dd>Live</dd></li>
+              </ul>
+                <div>
+                <div class="snapshot-highlights-label">Key highlights</div>
+                <ul class="snapshot-highlights" role="list">
+                  <li><i data-lucide="check" style="width:14px;height:14px;"></i>Canvas star field</li><li><i data-lucide="check" style="width:14px;height:14px;"></i>Parallax scroll depth</li><li><i data-lucide="check" style="width:14px;height:14px;"></i>Reduced-motion fallback</li><li><i data-lucide="check" style="width:14px;height:14px;"></i>Zero heavy dependencies in the path</li>
+                </ul>
+              </div>
+              </aside>
+            </div>
 
               <div class="study-body">
                 <h4 class="study-inner-title" id="study-cosmos-title">Cosmos</h4>
@@ -3893,7 +4089,8 @@
 
           <div class="study-panel" id="panel-ctrlzone" role="region" aria-labelledby="study-ctrlzone-title">
             <div class="study-panel-inner">
-                            <figure class="study-shot">
+                            <div class="study-left">
+<figure class="study-shot">
                 <div class="study-carousel" data-carousel>
                   <div class="study-viewport" role="group" aria-label="Screenshot gallery">
                     <div class="study-track">
@@ -3913,6 +4110,26 @@
                   <div class="car-dots" aria-hidden="true"></div>
                 </div>
               </figure>
+<aside class="study-snapshot">
+                <div class="study-logo-bar">
+                  <img class="study-logo-img" src="images/logos/ctrlzone-logo.png" alt="CTRL ZONE logo" onerror="this.closest('.study-logo-bar').classList.add('missing')" />
+                  <span class="study-logo-text">CTRL ZONE</span>
+                </div>
+                <span class="snapshot-kicker">Project snapshot</span>
+                            <ul class="snapshot-facts" role="list">
+                <li><dt>Role</dt><dd>Full-Stack</dd></li>
+                <li><dt>Type</dt><dd>E-commerce platform</dd></li>
+                <li><dt>Focus</dt><dd>Commerce & admin</dd></li>
+                <li><dt>Status</dt><dd>Live</dd></li>
+              </ul>
+                <div>
+                <div class="snapshot-highlights-label">Key highlights</div>
+                <ul class="snapshot-highlights" role="list">
+                  <li><i data-lucide="check" style="width:14px;height:14px;"></i>Authentication + sessions</li><li><i data-lucide="check" style="width:14px;height:14px;"></i>Cart & checkout flows</li><li><i data-lucide="check" style="width:14px;height:14px;"></i>Product & order CRUD</li><li><i data-lucide="check" style="width:14px;height:14px;"></i>Protected admin dashboard</li><li><i data-lucide="check" style="width:14px;height:14px;"></i>Parameterized queries</li>
+                </ul>
+              </div>
+              </aside>
+            </div>
 
               <div class="study-body">
                 <h4 class="study-inner-title" id="study-ctrlzone-title">CTRL ZONE</h4>
@@ -3994,7 +4211,8 @@
 
           <div class="study-panel" id="panel-pathseeker" role="region" aria-labelledby="study-pathseeker-title">
             <div class="study-panel-inner">
-                            <figure class="study-shot">
+                            <div class="study-left">
+<figure class="study-shot">
                 <div class="study-carousel" data-carousel>
                   <div class="study-viewport" role="group" aria-label="Screenshot gallery">
                     <div class="study-track">
@@ -4014,6 +4232,26 @@
                   <div class="car-dots" aria-hidden="true"></div>
                 </div>
               </figure>
+<aside class="study-snapshot">
+                <div class="study-logo-bar">
+                  <img class="study-logo-img" src="images/logos/pathseeker-logo.png" alt="PathSeeker logo" onerror="this.closest('.study-logo-bar').classList.add('missing')" />
+                  <span class="study-logo-text">PathSeeker</span>
+                </div>
+                <span class="snapshot-kicker">Project snapshot</span>
+                            <ul class="snapshot-facts" role="list">
+                <li><dt>Role</dt><dd>Full-Stack</dd></li>
+                <li><dt>Type</dt><dd>Career-discovery app</dd></li>
+                <li><dt>Focus</dt><dd>Guided personalization</dd></li>
+                <li><dt>Status</dt><dd>Live</dd></li>
+              </ul>
+                <div>
+                <div class="snapshot-highlights-label">Key highlights</div>
+                <ul class="snapshot-highlights" role="list">
+                  <li><i data-lucide="check" style="width:14px;height:14px;"></i>Step-by-step guided quiz</li><li><i data-lucide="check" style="width:14px;height:14px;"></i>React frontend</li><li><i data-lucide="check" style="width:14px;height:14px;"></i>Node.js + MongoDB API</li><li><i data-lucide="check" style="width:14px;height:14px;"></i>Deployed on Vercel</li>
+                </ul>
+              </div>
+              </aside>
+            </div>
 
               <div class="study-body">
                 <h4 class="study-inner-title" id="study-pathseeker-title">PathSeeker · Career Passport</h4>
@@ -5692,5 +5930,5 @@
     }
   })();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3457026aa372361',t:'MTc4ODI3NzkwNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
