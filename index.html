@@ -1072,6 +1072,11 @@
       );
       border-top: var(--border-width) solid var(--border);
       border-bottom: var(--border-width) solid var(--border);
+      /* Isolates the strip's own layout/paint from the rest of the
+         page so scroll-driven reflows elsewhere (hero parallax, GSAP
+         ScrollTriggers) can't force this element to repaint too —
+         this was the main source of the visible stutter. */
+      contain: layout paint style;
     }
 
     .hero-marquee-track {
@@ -1081,6 +1086,11 @@
       width: max-content;
       animation: marquee-scroll 24s linear infinite;
       will-change: transform;
+      /* Promotes the track to its own GPU compositor layer so the
+         translateX loop runs smoothly even while other scroll-linked
+         animations are busy on the main thread. */
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
 
     .hero-marquee-set {
@@ -1118,8 +1128,8 @@
     }
 
     @keyframes marquee-scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      0% { transform: translateX(0) translateZ(0); }
+      100% { transform: translateX(-50%) translateZ(0); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1878,8 +1888,19 @@
         color: var(--text);
         font-variant-numeric: tabular-nums;
         white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 8px;
       }
-      .reel-counter-current { color: var(--accent); }
+      /* Was plain --accent text on the page background — a dark navy
+         on a near-black dark-theme background has almost no contrast,
+         which is why the counter read as "invisible" while scrolling.
+         A solid chip guarantees contrast in both themes. */
+      .reel-counter-current {
+        color: var(--accent-text);
+        background: var(--accent);
+        padding: 2px 9px;
+      }
     }
 
     .project-card {
@@ -3171,7 +3192,7 @@
         <div class="hero-marquee-set">
           <span class="hero-marquee-text">Full-Stack Developer</span>
           <span class="hero-marquee-sep"></span>
-          <span class="hero-marquee-text">Frontend + Backend + Database</span>
+          <span class="hero-marquee-text">End-to-End Product Development</span>
           <span class="hero-marquee-sep"></span>
           <span class="hero-marquee-text">Available for Work</span>
           <span class="hero-marquee-sep"></span>
@@ -3182,7 +3203,7 @@
         <div class="hero-marquee-set">
           <span class="hero-marquee-text">Full-Stack Developer</span>
           <span class="hero-marquee-sep"></span>
-          <span class="hero-marquee-text">Frontend + Backend + Database</span>
+          <span class="hero-marquee-text">End-to-End Product Development</span>
           <span class="hero-marquee-sep"></span>
           <span class="hero-marquee-text">Available for Work</span>
           <span class="hero-marquee-sep"></span>
@@ -4318,8 +4339,18 @@
         }
         window.addEventListener('load', fillTrack);
 
+        // Mobile browsers fire 'resize' when the address bar hides/shows
+        // during ordinary scrolling — only viewport HEIGHT changes then,
+        // not width. Without this guard, fillTrack() (which clones nodes
+        // and reassigns animation-duration, restarting the CSS animation)
+        // was re-running on almost every scroll tick, which is what
+        // made the strip look laggy/jumpy while scrolling. Only a real
+        // width change (rotation, actual window resize) should rebuild it.
+        let lastWidth = window.innerWidth;
         let resizeTimer;
         window.addEventListener('resize', () => {
+          if (window.innerWidth === lastWidth) return;
+          lastWidth = window.innerWidth;
           clearTimeout(resizeTimer);
           resizeTimer = setTimeout(fillTrack, 200);
         });
