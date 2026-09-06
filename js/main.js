@@ -1,0 +1,240 @@
+/* ============================================================
+   Main — percentage loader, Lenis smooth scroll, nav, scroll progress
+   ============================================================ */
+(function () {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const yearEl = document.getElementById('footerYear');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ---------- Lenis smooth scroll ---------- */
+  let lenis;
+  if (!prefersReduced && typeof Lenis !== 'undefined') {
+    lenis = new Lenis({
+      duration: 1.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.3
+    });
+
+    lenis.on('scroll', () => {
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
+      updateProgress();
+      updateNav();
+      updateDotNav();
+      updateFloatTop();
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (id.length > 1) {
+          const target = document.querySelector(id);
+          if (target) {
+            e.preventDefault();
+            lenis.scrollTo(target, { offset: 0, duration: 1.3 });
+            closeMobileNav();
+          }
+        }
+      });
+    });
+  } else {
+    document.documentElement.style.scrollBehavior = 'smooth';
+  }
+
+  /* ---------- Scroll progress + nav compact state ---------- */
+  const progressFill = document.getElementById('scrollProgressFill');
+  const nav = document.getElementById('siteNav');
+
+  function updateProgress() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if (progressFill) progressFill.style.width = pct + '%';
+  }
+
+  function updateNav() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    if (!nav) return;
+    if (scrollTop > 40) nav.classList.add('nav--compact');
+    else nav.classList.remove('nav--compact');
+
+    const hero = document.getElementById('hero');
+    if (hero) {
+      const heroBottom = hero.offsetTop + hero.offsetHeight;
+      if (scrollTop + nav.offsetHeight / 2 < heroBottom) {
+        nav.classList.add('nav--on-light');
+      } else {
+        nav.classList.remove('nav--on-light');
+      }
+    }
+  }
+
+  window.addEventListener('scroll', () => { updateProgress(); updateNav(); }, { passive: true });
+  updateProgress();
+  updateNav();
+
+  /* ---------- Mobile nav ---------- */
+  const navToggle = document.getElementById('navToggle');
+  const mobileNav = document.getElementById('mobileNav');
+
+  function closeMobileNav() {
+    if (mobileNav) mobileNav.classList.remove('is-open');
+    if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  if (navToggle && mobileNav) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    mobileNav.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMobileNav));
+  }
+
+  /* ---------- Percentage loader with circular ring ---------- */
+  const loader = document.getElementById('loader');
+  const loaderPct = document.getElementById('loaderPct');
+  const loaderRing = document.getElementById('loaderRing');
+  const loaderLabel = document.getElementById('loaderLabel');
+  const loaderGreetingWrap = document.getElementById('loaderGreetingWrap');
+  const CIRC = 339.29;
+
+  function setLoaderProgress(pct) {
+    if (loaderPct) loaderPct.textContent = Math.round(pct) + '%';
+    if (loaderRing) loaderRing.style.strokeDashoffset = CIRC - (CIRC * pct) / 100;
+  }
+
+  let loadFinished = false;
+  function finishLoad() {
+    if (loadFinished) return; // only ever run the load sequence once
+    loadFinished = true;
+    let current = 0;
+    const target = 100;
+    const step = () => {
+      current += (target - current) * 0.18 + 0.6;
+      if (current >= 99.5) current = 100;
+      setLoaderProgress(current);
+      if (current < 100) {
+        requestAnimationFrame(step);
+      } else {
+        /* 1) Loading hits 100% — the ring, % and label clear away first */
+        const loaderMain = document.getElementById('loaderMain');
+        if (loaderMain) loaderMain.classList.add('is-hiding');
+
+        /* 2) Empty screen beat, THEN the big "hey" arrives */
+        setTimeout(() => {
+          if (loaderGreetingWrap) loaderGreetingWrap.classList.add('is-visible');
+        }, 1300);
+
+        /* 3) Hold the greeting, then the whole loader lifts away */
+        setTimeout(() => {
+          if (loader) loader.classList.add('is-done');
+          if (typeof window.playHeroIntro === 'function') window.playHeroIntro();
+          if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+        }, 3100);
+      }
+    };
+    requestAnimationFrame(step);
+  }
+
+  setLoaderProgress(0);
+  if (document.readyState === 'complete') {
+    finishLoad();
+  } else {
+    window.addEventListener('load', finishLoad);
+    setTimeout(finishLoad, 1400);
+  }
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+    }, 200);
+  });
+
+  /* ---------- About photo: show it, fall back gracefully if missing ---------- */
+  const aboutPhoto = document.getElementById('aboutPhoto');
+  const aboutFallback = document.getElementById('aboutCardFallback');
+  if (aboutPhoto) {
+    const showAboutPhoto = () => {
+      if (aboutPhoto.naturalWidth > 1) {
+        aboutPhoto.classList.add('is-loaded');
+        if (aboutFallback) aboutFallback.style.display = 'none';
+      }
+    };
+    /* Handle the race: a small local image may have ALREADY fired 'load'
+       before this script ran — then no event will ever come. */
+    if (aboutPhoto.complete) {
+      if (aboutPhoto.naturalWidth > 1) showAboutPhoto();
+      else aboutPhoto.style.display = 'none';
+    } else {
+      aboutPhoto.addEventListener('load', showAboutPhoto);
+      aboutPhoto.addEventListener('error', () => {
+        aboutPhoto.style.display = 'none';
+      });
+    }
+  }
+
+  /* ---------- Side dot-nav: active section tracking ---------- */
+  const dotItems = document.querySelectorAll('.dot-nav-item');
+  const dotSections = Array.from(dotItems).map((item) => document.querySelector(item.getAttribute('href')));
+
+  function updateDotNav() {
+    if (!dotItems.length) return;
+    const scrollPos = (window.scrollY || document.documentElement.scrollTop) + window.innerHeight / 2;
+    let activeIndex = 0;
+    dotSections.forEach((sec, i) => {
+      if (sec && sec.offsetTop <= scrollPos) activeIndex = i;
+    });
+    dotItems.forEach((item, i) => item.classList.toggle('is-active', i === activeIndex));
+  }
+
+  /* ---------- Floating back-to-top visibility ---------- */
+  const floatTop = document.getElementById('floatTop');
+  function updateFloatTop() {
+    if (!floatTop) return;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    floatTop.classList.toggle('is-visible', scrollTop > window.innerHeight * 0.6);
+  }
+
+  window.addEventListener('scroll', () => { updateDotNav(); updateFloatTop(); }, { passive: true });
+  updateDotNav();
+  updateFloatTop();
+
+  /* ---------- Stats band animated counters ---------- */
+  function formatStat(n) { return String(n).padStart(2, '0'); }
+  document.querySelectorAll('.stat-count').forEach((el) => {
+    const target = parseInt(el.dataset.count, 10);
+    if (!target) return;
+    if (prefersReduced) { el.textContent = formatStat(target); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        io.disconnect();
+        const dur = 1100;
+        const start = performance.now();
+        const tick = (now) => {
+          const p = Math.min(1, (now - start) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = formatStat(Math.round(eased * target));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.6 });
+    io.observe(el);
+  });
+})();
