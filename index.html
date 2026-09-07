@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=11">
+<link rel="stylesheet" href="css/style.css?v=12">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -81,6 +81,7 @@
     <a href="#work">Work</a>
     <a href="#about">About</a>
     <a href="#expertise">Expertise</a>
+    <a href="#journey">Build</a>
     <a href="#contact">Contact</a>
   </nav>
   <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
@@ -95,6 +96,7 @@
     <a href="#expertise">Expertise</a>
     <a href="#experience">Experience</a>
     <a href="#recognition">Recognition</a>
+    <a href="#journey">Build</a>
     <a href="#contact">Contact</a>
   </nav>
   <a class="mobile-resume" href="https://hammad-developer.vercel.app/Hammad%20Jawaid%20CV.pdf" target="_blank" rel="noopener">Download résumé →</a>
@@ -123,6 +125,24 @@
       <span class="hero-tech-icon" data-cursor="text" data-cursor-text="Lenis" style="color:#7c6cf0;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 15c2-4 4-6 6-6s3 3 6 3 4-4 6-4M3 10c2-4 4-6 6-6s3 3 6 3 4-4 6-4" opacity="0.5"></path></svg>
       </span>
+    </div>
+
+    <!-- Interactive hero controls: the stage reacts to the pointer and the orbit shows the stack. -->
+    <div class="hero-orbit" aria-label="Technologies in Hammad's stack">
+      <span class="hero-orbit-ring hero-orbit-ring--outer"></span>
+      <span class="hero-orbit-ring hero-orbit-ring--inner"></span>
+      <span class="hero-orbit-core">HJ<span>STACK</span></span>
+      <span class="hero-orbit-node hero-orbit-node--html" data-cursor="text" data-cursor-text="HTML">HTML</span>
+      <span class="hero-orbit-node hero-orbit-node--css" data-cursor="text" data-cursor-text="CSS">CSS</span>
+      <span class="hero-orbit-node hero-orbit-node--js" data-cursor="text" data-cursor-text="JS">JS</span>
+      <span class="hero-orbit-node hero-orbit-node--api" data-cursor="text" data-cursor-text="API">API</span>
+      <span class="hero-orbit-node hero-orbit-node--db" data-cursor="text" data-cursor-text="DB">DB</span>
+    </div>
+
+    <div class="hero-console" aria-label="Live build status">
+      <div class="hero-console-top"><span class="hero-console-pulse"></span><span>BUILD MODE / LIVE</span><span class="hero-console-id">HJ_001</span></div>
+      <div class="hero-console-row"><span>Frontend</span><strong>ONLINE</strong></div>
+      <div class="hero-console-row"><span>Backend + DB</span><strong>CONNECTED</strong></div>
     </div>
 
     <div class="hero-display">
@@ -470,6 +490,82 @@
     </div>
   </section>
 
+  <!-- ============ HORIZONTAL BUILD JOURNEY ============ -->
+  <section class="journey dark-section" id="journey">
+    <div class="journey-intro">
+      <div>
+        <p class="section-eyebrow">The build journey</p>
+        <h2 class="section-title">From idea<br>to <span class="journey-accent">alive.</span></h2>
+      </div>
+      <p class="journey-intro-copy">Scroll sideways through the system behind every project — the visible interface is only the beginning.</p>
+    </div>
+    <div class="journey-stage" aria-label="The steps of a full-stack build">
+      <div class="journey-track">
+        <article class="journey-panel journey-panel--idea">
+          <div class="journey-panel-top"><span>01 / INPUT</span><span>THE SPARK</span></div>
+          <div class="journey-panel-art journey-art--idea"><span class="journey-signal journey-signal--one"></span><span class="journey-signal journey-signal--two"></span><span class="journey-signal journey-signal--three"></span><b>IDEA</b></div>
+          <div><h3>Start with a reason.</h3><p>Define the problem, the people, and the one useful thing the product must do brilliantly.</p></div>
+        </article>
+        <article class="journey-panel journey-panel--frontend">
+          <div class="journey-panel-top"><span>02 / SURFACE</span><span>THE FEEL</span></div>
+          <div class="journey-panel-art journey-art--frontend"><span>&lt;div&gt;</span><span class="journey-code-line"></span><span class="journey-code-line journey-code-line--short"></span><span>&lt;/div&gt;</span></div>
+          <div><h3>Make it feel obvious.</h3><p>Shape responsive interfaces where hierarchy, motion, and detail guide every interaction.</p></div>
+        </article>
+        <article class="journey-panel journey-panel--api">
+          <div class="journey-panel-top"><span>03 / BRIDGE</span><span>THE LOGIC</span></div>
+          <div class="journey-panel-art journey-art--api"><span class="journey-api-dot">REQUEST</span><span class="journey-api-line"></span><span class="journey-api-dot">RESPONSE</span></div>
+          <div><h3>Connect the moving parts.</h3><p>Build APIs and server-side logic that turn a beautiful screen into a product that actually works.</p></div>
+        </article>
+        <article class="journey-panel journey-panel--database">
+          <div class="journey-panel-top"><span>04 / MEMORY</span><span>THE DATA</span></div>
+          <div class="journey-panel-art journey-art--database"><span class="journey-db-ring"></span><span class="journey-db-ring journey-db-ring--two"></span><b>DATA</b></div>
+          <div><h3>Give the product memory.</h3><p>Model the information, queries, and relationships that keep the experience personal and useful.</p></div>
+        </article>
+        <article class="journey-panel journey-panel--deploy">
+          <div class="journey-panel-top"><span>05 / OUTPUT</span><span>THE SHIP</span></div>
+          <div class="journey-panel-art journey-art--deploy"><span>DEPLOYED</span><i>●</i><i>●</i><i>●</i></div>
+          <div><h3>Put it in the world.</h3><p>Test the edges, polish the last 10%, and ship something real enough to be used.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LIVE CODE PLAYGROUND ============ -->
+  <section class="playground dark-section" id="playground">
+    <div class="playground-heading">
+      <div>
+        <p class="section-eyebrow">Playground</p>
+        <h2 class="section-title">Tune the interface.</h2>
+      </div>
+      <p class="section-intro">A tiny design system you can control. Change the theme color and type scale, then watch the interface respond.</p>
+    </div>
+    <div class="playground-shell" id="playgroundShell">
+      <div class="playground-controls">
+        <div class="playground-control-group">
+          <p class="playground-label">01 / Theme color</p>
+          <div class="theme-swatches" role="group" aria-label="Choose a theme color">
+            <button class="theme-swatch is-selected" type="button" data-theme-color="#E4C179" style="--swatch:#E4C179" aria-label="Gold theme" aria-pressed="true"></button>
+            <button class="theme-swatch" type="button" data-theme-color="#8FD0C2" style="--swatch:#8FD0C2" aria-label="Mint theme" aria-pressed="false"></button>
+            <button class="theme-swatch" type="button" data-theme-color="#B0A6EC" style="--swatch:#B0A6EC" aria-label="Violet theme" aria-pressed="false"></button>
+            <button class="theme-swatch" type="button" data-theme-color="#F28C6B" style="--swatch:#F28C6B" aria-label="Coral theme" aria-pressed="false"></button>
+          </div>
+        </div>
+        <div class="playground-control-group playground-range-group">
+          <div class="playground-range-head"><p class="playground-label">02 / Text size</p><output id="playgroundSizeValue" for="playgroundSize">16px</output></div>
+          <input id="playgroundSize" type="range" min="12" max="24" value="16" step="1" aria-label="Change preview text size">
+        </div>
+        <p class="playground-hint">Drag the type scale. Pick a new signal.</p>
+      </div>
+      <div class="playground-preview" aria-live="polite">
+        <div class="playground-window-bar"><span></span><span></span><span></span><em>hammad.dev / playground</em></div>
+        <div class="playground-preview-body">
+          <div class="playground-preview-copy"><span class="playground-preview-kicker">SYSTEM / 02</span><h3>Good interfaces<br><strong>respond.</strong></h3><p>Color and type are not decoration. They are how a product communicates before a single word is read.</p><a href="#contact" class="playground-preview-link">Use the signal <span>↗</span></a></div>
+          <div class="playground-preview-code"><span>.interface {</span><span>&nbsp;&nbsp;color: <b id="playgroundColorCode">#E4C179</b>;</span><span>&nbsp;&nbsp;font-size: <b id="playgroundSizeCode">16px</b>;</span><span>}</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ BIG STATEMENT ============ -->
   <section class="statement">
     <p class="statement-text">
@@ -489,10 +585,23 @@
 
   <!-- ============ CONTACT ============ -->
   <section class="contact dark-section" id="contact">
-    <p class="section-eyebrow">Contact</p>
-    <h2 class="section-title">Let's talk.</h2>
-    <p class="section-intro">Have a project in mind, or just want to connect? I'm currently available for freelance work and full-time opportunities.</p>
-
+    <div class="contact-signal" aria-hidden="true"><span>AVAILABLE / 2026</span><i></i><b>↗</b></div>
+    <div class="contact-layout">
+      <div class="contact-copy">
+        <p class="section-eyebrow">Contact / 05</p>
+        <h2 class="contact-title">Let's make<br><span>something loud.</span></h2>
+        <p class="contact-lede">Have a project, a wild idea, or a problem that needs a proper build? Send the signal. I’m open to freelance work, collaborations, and full-time opportunities.</p>
+        <div class="contact-status"><span class="contact-status-dot"></span><span>Currently accepting new conversations</span></div>
+      </div>
+      <div class="contact-action-panel">
+        <p class="contact-panel-label">Open channel</p>
+        <button class="copy-email" id="copyEmail" type="button" data-email="droidhammad2006@gmail.com" data-cursor="text" data-cursor-text="Copy">
+          <span class="copy-email-label">droidhammad2006@gmail.com</span><span class="copy-email-action" id="copyEmailAction">Copy email <b>↗</b></span>
+        </button>
+        <a class="contact-primary" href="mailto:droidhammad2006@gmail.com" data-cursor="text" data-cursor-text="Email">Start a conversation <span>↗</span></a>
+        <p class="contact-response">Usually replies within 24–48 hours.</p>
+      </div>
+    </div>
     <div class="contact-links">
       <a class="contact-link" href="mailto:droidhammad2006@gmail.com" data-cursor="text" data-cursor-text="Email">
         <span class="contact-link-label">Email</span>
@@ -531,8 +640,8 @@
 <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
-<script src="js/cursor.js?v=10"></script>
-<script src="js/animations.js?v=10"></script>
-<script src="js/main.js?v=10"></script>
+<script src="js/cursor.js?v=11"></script>
+<script src="js/animations.js?v=11"></script>
+<script src="js/main.js?v=11"></script>
 </body>
 </html>

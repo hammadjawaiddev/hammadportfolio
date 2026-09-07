@@ -95,11 +95,11 @@
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
     heroIntroTl = tl;
     tl.set('.hero-word .glyph', { yPercent: 120, opacity: 0 })
-      .set('.hero-eyebrow, .hero-tags, .hero-signature, .hero-badge, .hero-based, .scroll-cue', { autoAlpha: 0, y: 16 })
+      .set('.hero-eyebrow, .hero-tags, .hero-signature, .hero-badge, .hero-based, .scroll-cue, .hero-console, .hero-orbit', { autoAlpha: 0, y: 16 })
       .to('.hero-eyebrow', { autoAlpha: 1, y: 0, duration: 0.6 })
       .to('.hero-word--main .glyph', { yPercent: 0, opacity: 1, duration: 0.9, stagger: 0.025 }, '-=0.2')
       .to('.hero-word--sub .glyph', { yPercent: 0, opacity: 1, duration: 0.8, stagger: 0.02 }, '-=0.6')
-      .to('.hero-tags, .hero-signature, .hero-badge, .hero-based, .scroll-cue', { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 }, '-=0.4');
+      .to('.hero-tags, .hero-signature, .hero-badge, .hero-based, .scroll-cue, .hero-console, .hero-orbit', { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08 }, '-=0.4');
   };
 
   /* ---------- About reveal ---------- */
@@ -213,6 +213,18 @@
   gsap.from('.stat', {
     autoAlpha: 0, y: 26, duration: 0.7, stagger: 0.09, ease: 'power2.out',
     scrollTrigger: { trigger: '.stats-band', start: 'top 88%' }
+  });
+
+  /* ---------- Build journey + playground ---------- */
+  gsap.utils.toArray('.journey-panel').forEach((el, i) => {
+    gsap.from(el, {
+      autoAlpha: 0, y: 28, duration: 0.75, delay: i * 0.05, ease: 'power2.out',
+      scrollTrigger: { trigger: '.journey', start: 'top 82%' }
+    });
+  });
+  gsap.from('.playground-shell', {
+    autoAlpha: 0, y: 28, duration: 0.8, ease: 'power2.out',
+    scrollTrigger: { trigger: '.playground', start: 'top 82%' }
   });
 
   /* ---------- Contact links ---------- */
