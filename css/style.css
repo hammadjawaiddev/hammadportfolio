@@ -263,7 +263,7 @@ a:focus-visible, button:focus-visible{
 }
 .hero-eyebrow{
   display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
-  column-gap: 14px; row-gap: 4px;
+  column-gap: 12px; row-gap: 10px;
   font-size: 13px; letter-spacing:0.08em; text-transform:uppercase; color: var(--charcoal);
   margin-bottom: clamp(20px,4vw,42px);
 }
@@ -271,6 +271,22 @@ a:focus-visible, button:focus-visible{
   font-family: var(--font-display); font-weight: 400;
   font-size: 1.6em; line-height: 1.1; letter-spacing: 0.12em;
   color: var(--ink); text-transform: uppercase;
+}
+.hero-availability{
+  display:inline-flex; align-items:center; gap: 8px;
+  padding: 6px 12px 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(228,193,121,0.45);
+  background: rgba(20,18,15,0.05);
+  color: var(--charcoal);
+  font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  line-height: 1; white-space: nowrap;
+  max-width: 100%;
+}
+.hero-availability-dot{
+  width: 7px; height: 7px; border-radius: 50%; flex: none;
+  background: #62b57d;
+  box-shadow: 0 0 0 3px rgba(98,181,125,0.16);
 }
 .hero-signature{
   position:absolute; left: var(--edge); bottom: 130px;
@@ -607,6 +623,8 @@ a:focus-visible, button:focus-visible{
 @media (max-width: 640px){
   :root{ --nav-h: 68px; }
   .hero{ padding-top: calc(var(--nav-h) + 10px); }
+  .hero-eyebrow{ flex-direction: column; row-gap: 12px; }
+  .hero-availability{ white-space: normal; text-align: center; justify-content: center; }
   .hero-signature{ bottom: 90px; }
   .hero-based{ display:none; }
   .stats-band{ grid-template-columns: repeat(2, 1fr); row-gap: 36px; }
