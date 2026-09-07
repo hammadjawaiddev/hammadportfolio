@@ -237,4 +237,124 @@
     }, { threshold: 0.6 });
     io.observe(el);
   });
+
+  /* ---------- Interactive hero spotlight ---------- */
+  const hero = document.querySelector('.hero');
+  if (hero && !prefersReduced) {
+    hero.addEventListener('pointermove', (event) => {
+      const rect = hero.getBoundingClientRect();
+      hero.style.setProperty('--pointer-x', `${event.clientX - rect.left}px`);
+      hero.style.setProperty('--pointer-y', `${event.clientY - rect.top}px`);
+    }, { passive: true });
+    hero.addEventListener('pointerleave', () => {
+      hero.style.setProperty('--pointer-x', '50%');
+      hero.style.setProperty('--pointer-y', '50%');
+    }, { passive: true });
+  }
+
+  /* ---------- Pinned horizontal build journey ---------- */
+  const journey = document.getElementById('journey');
+  const journeyStage = journey ? journey.querySelector('.journey-stage') : null;
+  const journeyTrack = journey ? journey.querySelector('.journey-track') : null;
+  let journeyTween;
+  let journeyTrigger;
+
+  function setupJourneyScroll() {
+    if (!journeyTrack || !journeyStage || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    if (journeyTween) journeyTween.kill();
+    if (journeyTrigger) journeyTrigger.kill();
+    gsap.set(journeyTrack, { clearProps: 'transform' });
+
+    // Swipeable cards are the best experience on small touch screens.
+    if (window.innerWidth <= 700 || prefersReduced) return;
+    const distance = () => Math.max(0, journeyTrack.scrollWidth - journeyStage.clientWidth);
+    journeyTween = gsap.to(journeyTrack, {
+      x: () => -distance(),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: journey,
+        start: 'top top',
+        end: () => `+=${distance() + window.innerHeight * 0.55}`,
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        anticipatePin: 1
+      }
+    });
+    journeyTrigger = journeyTween.scrollTrigger;
+  }
+  setupJourneyScroll();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(setupJourneyScroll).catch(() => {});
+
+  let journeyResizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(journeyResizeTimer);
+    journeyResizeTimer = setTimeout(() => {
+      setupJourneyScroll();
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+    }, 240);
+  });
+
+  /* ---------- Small live theme + type playground ---------- */
+  const playgroundShell = document.getElementById('playgroundShell');
+  const sizeInput = document.getElementById('playgroundSize');
+  const sizeOutput = document.getElementById('playgroundSizeValue');
+  const sizeCode = document.getElementById('playgroundSizeCode');
+  const colorCode = document.getElementById('playgroundColorCode');
+  if (playgroundShell) {
+    const swatches = playgroundShell.querySelectorAll('.theme-swatch');
+    swatches.forEach((swatch) => {
+      swatch.addEventListener('click', () => {
+        const color = swatch.dataset.themeColor;
+        if (!color) return;
+        playgroundShell.style.setProperty('--demo-color', color);
+        if (colorCode) colorCode.textContent = color;
+        swatches.forEach((item) => {
+          const selected = item === swatch;
+          item.classList.toggle('is-selected', selected);
+          item.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        });
+      });
+    });
+
+    const updatePlaygroundSize = () => {
+      const value = `${sizeInput ? sizeInput.value : 16}px`;
+      playgroundShell.style.setProperty('--demo-text-size', value);
+      if (sizeOutput) sizeOutput.value = value;
+      if (sizeOutput) sizeOutput.textContent = value;
+      if (sizeCode) sizeCode.textContent = value;
+    };
+    if (sizeInput) sizeInput.addEventListener('input', updatePlaygroundSize);
+    updatePlaygroundSize();
+  }
+
+  /* ---------- Copy-to-clipboard contact action ---------- */
+  const copyEmail = document.getElementById('copyEmail');
+  const copyEmailAction = document.getElementById('copyEmailAction');
+  if (copyEmail && copyEmailAction) {
+    copyEmail.addEventListener('click', async () => {
+      const email = copyEmail.dataset.email || '';
+      let copied = false;
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(email);
+          copied = true;
+        } else {
+          const helper = document.createElement('textarea');
+          helper.value = email;
+          helper.setAttribute('readonly', '');
+          helper.style.position = 'fixed';
+          helper.style.opacity = '0';
+          document.body.appendChild(helper);
+          helper.select();
+          copied = document.execCommand('copy');
+          helper.remove();
+        }
+      } catch (error) { copied = false; }
+      copyEmailAction.innerHTML = copied ? 'Copied to clipboard <b>✓</b>' : 'Select email above <b>↗</b>';
+      window.setTimeout(() => {
+        copyEmailAction.innerHTML = 'Copy email <b>↗</b>';
+      }, 2200);
+    });
+  }
 })();
