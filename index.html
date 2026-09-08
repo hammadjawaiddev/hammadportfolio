@@ -107,39 +107,45 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero" id="hero">
-    <p class="hero-eyebrow">
-      <span class="hero-name">Hammad Jawaid</span>
-      <span class="hero-availability">
-        <span class="hero-availability-dot" aria-hidden="true"></span>
-        Available for opportunities
-      </span>
-    </p>
+    <div class="hero-layout">
+      <div class="hero-copy">
+        <p class="hero-eyebrow">
+          <span class="hero-name">Hammad Jawaid</span>
+          <span class="hero-availability">
+            <span class="hero-availability-dot" aria-hidden="true"></span>
+            Available for opportunities
+          </span>
+        </p>
 
-    <!-- Interactive hero controls: the stage reacts to the pointer and the orbit shows the stack. -->
-    <div class="hero-orbit" aria-label="Technologies in Hammad's stack">
-      <span class="hero-orbit-ring hero-orbit-ring--outer"></span>
-      <span class="hero-orbit-ring hero-orbit-ring--inner"></span>
-      <span class="hero-orbit-core">HJ<span>STACK</span></span>
-      <span class="hero-orbit-node hero-orbit-node--html" data-cursor="text" data-cursor-text="HTML">HTML</span>
-      <span class="hero-orbit-node hero-orbit-node--css" data-cursor="text" data-cursor-text="CSS">CSS</span>
-      <span class="hero-orbit-node hero-orbit-node--js" data-cursor="text" data-cursor-text="JS">JS</span>
-      <span class="hero-orbit-node hero-orbit-node--api" data-cursor="text" data-cursor-text="API">API</span>
-      <span class="hero-orbit-node hero-orbit-node--db" data-cursor="text" data-cursor-text="DB">DB</span>
-    </div>
+        <div class="hero-display">
+          <span class="hero-word hero-word--main" data-wave>FULL&#8209;STACK</span>
+          <span class="hero-word hero-word--sub" data-wave>DEVELOPER</span>
+        </div>
 
-    <div class="hero-console" aria-label="Live build status">
-      <div class="hero-console-top"><span class="hero-console-pulse"></span><span>BUILD MODE / LIVE</span><span class="hero-console-id">HJ_001</span></div>
-      <div class="hero-console-row"><span>Frontend</span><strong>ONLINE</strong></div>
-      <div class="hero-console-row"><span>Backend + DB</span><strong>CONNECTED</strong></div>
-    </div>
+        <div class="hero-tags">
+          <span>Frontend</span><span class="dot"></span><span>Backend</span><span class="dot"></span><span>Database</span>
+        </div>
 
-    <div class="hero-display">
-      <span class="hero-word hero-word--main" data-wave>FULL&#8209;STACK</span>
-      <span class="hero-word hero-word--sub" data-wave>DEVELOPER</span>
-    </div>
+        <div class="hero-console" aria-label="Live build status">
+          <div class="hero-console-top"><span class="hero-console-pulse"></span><span>BUILD MODE / LIVE</span><span class="hero-console-id">HJ_001</span></div>
+          <div class="hero-console-row"><span>Frontend</span><strong>ONLINE</strong></div>
+          <div class="hero-console-row"><span>Backend + DB</span><strong>CONNECTED</strong></div>
+        </div>
+      </div>
 
-    <div class="hero-tags">
-      <span>Frontend</span><span class="dot"></span><span>Backend</span><span class="dot"></span><span>Database</span>
+      <!-- Orbit sits in its own column on desktop; stacks under the title on mobile. -->
+      <div class="hero-visual">
+        <div class="hero-orbit" aria-label="Technologies in Hammad's stack">
+          <span class="hero-orbit-ring hero-orbit-ring--outer"></span>
+          <span class="hero-orbit-ring hero-orbit-ring--inner"></span>
+          <span class="hero-orbit-core">HJ<span>STACK</span></span>
+          <span class="hero-orbit-node hero-orbit-node--html" data-cursor="text" data-cursor-text="HTML">HTML</span>
+          <span class="hero-orbit-node hero-orbit-node--css" data-cursor="text" data-cursor-text="CSS">CSS</span>
+          <span class="hero-orbit-node hero-orbit-node--js" data-cursor="text" data-cursor-text="JS">JS</span>
+          <span class="hero-orbit-node hero-orbit-node--api" data-cursor="text" data-cursor-text="API">API</span>
+          <span class="hero-orbit-node hero-orbit-node--db" data-cursor="text" data-cursor-text="DB">DB</span>
+        </div>
+      </div>
     </div>
 
     <p class="hero-signature">hj.</p>
