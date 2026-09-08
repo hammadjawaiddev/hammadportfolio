@@ -808,11 +808,28 @@ a:focus-visible, button:focus-visible{
 @media (max-width: 640px){
   .hero::before{ background-size:auto, 32px 32px, 32px 32px; }
   .hero-console{ width:calc(100% - (var(--edge) * 2)); left:var(--edge); bottom:18px; transform:scale(.86); transform-origin:left bottom; }
-  .hero-orbit{ top:18%; right:-9%; width:145px; opacity:.25; }
   .hero-display{ margin-top:clamp(28px,7vw,48px); }
   .journey{ padding-bottom:90px; }.journey-intro{ width:calc(100% - (var(--edge) * 2)); margin-bottom:34px; }.journey-stage{ width:calc(100% - var(--edge)); margin-left:var(--edge); overflow-x:auto; padding-bottom:12px; scrollbar-color:var(--gold) transparent; }.journey-track{ gap:12px; }.journey-panel{ width:calc(100vw - 48px); min-height:430px; padding:18px; }.journey-panel-art{ min-height:205px; margin-bottom:18px; }
   .playground{ padding-top:90px; }.playground-shell{ min-height:0; }.playground-controls{ display:flex; padding:22px; }.playground-preview-body{ min-height:400px; flex-direction:column; align-items:flex-start; justify-content:center; padding:34px 24px; }.playground-preview-code{ font-size:10px; }.playground-window-bar{ padding:13px 14px; }.playground-window-bar em{ font-size:8px; }
   .contact-title{ font-size:clamp(50px,15vw,80px); }.contact-lede{ font-size:14px; }.contact::before{ right:-60%; top:15%; }.contact::after{ right:18%; top:18%; }.contact-action-panel{ padding:20px; }.contact-link-value{ font-size:20px; }
+}
+/* Mobile: pull orbit into document flow below the title (desktop overlap untouched) */
+@media (max-width: 768px){
+  .hero-eyebrow{ order:0; }
+  .hero-display{ order:1; }
+  .hero-orbit{
+    position:relative;
+    top:auto;
+    right:auto;
+    left:auto;
+    order:2;
+    z-index:1;
+    width:clamp(120px, 42vw, 150px);
+    margin:clamp(28px, 6vw, 44px) auto 0;
+    opacity:.78;
+    flex-shrink:0;
+  }
+  .hero-tags{ order:3; }
 }
 @media (prefers-reduced-motion: reduce){
   .hero-orbit-ring,.journey-signal,.journey-db-ring,.journey-art--deploy::before,.contact::before{ animation:none; }
