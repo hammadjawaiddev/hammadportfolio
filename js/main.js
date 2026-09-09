@@ -7,6 +7,25 @@
   const yearEl = document.getElementById('footerYear');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ---------- Live Pakistan Standard Time clock ---------- */
+  /* One shared formatter, re-used for every [data-local-time] element. */
+  let pktFormatter = null;
+  try {
+    pktFormatter = new Intl.DateTimeFormat('en-US', {
+      hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Asia/Karachi'
+    });
+  } catch (error) { pktFormatter = null; }
+
+  function updateLocalTime() {
+    if (!pktFormatter) return;
+    const parts = pktFormatter.formatToParts(new Date());
+    const pick = (type) => (parts.find((p) => p.type === type) || {}).value || '';
+    const time = `${pick('hour')}:${pick('minute')}${(pick('dayPeriod') || '').toLowerCase()}`;
+    document.querySelectorAll('[data-local-time]').forEach((el) => { el.textContent = time; });
+  }
+  updateLocalTime();
+  setInterval(updateLocalTime, 30000);
+
   /* ---------- Lenis smooth scroll ---------- */
   let lenis;
   if (!prefersReduced && typeof Lenis !== 'undefined') {
