@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=13">
+<link rel="stylesheet" href="css/style.css?v=14">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -94,6 +94,7 @@
     <a href="#work">Work</a>
     <a href="#about">About</a>
     <a href="#expertise">Expertise</a>
+    <a href="#services">Services</a>
     <a href="#experience">Experience</a>
     <a href="#recognition">Recognition</a>
     <a href="#journey">Build</a>
@@ -126,6 +127,11 @@
           <span>Frontend</span><span class="dot"></span><span>Backend</span><span class="dot"></span><span>Database</span>
         </div>
 
+        <div class="hero-cta-row">
+          <a class="btn btn--solid" href="#contact" data-cursor="text" data-cursor-text="Say hello">Let&rsquo;s talk</a>
+          <a class="btn btn--ghost" href="#work" data-cursor="text" data-cursor-text="Scroll">View work <span aria-hidden="true">&darr;</span></a>
+        </div>
+
         <div class="hero-console" aria-label="Live build status">
           <div class="hero-console-top"><span class="hero-console-pulse"></span><span>BUILD MODE / LIVE</span><span class="hero-console-id">HJ_001</span></div>
           <div class="hero-console-row"><span>Frontend</span><strong>ONLINE</strong></div>
@@ -150,7 +156,7 @@
 
     <p class="hero-signature">hj.</p>
 
-    <p class="hero-based">Based in Pakistan</p>
+    <p class="hero-based">Based in Pakistan &middot; <span class="hero-based-time" data-local-time>--:--</span> PKT</p>
 
     <div class="scroll-cue" aria-hidden="true">
       <span>Scroll to explore</span>
@@ -279,6 +285,41 @@
     </ul>
   </section>
 
+  <!-- ============ SERVICES ============ -->
+  <section class="services dark-section" id="services">
+    <p class="section-eyebrow">Services</p>
+    <div class="services-top">
+      <h2 class="section-title">What you can hire me for</h2>
+      <p class="section-intro">From a first landing page to a database-backed product — and keeping it alive once it ships.</p>
+    </div>
+    <div class="services-grid">
+      <article class="service-card">
+        <span class="service-num">01</span>
+        <h3 class="service-title">Websites</h3>
+        <p class="service-desc">Marketing sites, portfolios and landing pages — hand-built rather than dragged together in a builder, so they stay fast and easy to change later.</p>
+        <span class="service-tags"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>SEO</span></span>
+      </article>
+      <article class="service-card">
+        <span class="service-num">02</span>
+        <h3 class="service-title">Web Apps</h3>
+        <p class="service-desc">PHP and MySQL, or Node and MongoDB, behind the interface — for anything that has to remember something: accounts, bookings, carts, records.</p>
+        <span class="service-tags"><span>PHP</span><span>Node.js</span><span>React</span></span>
+      </article>
+      <article class="service-card">
+        <span class="service-num">03</span>
+        <h3 class="service-title">APIs &amp; Databases</h3>
+        <p class="service-desc">REST endpoints, authentication and schemas modeled around how the app actually uses its data — relational or document, whatever fits.</p>
+        <span class="service-tags"><span>REST</span><span>MySQL</span><span>MongoDB</span></span>
+      </article>
+      <article class="service-card">
+        <span class="service-num">04</span>
+        <h3 class="service-title">Deploy &amp; Maintain</h3>
+        <p class="service-desc">Shipped to a real domain and kept running — so the thing you paid for stays live, quick, and simple to change later.</p>
+        <span class="service-tags"><span>Git</span><span>Vercel</span><span>Performance</span></span>
+      </article>
+    </div>
+  </section>
+
   <!-- ============ EXPERIENCE ============ -->
   <section class="experience dark-section" id="experience">
     <p class="section-eyebrow">Experience</p>
@@ -333,6 +374,7 @@
       <img class="project-card-img" src="assets/image-1.png" alt="PhysioSync — Cervical Spine anatomy hero" loading="lazy">
       <div class="project-card-overlay"></div>
       <p class="project-card-cap"><span class="live-dot"></span>Featured project · 01 / 04</p>
+      <p class="project-card-desc">A physiotherapy clinic landing page built for trust and conversion — fully accessible, mobile-first, SEO-aware.</p>
       <div class="project-card-meta"><span>Trust &amp; conversion</span><span>Live</span></div>
       <h3 class="project-watermark">I BUILT <em>PHYSIOSYNC</em> THAT FEELS TRUSTED.</h3>
       <div class="project-card-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>SEO</span></div>
@@ -352,6 +394,7 @@
         <img class="project-card-img" src="assets/image-3.png" alt="Cosmos — Beyond Time. Beyond Gravity." loading="lazy">
         <div class="project-card-overlay"></div>
         <p class="project-card-cap"><span class="live-dot"></span>02 / 04</p>
+        <p class="project-card-desc">An interactive space-themed page — parallax scrolling, animated star fields and cinematic transitions.</p>
         <h3 class="project-watermark">I BUILT <em>COSMOS</em> THAT FEELS CINEMATIC.</h3>
         <div class="project-card-tags"><span>HTML</span><span>CSS</span><span>Canvas</span></div>
         <a class="project-card-badge" href="https://cosmos-pk.netlify.app/" target="_blank" rel="noopener" data-cursor="text" data-cursor-text="Live">
@@ -368,6 +411,7 @@
         <img class="project-card-img" src="assets/image-5.png" alt="CTRL ZONE — Take CTRL Zone storefront" loading="lazy">
         <div class="project-card-overlay"></div>
         <p class="project-card-cap"><span class="live-dot"></span>03 / 04</p>
+        <p class="project-card-desc">A full-stack gaming-gear store — cart, checkout, auth and an admin dashboard on PHP &amp; MySQL.</p>
         <h3 class="project-watermark">I BUILT <em>CTRL ZONE</em> THAT FEELS SOLID.</h3>
         <div class="project-card-tags"><span>PHP</span><span>MySQL</span><span>Auth</span></div>
         <a class="project-card-badge" href="http://ctrlzone.infinityfreeapp.com/" target="_blank" rel="noopener" data-cursor="text" data-cursor-text="Live">
@@ -384,6 +428,7 @@
         <img class="project-card-img" src="assets/image-7.png" alt="PathSeeker — Your career, stamped and routed" loading="lazy">
         <div class="project-card-overlay"></div>
         <p class="project-card-cap"><span class="live-dot"></span>04 / 04</p>
+        <p class="project-card-desc">A career passport — your answers matched against real careers, each with its reasoning and a route to it.</p>
         <h3 class="project-watermark">I BUILT <em>PATHSEEKER</em> THAT FEELS GUIDED.</h3>
         <div class="project-card-tags"><span>React</span><span>Node.js</span><span>MongoDB</span></div>
         <a class="project-card-badge" href="https://careerpassporttw.vercel.app/" target="_blank" rel="noopener" data-cursor="text" data-cursor-text="Live">
@@ -570,6 +615,15 @@
       <p class="footer-mark">hj.</p>
       <p class="footer-role">Full-Stack Developer</p>
     </div>
+    <div class="footer-meta">
+      <p class="footer-loc">Pakistan &middot; <span class="footer-time" data-local-time>--:--</span> PKT</p>
+      <nav class="footer-social" aria-label="Social links">
+        <a href="https://github.com/hammadjawaiddev" target="_blank" rel="noopener" data-cursor="text" data-cursor-text="Visit">GitHub</a>
+        <a href="https://www.linkedin.com/in/hammad-jawaid-4610793ba/" target="_blank" rel="noopener" data-cursor="text" data-cursor-text="Visit">LinkedIn</a>
+        <a href="mailto:droidhammad2006@gmail.com" data-cursor="text" data-cursor-text="Email">Email</a>
+      </nav>
+      <a class="footer-start" href="#contact" data-cursor="text" data-cursor-text="Say hello">Start a project <span aria-hidden="true">&rarr;</span></a>
+    </div>
     <div class="footer-bottom">
       <p>&copy; <span id="footerYear"></span> Hammad Jawaid</p>
       <a href="#hero" class="back-to-top" data-cursor="text" data-cursor-text="↑">Back to top ↑</a>
@@ -583,7 +637,7 @@
 <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <script src="js/cursor.js?v=11"></script>
-<script src="js/animations.js?v=12"></script>
-<script src="js/main.js?v=11"></script>
+<script src="js/animations.js?v=13"></script>
+<script src="js/main.js?v=12"></script>
 </body>
 </html>
