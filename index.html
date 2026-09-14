@@ -5180,6 +5180,11 @@
                 duration: 1.1,
                 ease: 'power2.out',
                 delay: 0.1,
+                onComplete: () => {
+                  // Drop permanent GPU layers after intro — keeping
+                  // will-change on every character causes scroll lag.
+                  split.chars.forEach(ch => { ch.style.willChange = 'auto'; });
+                },
               }
             );
           } else if (heroTitle) {
@@ -5511,74 +5516,86 @@
 
       /* ============================================
          HERO PARALLAX ON BLOBS + GRID
+         quickTo reuses one tween per property so
+         mousemove doesn't pile up competing tweens.
       ============================================ */
       if (fxEnabled) {
         const heroGrid = document.querySelector('.hero-grid');
         const heroSpotlight = document.getElementById('hero-spotlight');
         const heroEl = document.getElementById('hero');
+        const blob1 = document.querySelector('.blob-1');
+        const blob2 = document.querySelector('.blob-2');
+        const blob3 = document.querySelector('.blob-3');
+
+        const blob1X = blob1 ? gsap.quickTo(blob1, 'x', { duration: 1.4, ease: 'power1.out' }) : null;
+        const blob1Y = blob1 ? gsap.quickTo(blob1, 'y', { duration: 1.4, ease: 'power1.out' }) : null;
+        const blob2X = blob2 ? gsap.quickTo(blob2, 'x', { duration: 1.8, ease: 'power1.out' }) : null;
+        const blob2Y = blob2 ? gsap.quickTo(blob2, 'y', { duration: 1.8, ease: 'power1.out' }) : null;
+        const blob3X = blob3 ? gsap.quickTo(blob3, 'x', { duration: 1.4, ease: 'power1.out' }) : null;
+        const blob3Y = blob3 ? gsap.quickTo(blob3, 'y', { duration: 1.4, ease: 'power1.out' }) : null;
+        const gridX = heroGrid ? gsap.quickTo(heroGrid, 'x', { duration: 1.6, ease: 'power1.out' }) : null;
+        const gridY = heroGrid ? gsap.quickTo(heroGrid, 'y', { duration: 1.6, ease: 'power1.out' }) : null;
+
+        let heroPointerRaf = 0;
+        let pointerX = 0;
+        let pointerY = 0;
+
         document.addEventListener('mousemove', (e) => {
-          const cx = window.innerWidth / 2;
-          const cy = window.innerHeight / 2;
-          const dx = (e.clientX - cx) / cx;
-          const dy = (e.clientY - cy) / cy;
+          pointerX = e.clientX;
+          pointerY = e.clientY;
+          if (heroPointerRaf) return;
+          heroPointerRaf = requestAnimationFrame(() => {
+            heroPointerRaf = 0;
+            const cx = window.innerWidth / 2;
+            const cy = window.innerHeight / 2;
+            const dx = (pointerX - cx) / cx;
+            const dy = (pointerY - cy) / cy;
 
-          gsap.to('.blob-1', { x: dx * -18, y: dy * -12, duration: 2, ease: 'power1.out' });
-          gsap.to('.blob-2', { x: dx * 14, y: dy * 10, duration: 2.5, ease: 'power1.out' });
-          gsap.to('.blob-3', { x: dx * -10, y: dy * 16, duration: 2, ease: 'power1.out' });
-          if (heroGrid) gsap.to(heroGrid, { x: dx * 8, y: dy * 6, duration: 2.2, ease: 'power1.out' });
+            if (blob1X) { blob1X(dx * -18); blob1Y(dy * -12); }
+            if (blob2X) { blob2X(dx * 14); blob2Y(dy * 10); }
+            if (blob3X) { blob3X(dx * -10); blob3Y(dy * 16); }
+            if (gridX) { gridX(dx * 8); gridY(dy * 6); }
 
-          if (heroSpotlight && heroEl) {
-            const rect = heroEl.getBoundingClientRect();
-            if (e.clientY >= rect.top && e.clientY <= rect.bottom) {
-              const px = ((e.clientX - rect.left) / rect.width) * 100;
-              const py = ((e.clientY - rect.top) / rect.height) * 100;
-              heroSpotlight.style.setProperty('--mx', px + '%');
-              heroSpotlight.style.setProperty('--my', py + '%');
-              heroSpotlight.classList.add('is-active');
-            } else {
-              heroSpotlight.classList.remove('is-active');
+            if (heroSpotlight && heroEl) {
+              const rect = heroEl.getBoundingClientRect();
+              if (pointerY >= rect.top && pointerY <= rect.bottom) {
+                const px = ((pointerX - rect.left) / rect.width) * 100;
+                const py = ((pointerY - rect.top) / rect.height) * 100;
+                heroSpotlight.style.setProperty('--mx', px + '%');
+                heroSpotlight.style.setProperty('--my', py + '%');
+                heroSpotlight.classList.add('is-active');
+              } else {
+                heroSpotlight.classList.remove('is-active');
+              }
             }
-          }
+          });
         });
       }
 
       /* ============================================
-         HERO SCROLL DEPTH — content sinks and fades
-         slightly as the page scrolls past it, so the
-         hero feels like a physical layer rather than a
-         static screen of text.
+         HERO SCROLL DEPTH — light transform-only
+         parallax (no title scale/letterSpacing scrub;
+         those forced layout every frame and lagged).
       ============================================ */
       if (!prefersReducedMotion) {
         gsap.to('.hero-content', {
-          y: 60,
-          opacity: 0.4,
+          y: 48,
           ease: 'none',
           scrollTrigger: {
             trigger: '#hero',
             start: 'top top',
             end: 'bottom top',
-            scrub: 0.5,
+            scrub: true,
           }
         });
         gsap.to('.hero-bg', {
-          y: 100,
+          y: 72,
           ease: 'none',
           scrollTrigger: {
             trigger: '#hero',
             start: 'top top',
             end: 'bottom top',
-            scrub: 0.5,
-          }
-        });
-        gsap.to('.hero-title', {
-          scale: 1.06,
-          letterSpacing: '-0.035em',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '#hero',
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 0.5,
+            scrub: true,
           }
         });
       }
