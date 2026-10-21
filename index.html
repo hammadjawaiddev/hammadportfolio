@@ -1,299 +1,651 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Hammad Jawaid — Full-Stack Developer</title>
-  <meta name="description"
-    content="Hammad Jawaid — Full-Stack Developer building responsive frontends, PHP/Node.js backends, REST APIs, and MySQL/MongoDB-driven web applications.">
-  <meta property="og:title" content="Hammad Jawaid — Full-Stack Developer">
-  <meta property="og:description"
-    content="I build modern interfaces, powerful backends, and database-driven web applications.">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="icon" href="favicon.ico" sizes="48x48">
-  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <meta name="theme-color" content="#E8431A">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800;900&display=swap"
-    rel="stylesheet">
-  <script>try { if (sessionStorage.i) document.documentElement.classList.add("seen") } catch (e) { }</script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.1/dist/lenis.min.js"></script>
- <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hammad Jawaid — Full-Stack Developer</title>
+<meta name="description" content="Step inside the mind of Hammad Jawaid, a full-stack developer who builds modern interfaces, powerful backends and database-driven web apps. Four live projects.">
+<meta property="og:title" content="Hammad Jawaid — Inside the mind of">
+<meta property="og:description" content="Full-stack developer. Scroll to step inside.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Italiana&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=melodrama@500,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #14202a; --paper: #fff8ec; --lilac: #cfe3ff; --accent: #ff9f43; --skin: #d49a6a; --cap: #2a1b12;
+  --f-bs: 'Big Shoulders Display', 'Big Shoulders', 'Arial Narrow', Impact, sans-serif;
+  --f-name: 'Italiana', 'Melodrama', serif; --f-mel: 'Melodrama', Georgia, serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: #000; }
+body { background: #000; color: var(--paper); font-family: var(--f-bs); font-weight: 500; letter-spacing: .012em; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; }
+.track { height: 1680vh; }
+
+/* ───────── frame + stage ───────── */
+.stage { position: fixed; inset: 12px; border-radius: 22px; overflow: hidden; background: #1d3f6e; isolation: isolate; }
+.dust { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.grain { position: absolute; inset: -50%; z-index: 40; pointer-events: none; opacity: .3; mix-blend-mode: overlay; animation: grain .7s steps(5) infinite;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.1 -.35'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+@keyframes grain { 0% { transform: translate(0,0); } 20% { transform: translate(-3%,2%); } 40% { transform: translate(2%,-3%); } 60% { transform: translate(-2%,-1%); } 80% { transform: translate(3%,3%); } 100% { transform: translate(0,0); } }
+
+/* top bar */
+.top { position: absolute; z-index: 30; top: 0; left: 0; right: 0; display: flex; align-items: center; padding: 30px 32px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.who { font-weight: 800; font-size: 18px; text-transform: uppercase; letter-spacing: .03em; }
+.status { display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid rgba(255,248,236,.5); border-radius: 999px; padding: 4px 13px 5px; font-size: 14px; font-weight: 600; letter-spacing: .01em; }
+.status i { width: 8px; height: 8px; border-radius: 50%; background: #61e37a; box-shadow: 0 0 9px #61e37a; }
+.nav { margin-left: auto; display: flex; gap: 28px; align-items: center; font-weight: 700; font-size: 18px; text-transform: uppercase; letter-spacing: .03em; position: relative; }
+.nav a, .nav button { all: unset; cursor: pointer; text-decoration: none; transition: transform .2s, opacity .2s; }
+.nav a:hover, .nav button:hover { transform: translateY(-2px); }
+
+.hint { position: absolute; z-index: 30; left: 32px; bottom: 74px; font-weight: 600; font-size: 16px; text-transform: uppercase; letter-spacing: .04em; transition: opacity .5s; }
+.hint::after { content: ''; display: block; width: 1.5px; height: 36px; margin-top: 12px; background: linear-gradient(var(--paper), transparent); transform-origin: top; animation: hintline 1.8s ease-in-out infinite; }
+@keyframes hintline { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* ruler */
+.ruler { position: absolute; z-index: 30; left: 32px; right: 32px; bottom: 20px; height: 44px; }
+.ruler .line { position: absolute; left: 0; right: 0; bottom: 0; height: 9px; background: repeating-linear-gradient(90deg, rgba(255,248,236,.55) 0 1.5px, transparent 1.5px 11px); }
+.ruler .mark { position: absolute; bottom: 0; width: 2px; height: 20px; background: var(--paper); box-shadow: 0 0 12px rgba(255,255,255,.8); left: 0; }
+.ruler .lab { all: unset; cursor: pointer; position: absolute; bottom: 24px; transform: translateX(-50%); font-family: var(--f-bs); font-weight: 700; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; opacity: .62; transition: opacity .2s; white-space: nowrap; }
+.ruler .lab:hover, .ruler .lab.on { opacity: 1; }
+
+/* scenes */
+.scene { position: absolute; inset: 0; z-index: 10; visibility: hidden; opacity: 0; will-change: opacity, transform; }
+.scene.first { visibility: visible; opacity: 1; }
+.mix span { display: inline-block; }
+
+/* hero */
+.hero .kicker { position: absolute; top: 11.2%; left: 0; right: 0; text-align: center; font-weight: 800; font-size: clamp(1rem, 1.9vw, 1.7rem); letter-spacing: .03em; color: var(--lilac); text-transform: uppercase; }
+.hero .name { position: absolute; top: 16%; left: 0; right: 0; text-align: center; font-family: var(--f-name); font-weight: 400; font-size: 11.6vw; line-height: .9; letter-spacing: -.01em; text-transform: uppercase; color: #fff; white-space: nowrap; }
+.sel { position: absolute; left: 15.5%; width: 69%; top: 15.3%; height: 21%; border: 1.5px solid #3a8bf5; z-index: 4; pointer-events: none; }
+.sel i { position: absolute; width: 8px; height: 8px; background: #fff; border: 1.5px solid #3a8bf5; }
+.sel i:nth-child(1) { left: -5px; top: -5px; } .sel i:nth-child(2) { right: -5px; top: -5px; } .sel i:nth-child(3) { left: -5px; bottom: -5px; } .sel i:nth-child(4) { right: -5px; bottom: -5px; }
+.sel b { position: absolute; right: 0; top: -22px; font-size: 11px; font-weight: 700; background: #3a8bf5; color: #fff; padding: 1px 7px; border-radius: 3px; letter-spacing: 0; }
+.cur { position: absolute; z-index: 5; width: 22px; pointer-events: none; }
+.cur svg { width: 22px; display: block; filter: drop-shadow(0 1px 1px rgba(0,0,0,.3)); }
+.cur span { position: absolute; left: 14px; top: 20px; background: #3a8bf5; color: #fff; font-size: 11px; font-weight: 800; padding: 2px 9px 3px; border-radius: 4px 12px 12px 12px; white-space: nowrap; letter-spacing: .01em; }
+.hero .phrase { position: absolute; top: 37.5%; left: 50%; transform: translateX(-50%); width: 68vw; display: flex; justify-content: space-between; font-family: var(--f-name); font-weight: 400; font-size: 3.1vw; letter-spacing: .02em; text-transform: uppercase; color: var(--lilac); }
+.hero .birds { position: absolute; left: 10.8%; top: 46%; width: 13.4%; }
+.hero .char { position: absolute; left: 50%; bottom: -12%; width: clamp(300px, min(42vw, 76vh), 740px); transform: translateX(-50%); }
+.hero .char svg { width: 100%; display: block; overflow: visible; }
+.hero .role { position: absolute; left: 50%; bottom: 6.8%; transform: translateX(-50%); text-align: center; font-weight: 600; font-size: clamp(.9rem, 1.2vw, 1.2rem); line-height: 1.25; color: var(--lilac); width: 44ch; z-index: 3; }
+.hero .role b { color: var(--paper); font-weight: 600; }
+.ico { position: absolute; left: 50%; top: 45%; width: clamp(46px, 5.4vw, 84px); opacity: 0; z-index: 2; }
+.ico svg { width: 100%; display: block; overflow: visible; }
+@keyframes wave { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(7deg); } }
+.wave { transform-origin: 62px 320px; animation: wave 1.8s ease-in-out infinite; }
+.dream { position: absolute; left: 10.9%; top: 56.5%; z-index: 4; display: flex; align-items: center; gap: 12px; background: var(--paper); color: var(--ink); border: 2px solid var(--ink); border-radius: 14px; box-shadow: 0 5px 0 var(--ink); padding: 11px 22px 11px 16px; transform: rotate(-8deg); }
+.dream small { display: block; font-size: 11px; letter-spacing: .05em; font-weight: 800; opacity: .7; text-transform: uppercase; }
+.dream b { font-family: var(--f-mel); font-style: normal; font-weight: 500; font-size: 22px; letter-spacing: 0; }
+.dream svg { width: 32px; height: 32px; flex: none; }
+.contact { position: absolute; left: 50%; bottom: 4%; transform: translateX(-50%); text-align: center; z-index: 5; width: min(520px, 92%); color: var(--lilac); }
+.contact h3 { font-family: var(--f-bs); font-weight: 900; font-size: clamp(1.7rem, 2.6vw, 2.5rem); color: var(--paper); letter-spacing: .02em; text-transform: uppercase; margin-bottom: .2rem; }
+.contact .mail { display: inline-flex; gap: 8px; align-items: center; font-weight: 700; font-size: 1.15rem; text-transform: uppercase; letter-spacing: .03em; }
+.contact .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; margin-top: .25rem; font-weight: 700; font-size: 1.05rem; text-transform: uppercase; letter-spacing: .03em; }
+.contact a { text-decoration: none; transition: color .2s; } .contact a:hover { color: var(--accent); }
+.contact .mail a { text-decoration: underline; text-underline-offset: 4px; }
+.copy { all: unset; cursor: pointer; width: 22px; height: 22px; display: inline-grid; place-items: center; opacity: .85; } .copy:hover { opacity: 1; }
+.copy svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+/* tunnel */
+.rings { position: absolute; inset: 0; display: grid; place-items: center; }
+.rings i { position: absolute; width: 20vmin; height: 20vmin; border-radius: 50%; border: 2px solid rgba(207,227,255,.65); will-change: transform; }
+.rings .hole { position: absolute; width: 100vmax; height: 100vmax; border-radius: 50%; background: radial-gradient(circle, #06100f 0, #0e2421 40%, transparent 70%); opacity: .85; }
+
+/* hello + systems */
+.center { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
+.hi { font-family: var(--f-bs); font-weight: 900; font-size: min(19vw, 30vh); line-height: .9; text-transform: uppercase; color: var(--paper); text-align: center; letter-spacing: .005em; padding: 0 3vw; }
+.hi .w { display: inline-block; white-space: nowrap; margin: 0 .1em; }
+.hi .c { display: inline-block; will-change: transform, opacity; }
+.cap { font-weight: 600; font-size: clamp(1rem, 1.6vw, 1.45rem); line-height: 1.35; max-width: 38ch; margin: 0 auto; letter-spacing: .01em; }
+.hello .stack { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10vh 5vw 14vh; gap: 2.4vh; }
+.hello .cap { max-width: 40ch; }
+.squig { width: min(30vw, 300px); overflow: visible; flex: none; }
+.kit { position: absolute; width: clamp(110px, 13vw, 200px); }
+.kit svg { width: 100%; display: block; overflow: visible; }
+@keyframes bob { 50% { transform: translateY(-9px) rotate(1.5deg); } }
+.kit.f, .dd.f { animation: bob 4s ease-in-out infinite; } .kit.f2, .dd.f2 { animation: bob 5.2s ease-in-out infinite reverse; }
+
+
+/* systems */
+.sys .stack { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 9vh 9vw 13vh; gap: 1.6vh; }
+.sys small { font-weight: 900; font-size: min(3vw, 5.2vh); letter-spacing: .03em; text-transform: uppercase; }
+.sys .word { font-weight: 100; font-size: min(16vw, 28vh); line-height: .92; text-transform: uppercase; letter-spacing: -.01em; transform: rotate(-3deg); }
+.sys .chips { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 1vh; }
+.sys .chips span { border: 2px solid rgba(255,248,236,.75); border-radius: 999px; padding: 4px 16px 5px; font-weight: 800; font-size: min(1.5vw, 2.6vh); letter-spacing: .05em; text-transform: uppercase; }
+.sys .cap { max-width: 44ch; margin-top: 1vh; }
+/* doodles */
+.doodles .stack { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 9vh 21vw 14vh; gap: 2.6vh; }
+.doodles h2 { font-family: var(--f-mel); font-weight: 500; font-size: min(5.2vw, 9.4vh); line-height: 1.04; letter-spacing: -.012em; }
+.doodles h2 span { display: block; }
+.doodles .sub { color: var(--lilac); font-weight: 600; font-size: min(1.9vw, 3.6vh); line-height: 1.25; max-width: 30ch; }
+.doodles .sub2 { max-width: 38ch; font-weight: 600; font-size: min(1.45vw, 2.7vh); line-height: 1.4; }
+/* based in karachi */
+.based .stack { position: absolute; left: 0; right: 0; top: 0; display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 8vh; z-index: 6; }
+.based .txt { font-weight: 900; font-size: min(14.6vw, 23vh); line-height: .84; text-transform: uppercase; color: #fff3dd; letter-spacing: 0; }
+.based .txt .l { display: block; }
+.based .cap { margin-top: 1.8vh; max-width: 40ch; }
+/* final */
+.final .fgrid { position: absolute; inset: 0; display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 3vw; padding: 11vh 6vw 14vh 7vw; }
+.final .eyebrow { font-weight: 800; letter-spacing: .14em; text-transform: uppercase; font-size: min(1.1vw, 2vh); color: var(--lilac); margin-bottom: 1.6vh; }
+.final .ft span { display: block; font-weight: 900; font-size: min(9.4vw, 17vh); line-height: .88; text-transform: uppercase; letter-spacing: .005em; }
+.final .ft span:last-child { color: var(--accent); }
+.final .fsub { margin-top: 3vh; max-width: 38ch; font-weight: 600; font-size: min(1.55vw, 3vh); line-height: 1.3; color: var(--lilac); }
+.final .mail { margin-top: 3vh; display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: min(1.9vw, 3.6vh); text-transform: uppercase; letter-spacing: .03em; }
+.final .mail a { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px; }
+.final .row { margin-top: 2.6vh; display: flex; flex-wrap: wrap; gap: 10px; }
+.final .row a { border: 2px solid var(--paper); border-radius: 999px; padding: 7px 20px 8px; text-decoration: none; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; font-size: min(1.05vw, 2.1vh); transition: background .2s, color .2s, transform .2s; }
+.final .row a:hover { background: var(--accent); border-color: var(--accent); color: var(--ink); transform: translateY(-2px); }
+.final .loc { margin-top: 2.4vh; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: min(1vw, 1.9vh); opacity: .75; }
+.final .fr { position: relative; display: grid; place-items: center; align-self: stretch; }
+.final .char { position: relative; left: auto; bottom: auto; transform: none; width: min(30vw, 56vh); align-self: end; margin-top: auto; }
+.final .char svg { width: 100%; display: block; overflow: visible; }
+.final .dream { left: auto; right: 2%; top: 8%; }
+@media (max-width: 760px) { .final .fgrid { grid-template-columns: 1fr; padding: 10vh 7vw 12vh; gap: 2vh; align-content: start; } .final .fr { order: -1; max-height: 26vh; } .final .char { width: min(40vw, 24vh); } .final .dream { display: none; } .final .ft span { font-size: 15vw; } .final .mail { font-size: 4.4vw; } .final .row a { font-size: .8rem; padding: 6px 14px; } .final .fsub { font-size: 1rem; } }
+
+/* years */
+.years .stack { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10vh 6vw 14vh; gap: 2.4vh; }
+.years .big { font-family: var(--f-name); font-weight: 400; font-size: min(15vw, 26vh); line-height: 1; letter-spacing: -.01em; white-space: nowrap; color: #fff; }
+.years .big em { font-style: normal; display: inline-block; margin: 0 .04em; }
+.years .sq { width: min(30vw, 400px); overflow: visible; flex: none; }
+.years .ysub { font-weight: 900; font-size: min(3vw, 5.2vh); letter-spacing: .03em; text-transform: uppercase; color: var(--lilac); }
+.years .ysub span { display: inline-block; }
+.years .cap { max-width: 40ch; opacity: .85; }
+/* beliefs */
+.bl { position: absolute; left: 17%; right: 8%; top: 31%; opacity: 0; }
+.bl h2 { font-family: var(--f-mel); font-weight: 500; font-size: 3.6vw; line-height: 1.04; letter-spacing: -.01em; color: var(--paper); }
+.bl h2 .wd { display: inline-block; margin-right: .22em; }
+.bl p { margin-top: 3.4vh; max-width: 26ch; font-weight: 600; font-size: clamp(1.1rem, 1.6vw, 1.5rem); line-height: 1.28; color: var(--lilac); opacity: .72; }
+.bl p .wd { display: inline-block; margin-right: .28em; }
+.bl.r { left: 56%; top: 36%; right: 6%; }
+.bl.c { left: 0; right: 0; top: 36%; text-align: center; }
+.bl.c h2 { font-size: 3vw; max-width: 24ch; margin: 0 auto; }
+.bl .big { font-family: var(--f-bs); font-weight: 900; font-size: 7.4vw; line-height: 1; text-transform: uppercase; white-space: nowrap; margin-top: 1.4vh; letter-spacing: 0; color: var(--paper); }
+.bl .big span { display: inline-block; }
+
+/* doodles */
+.dd { position: absolute; width: clamp(54px, 7vw, 110px); }
+.dd svg { width: 100%; overflow: visible; display: block; }
+
+/* based in karachi */
+.sky { position: absolute; left: -2%; right: -2%; bottom: 8.4%; width: 104%; height: 35%; z-index: 2; }
+.sky svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.ground { position: absolute; left: 0; right: 0; bottom: 8.4%; height: 1.5px; background: rgba(255,243,221,.85); z-index: 3; }
+.road { position: absolute; left: 0; right: 0; bottom: 0; height: 8.4%; z-index: 2; background: linear-gradient(rgba(0,0,0,.14), rgba(0,0,0,.02)); }
+.tesla { position: absolute; left: 0; bottom: 8.2%; width: clamp(180px, 23vw, 360px); z-index: 5; will-change: transform; }
+.tesla svg { width: 100%; display: block; overflow: visible; }
+
+/* work */
+.work .head { position: absolute; left: 5%; top: 17%; width: min(33vw, 470px); z-index: 3; }
+.work .peek { position: absolute; left: 6px; top: -62px; width: 120px; z-index: 0; overflow: visible; }
+.work h2 { font-family: var(--f-bs); font-weight: 900; text-transform: uppercase; line-height: .84; font-size: clamp(3.4rem, 8.6vw, 8.8rem); position: relative; z-index: 1; letter-spacing: 0; }
+.work h2 .w { display: block; white-space: nowrap; }
+.work h2 .w span { display: inline-block; }
+.work h2 .s { font-size: .82em; position: relative; top: .05em; }
+.work h2 .u { font-size: 1.1em; position: relative; top: -.04em; }
+.work .head p { margin-top: 3.2vh; font-weight: 600; font-size: clamp(1rem, 1.5vw, 1.45rem); line-height: 1.3; max-width: 22ch; }
+.work .head p.dim { color: rgba(255,248,236,.62); margin-top: 2vh; }
+.work .head p a { text-underline-offset: 3px; }
+.reelwrap { position: absolute; left: 39.5vw; right: 0; top: 16%; bottom: 4%; overflow: hidden; padding: 6px 0 0 0; }
+.reel { display: flex; gap: 6vw; will-change: transform; width: max-content; align-items: flex-start; }
+.proj { flex: none; width: min(40vw, 640px); text-decoration: none; display: block; will-change: transform, opacity; }
+.proj .label { display: flex; justify-content: space-between; align-items: baseline; font-weight: 700; font-size: clamp(.85rem, 1vw, 1rem); margin-bottom: .55rem; gap: 1rem; }
+.proj .label em { font-style: normal; opacity: .72; font-weight: 600; text-align: right; }
+.proj .cover { aspect-ratio: 1.34; border-radius: 18px; overflow: hidden; border: 2px solid var(--ink); background: #1b2630; transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.proj .cover img { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; transition: transform .9s cubic-bezier(.2,.8,.2,1); }
+.proj:hover .cover { transform: translateY(-6px) rotate(-.5deg); } .proj:hover .cover img { transform: scale(1.04); }
+.proj h3 { margin-top: .9rem; font-family: var(--f-mel); font-weight: 500; font-size: clamp(1.5rem, 2.6vw, 2.7rem); line-height: 1.04; letter-spacing: -.01em; }
+.proj p { margin-top: .5rem; max-width: 46ch; font-weight: 500; font-size: clamp(.92rem, 1.2vw, 1.15rem); line-height: 1.3; opacity: .94; }
+
+/* about */
+.about .in { position: absolute; left: 11%; right: 8%; top: 24%; }
+.about h2 { font-family: var(--f-mel); font-weight: 500; font-size: 6.6vw; line-height: 1.02; letter-spacing: -.012em; }
+.about h2 .wd { display: inline-block; margin-right: .22em; }
+.about ul { list-style: none; margin-top: 6vh; display: grid; gap: 1.6vh; }
+.about li { font-weight: 600; font-size: clamp(1.15rem, 2vw, 1.9rem); display: flex; gap: .9rem; align-items: center; opacity: 0; }
+.about li i { width: 12px; height: 12px; border: 2px solid var(--paper); border-radius: 50%; flex: none; }
+.pointer { position: absolute; right: 14%; top: 24%; width: 52px; }
+
+@media (max-width: 760px) {
+  .stage { inset: 8px; border-radius: 18px; }
+  /* top bar: status pill left, links right, no brand text (as the reference) */
+  .top { padding: 14px 14px; align-items: flex-start; gap: 10px; }
+  .brand .who { display: none; }
+  .status { white-space: normal; max-width: 118px; font-size: 11px; line-height: 1.12; padding: 5px 11px 6px; align-items: flex-start; border-radius: 16px; }
+  .status i { margin-top: 3px; flex: none; }
+  .nav { gap: 11px; font-size: 13px; letter-spacing: .02em; padding-top: 5px; }
+  .hint, .ruler { display: none; }
+  /* hero */
+  .hero .kicker { top: 12.5%; font-size: 3.6vw; }
+  .hero .name { top: 16%; left: 0; right: 0; font-size: 21vw; white-space: normal; padding: 0; line-height: .94; }
+  .hero .name span { display: block; }
+  .sel { display: block; left: 9%; width: 82%; top: 15.2%; height: 30%; } .sel b { display: none; }
+  #curA { display: block; left: 66%; top: 33%; }
+  .hero .phrase { width: 92vw; font-size: 4.3vw; top: 48%; justify-content: center; gap: 2.2vw; }
+  .hero .phrase span:first-child::after { content: ' '; }
+  .hero .birds { display: none; }
+  .hero .char { width: min(86vw, 52vh); bottom: -9%; }
+  .hero .role { bottom: auto; top: 58%; font-size: .95rem; width: 30ch; }
+  .dream { left: 4%; top: 50%; transform: rotate(-6deg) scale(.82); }
+  .ico { top: 66%; }
+  /* hello / systems / years */
+  .hi { font-size: min(26vw, 24vh); }
+  .hello .stack { padding: 12vh 6vw 10vh; }
+  .sys small { font-size: 5.4vw; } .sys .word { font-size: min(17.5vw, 20vh); }
+  .sys .stack { padding: 14vh 6vw 16vh; } .kit { opacity: .95; }
+  .years .big { font-size: min(21vw, 22vh); }
+  /* beliefs: left-aligned like the reference */
+  .bl { left: 6%; right: 6%; top: 24%; } .bl h2 { font-size: 9vw; line-height: 1.05; } .bl p { font-size: 1.05rem; max-width: 30ch; }
+  .bl.r { left: 6%; top: 28%; } .bl.c { left: 6%; right: 6%; text-align: left; top: 28%; } .bl.c h2 { font-size: 6.4vw; margin: 0; max-width: none; } .bl .big { font-size: 12vw; white-space: normal; line-height: .98; margin-top: 2vh; }
+  .doodles .stack { padding: 14vh 8vw 18vh; } .doodles h2 { font-size: min(10.6vw, 8vh); } .dd { opacity: .9; }
+  /* based in karachi */
+  .based .stack { padding-top: 12vh; } .based .txt { font-size: min(24vw, 21vh); } .based .cap { padding: 0 7vw; max-width: none; } .sky { height: 30%; } .tesla { width: 42vw; }
+  /* work: heading + intro on top, cards low and swiping sideways */
+  .work .head { width: 90%; left: 6%; top: 15%; } .work .peek { width: 86px; top: -42px; left: 4px; }
+  .work h2 { font-size: min(18vw, 6rem); line-height: .9; } .work h2 .w { display: block; margin-right: 0; }
+  .work .head p { display: block; font-size: 1rem; max-width: 30ch; margin-top: 1.6vh; } .work .head p.dim { display: none; }
+  .reelwrap { left: 5vw; right: 0; top: 55%; bottom: 3%; } .reel { gap: 7vw; } .proj { width: 76vw; }
+  .proj .label { font-size: .8rem; } .proj h3 { font-size: 1.35rem; margin-top: .6rem; } .proj p { font-size: .85rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .about h2 { font-size: 12.4vw; } .about .in { left: 6%; right: 6%; top: 22%; } .about li { font-size: 1.1rem; }
+  .final .fgrid { padding: 12vh 7vw 8vh; }
+}
+@media (prefers-reduced-motion: reduce) { .grain, .wave, .kit.f, .kit.f2, .dd.f, .dd.f2, .hint::after { animation: none !important; } }
+</style>
 </head>
-
 <body>
-  <div id="intro" aria-hidden="true">
-    <div class="it"><span class="lg" id="lg"></span><small>Full-Stack Developer</small></div>
-    <div class="ib"><i></i></div>
-  </div>
-  <header id="hd" class="lt">
-    <a href="#hero" class="logo">Hammad.dev</a>
-    <nav class="l" aria-label="Main"><a href="#about">About</a><a href="#skills">Stack</a><a
-        href="#experience">Experience</a><a href="#projects">Projects</a><a href="#contact">Contact</a></nav>
-    <button class="menu-btn" id="mb" aria-expanded="false" aria-controls="ov">Menu <i><b></b><b></b></i></button>
+<div class="track" id="track"></div>
+
+<div class="stage" id="stage">
+  <canvas class="dust" id="dust"></canvas>
+
+  <header class="top">
+    <div class="brand"><a class="who" href="#" data-go="0" style="text-decoration:none">Hammad Jawaid</a><span class="status"><i></i>Available for work</span></div>
+    <nav class="nav" aria-label="Sections">
+      <a href="#" data-go="work">Work</a><a href="#" data-go="about">About</a><a href="#" data-go="contact" class="keep">Contact</a>
+    </nav>
   </header>
-  <div id="ov" aria-hidden="true">
-    <button class="x" id="mx">Close ✕</button>
-    <ul id="ovl"></ul>
-    <div class="ct">
-      <div><small>Email</small><a href="mailto:droidhammad2006@gmail.com">droidhammad2006@gmail.com</a></div>
-      <div><small>LinkedIn</small><a href="https://www.linkedin.com/in/hammad-jawaid-4610793ba/" target="_blank"
-          rel="noopener">linkedin.com/in/hammad-jawaid-4610793ba</a></div>
-      <div><small>GitHub</small><a href="https://github.com/hammadjawaiddev" target="_blank"
-          rel="noopener">github.com/hammadjawaiddev</a></div>
+  <p class="hint" id="hint">Scroll to step inside</p>
+
+  <!-- 1 · hero -->
+  <section class="scene hero first" id="s1">
+    <p class="kicker mix" id="kickA">INSIDE THE MIND OF</p>
+    <h1 class="name"><span>HAMMAD</span> <span>JAWAID</span></h1>
+    <div class="sel" id="sel"><i></i><i></i><i></i><i></i><b>878 × 194</b></div>
+    <div class="cur" id="curA" style="left:83%;top:31%"><svg viewBox="0 0 24 24"><path d="M3 2l17 8-7 2-3 8z" fill="#3a8bf5" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Hammad</span></div>
+    <p class="phrase"><span>FULL-STACK</span><span>DEVELOPER</span></p>
+    <svg class="birds" viewBox="0 0 220 90" fill="none" stroke="#fff8ec" stroke-width="3" stroke-linecap="round"><path d="M110 18c10-12 24-10 32 4 8-14 24-14 32-2"/><path d="M52 52c8-9 18-8 26 3 7-10 18-10 24-2"/><path d="M8 62c7-8 15-7 22 2 6-9 15-9 21-2"/><path d="M150 70c6-7 14-6 20 2 6-8 13-8 19-1"/></svg>
+    <div class="char" id="charA"></div>
+    <div class="ico" data-i="0"></div><div class="ico" data-i="1"></div><div class="ico" data-i="2"></div><div class="ico" data-i="3"></div><div class="ico" data-i="4"></div><div class="ico" data-i="5"></div>
+    <p class="role" id="roleA"><b>Full-Stack Developer</b><br>Modern interfaces, powerful backends and databases, end to end</p>
+  </section>
+
+  <!-- 2 · going in -->
+  <section class="scene" id="s2"><div class="rings" id="rings"><div class="hole"></div></div></section>
+
+  <!-- 3 · hello -->
+  <section class="scene hello" id="s3"><div class="stack"><h2 class="hi" id="hiTxt" aria-label="Hi, I'm Hammad"></h2>
+    <svg class="squig" viewBox="0 0 420 30" fill="none" stroke="#cfe3ff" stroke-width="7" stroke-linecap="round"><path id="squig" d="M6 16C46 4 76 28 116 16S186 4 226 16S296 28 336 16S396 6 414 14"/></svg>
+    <p class="cap" id="hiCap">Full-stack developer. I build modern interfaces, powerful backends and database-driven web applications, end to end.</p></div></section>
+
+  <!-- 4 · systems -->
+  <section class="scene sys" id="s4"><div class="stack"><small id="sysSmall">I BUILD</small><div class="word" id="sysWord">PRODUCTS.</div>
+    <div class="chips" id="sysChips"><span>Websites</span><span>Web apps</span><span>REST APIs</span><span>Databases</span></div>
+    <p class="cap" id="sysCap">HTML, CSS and JavaScript up front. PHP and Node.js in the middle. MySQL and MongoDB underneath. One project at a time, idea to live.</p></div>
+    <div class="kit f" style="left:2.5%;bottom:12%;width:clamp(80px,9.5vw,150px)" data-k="phone"></div><div class="kit f2" style="left:2.5%;top:19%;width:clamp(100px,11vw,170px)" data-k="code"></div><div class="kit f" style="right:3%;bottom:14%;width:clamp(100px,11vw,170px)" data-k="chart"></div></section>
+
+  <!-- 4b · years -->
+  <section class="scene years" id="s4y"><div class="stack">
+    <div class="big" id="yrs"><em>4</em> <em>PROJECTS.</em></div>
+    <svg class="sq" viewBox="0 0 420 30" fill="none" stroke="#cfe3ff" stroke-width="7" stroke-linecap="round"><path id="squig2" d="M6 16C46 4 76 28 116 16S186 4 226 16S296 28 336 16S396 6 414 14"/></svg>
+    <p class="ysub" id="ySub">Still learning. Still shipping.</p>
+    <p class="cap" id="yCap">Four live projects, from a physiotherapy landing page to a full-stack store.</p></div></section>
+
+  <!-- 5 · beliefs -->
+  <section class="scene" id="s5">
+    <div class="bl" id="b1"><h2>I build modern interfaces and powerful backends.</h2><p>Responsive front ends in HTML, CSS and JavaScript, with PHP and Node.js APIs and MySQL or MongoDB behind them.</p></div>
+    <div class="bl r" id="b2"><h2>I learn by building.</h2></div>
+    <div class="bl" id="b3"><h2>I care about clean code.</h2><p>Readable, well-structured and maintainable by default, and fast on every device. Every project is a chance to connect one more piece of the stack.</p></div>
+    <div class="bl c" id="b4"><h2>I&rsquo;d rather take extra time to get something right than ship something I&rsquo;m not proud of.</h2><div class="big" id="bigB"></div></div>
+  </section>
+
+  <!-- 6 · doodles -->
+  <section class="scene doodles" id="s6"><div class="stack">
+    <h2 id="dh"><span class="l1">That&rsquo;s what I build.</span><span class="l2">That&rsquo;s what I ship.</span></h2>
+    <p class="sub" id="dsub">Got a project? Let&rsquo;s build the whole thing, from the interface to the server to the database.</p>
+    <p class="sub2" id="dsub2">Open to collaborations: a side project, a startup or a freelance contract.</p></div>
+    <div class="dd f" style="left:3.5%;top:13%" data-d="pen"></div><div class="dd f2" style="left:4%;top:38%;width:clamp(70px,8vw,120px)" data-d="bezier"></div>
+    <div class="dd f" style="left:3.5%;top:60%;width:clamp(50px,5.5vw,84px)" data-d="swatch"></div><div class="dd f2" style="left:3%;top:76%;width:clamp(80px,8.5vw,130px)" data-d="card"></div>
+    <div class="dd f2" style="right:3.5%;top:13%;width:clamp(80px,8.5vw,130px)" data-d="faces"></div><div class="dd f" style="right:4%;top:38%;width:clamp(70px,7.5vw,112px)" data-d="chat"></div>
+    <div class="dd f2" style="right:4%;top:62%;width:clamp(60px,6.5vw,100px)" data-d="flag"></div><div class="dd f" style="left:16%;top:11%;width:30px" data-d="spark"></div><div class="dd f2" style="right:16%;top:78%;width:34px" data-d="spark"></div>
+  </section>
+
+  <!-- 7 · based in karachi -->
+  <section class="scene based" id="s7">
+    <div class="stack"><h2 class="txt" id="basedTxt" aria-label="Based in Karachi"><span class="l">Based in</span><span class="l">Karachi.</span></h2>
+    <p class="cap" id="basedCap">Karachi by address. A city of chai, traffic and the sea breeze. I build from here, for anywhere.</p></div>
+    <div class="sky" id="sky"></div><div class="ground"></div><div class="road"></div>
+    <div class="tesla" id="tesla"></div>
+  </section>
+
+  <!-- 8 · work -->
+  <section class="scene work" id="s8">
+    <div class="head"><svg class="peek" viewBox="0 0 130 70" id="peek" aria-hidden="true"></svg><h2 id="workH" aria-label="Selected work"></h2>
+      <p>Four live projects, from a physiotherapy landing page to a full-stack store.</p>
+      <p class="dim">There&rsquo;s more where that came from. Explore the rest of my code on <a href="https://github.com/hammadjawaiddev" target="_blank" rel="noopener">GitHub</a>.</p></div>
+    <div class="reelwrap" id="reelwrap"><div class="reel" id="reel"></div></div>
+  </section>
+
+  <!-- 9 · about -->
+  <section class="scene about" id="s9"><div class="in"><h2 id="d1">I care about the craft.</h2>
+    <ul><li><i></i>Readable, well-structured and maintainable by default.</li><li><i></i>Optimized for speed, every kilobyte matters.</li><li><i></i>Pixel-perfect on every screen, every device.</li></ul></div>
+    <svg class="pointer" viewBox="0 0 60 60" id="pointer"><path d="M6 8 52 28 30 34 24 54Z" fill="#fff8ec" stroke="#15131c" stroke-width="4" stroke-linejoin="round"/></svg></section>
+
+  <!-- 10 · contact -->
+  <section class="scene final" id="s10"><div class="fgrid">
+    <div class="fl">
+      <p class="eyebrow">Let&rsquo;s work together</p>
+      <h2 class="ft" id="ft"><span>Let&rsquo;s build</span><span>the whole thing.</span></h2>
+      <p class="fsub">Available for freelance work and full-time opportunities. My inbox is always open.</p>
+      <div class="mail"><a href="mailto:droidhammad2006@gmail.com">droidhammad2006@gmail.com</a><button class="copy" id="copyMail" aria-label="Copy email"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg></button></div>
+      <div class="row"><a href="https://www.linkedin.com/in/hammad-jawaid-4610793ba/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/hammadjawaiddev" target="_blank" rel="noopener">GitHub</a><a href="Hammad-Jawaid-CV.pdf" target="_blank" rel="noopener">R&eacute;sum&eacute;</a></div>
+      <p class="loc">Karachi, Pakistan</p>
     </div>
-  </div>
+    <div class="fr"><div class="char" id="charB"></div>
+      <div class="dream"><svg viewBox="0 0 40 40"><path d="M27 6a15 15 0 1 0 8 20A12 12 0 0 1 27 6Z" fill="#ff9f43" stroke="#14202a" stroke-width="3" stroke-linejoin="round"/></svg><div><small>You&rsquo;ve been dreaming in</small><b>Hammad&rsquo;s mind</b></div></div></div>
+  </div></section>
 
-  <main>
-    <section id="hero">
-      <div class="h-main">
-        <div class="h-l">
-          <div class="h-eyebrow">Hammad Jawaid — Full-Stack Developer</div>
-          <h1 class="h-title"><span style="--i:0"><b>Build.</b></span><span style="--i:1"><b>Connect.</b></span><span
-              style="--i:2"><b>Deploy.</b></span></h1>
-          <p class="h-p">Hi, I'm Hammad Jawaid. I build modern interfaces, powerful backends, and database-driven web
-            applications, end to end.</p>
-        </div>
-        <div class="h-code" aria-label="Developer profile">
-          <div class="hc">
-            <div class="hc-bar"><i></i><i></i><i></i><span>hammad.js</span></div>
-<pre><code><span class="c">// who's behind this site</span>
-<span class="k">const</span> <span class="s">developer</span> <span class="p">= {</span>
-  <span class="k">name</span><span class="p">:</span> <span class="s">"Hammad Jawaid"</span><span class="p">,</span>
-  <span class="k">role</span><span class="p">:</span> <span class="s">"Full-Stack Developer"</span><span class="p">,</span>
-  <span class="k">frontend</span><span class="p">:</span> <span class="s">["HTML", "CSS", "JS"]</span><span class="p">,</span>
-  <span class="k">backend</span><span class="p">:</span> <span class="s">["PHP", "Node.js"]</span><span class="p">,</span>
-  <span class="k">database</span><span class="p">:</span> <span class="s">["MySQL", "MongoDB"]</span><span class="p">,</span>
-  <span class="k">status</span><span class="p">:</span> <span class="ok">"Available"</span><span class="blink"></span>
-<span class="p">};</span></code></pre>
-          </div>
-        </div>
-      </div>
-      <a class="h-scroll" href="#about" aria-label="Scroll to about section">Scroll<i></i></a>
-      <div class="h-foot">
-        <div class="h-btns"><a class="hb" href="#projects">View Projects</a><a class="hb o" href="Hammad Jawaid CV.pdf"
-            download>Download Resume</a><a class="hb o" href="#contact">Say Hello</a></div>
-        <div class="h-marq" aria-label="Core technologies"><div class="mt"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>PHP</span><span>Node.js</span><span>React</span><span>MySQL</span><span>MongoDB</span><span>Git</span></div><div class="mt" aria-hidden="true"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>PHP</span><span>Node.js</span><span>React</span><span>MySQL</span><span>MongoDB</span><span>Git</span></div></div>
-      </div>
-    </section>
-    <div class="strip" aria-hidden="true">
-      <div id="mq"></div>
-      <div id="mq2"></div>
-    </div>
+  <div class="ruler" id="ruler"><div class="line"></div><div class="mark" id="mark"></div></div>
+  <div class="grain"></div>
+</div>
 
-    <section id="about">
-      <div class="in">
-        <div class="pill">About</div>
-        <h2 class="rv">Who I am</h2>
-        <div class="ab">
-          <div>
-            <p>I'm a <strong>Full-Stack Developer</strong> at the beginning of my journey — curious, motivated, and
-              genuinely excited about the craft of building for the web, on both sides of the request. I enjoy building
-              complete web experiences: responsive interfaces, backend logic, APIs, authentication, CRUD systems, and
-              the databases that hold it all together.</p>
-            <p>On the frontend, I write <strong>clean, maintainable code</strong> that performs well across devices. On
-              the backend, I work with <strong>PHP and Node.js</strong> to build REST APIs and server-side logic, backed
-              by <strong>MySQL and MongoDB</strong> for storing and modeling real data.</p>
-            <p>I'm currently sharpening these skills through real-world projects and continuous self-learning — not just
-              following tutorials, but shipping things end to end. Every project is a chance to connect one more piece
-              of the stack, and I take that seriously.</p>
-          </div>
-          <div class="vals">
-            <div>
-              <h4>Clean Code</h4>
-              <p>Readable, well-structured, and maintainable by default</p>
-            </div>
-            <div>
-              <h4>Performance First</h4>
-              <p>Optimized for speed, every kilobyte matters</p>
-            </div>
-            <div>
-              <h4>Responsive Design</h4>
-              <p>Pixel-perfect on every screen, every device</p>
-            </div>
-            <div>
-              <h4>Accessibility</h4>
-              <p>Building for real people, regardless of ability</p>
-            </div>
-          </div>
-        </div>
-        <div class="stats">
-          <div><b data-n="10">0</b><span>Projects Built</span></div>
-          <div><b data-n="6">0</b><span>Months of Learning</span></div>
-          <div><b data-n="3">0</b><span>Certifications</span></div>
-          <div><b data-n="100" data-s="%">0</b><span>Commitment</span></div>
-        </div>
-      </div>
-    </section>
+<noscript><style>.track{display:none}.stage{position:static;border-radius:0}.scene{position:relative;visibility:visible;opacity:1;min-height:100vh}</style></noscript>
 
-    <section id="skills" class="dark">
-      <div class="in">
-        <div class="pill">Stack</div>
-        <h2 class="rv">The full stack</h2>
-        <p class="lead">What I use to take a project from interface to server to database.</p>
-        <div class="flow">
-          <div><small>Frontend</small><b>HTML · CSS · JavaScript</b></div>
-          <div><small>API / Server</small><b>PHP · Node.js · REST APIs</b></div>
-          <div><small>Database</small><b>MySQL · MongoDB</b></div>
-        </div>
-        <div id="sk" class="sk"></div>
-      </div>
-    </section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); }, $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var rnd = (function () { var s = 7; return function () { s = (s * 16807) % 2147483647; return s / 2147483647; }; })();
 
-    <section id="experience">
-      <div class="in">
-        <div class="pill">Experience</div>
-        <h2 class="rv">Where I've worked</h2>
-        <p class="lead">Early in my career, but deeply invested in learning through real work across the stack.</p>
-        <div class="xp">
-          <div><small>2025 — Present</small>
-            <h3>Web Developer, Freelance</h3><small>Self-employed · Remote</small>
-          </div>
-          <div>
-            <ul>
-              <li>Built responsive, mobile-first websites for small businesses and individuals</li>
-              <li>Converted Figma and wireframe designs into clean, semantic HTML/CSS</li>
-              <li>Extended select projects with PHP and MySQL to add real database-driven functionality</li>
-              <li>Improved page load times through asset optimization and best practices</li>
-              <li>Collaborated with clients to iterate on designs and implement feedback</li>
-              <li>Maintained code quality with consistent naming conventions, version control, and documentation</li>
-            </ul>
-            <div class="tags">
-              <span>HTML</span><span>CSS</span><span>JavaScript</span><span>PHP</span><span>MySQL</span><span>Git &amp;
-                GitHub</span><span>Responsive</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
+  /* ───── dust (stars) ───── */
+  var cv = $('#dust'), cx = cv.getContext('2d'), dots = [];
+  function sizeDust() { var r = cv.getBoundingClientRect(); cv.width = r.width; cv.height = r.height; dots = []; for (var i = 0; i < 110; i++) dots.push({ x: rnd() * cv.width, y: rnd() * cv.height, r: .6 + rnd() * 1.6, p: rnd() * 6.28, s: .3 + rnd() * .9 }); }
+  function drawDust(t) { cx.clearRect(0, 0, cv.width, cv.height); cx.fillStyle = '#fff'; dots.forEach(function (d) { cx.globalAlpha = .12 + .45 * (.5 + .5 * Math.sin(t / 900 * d.s + d.p)); cx.beginPath(); cx.arc(d.x, d.y, d.r, 0, 6.283); cx.fill(); }); requestAnimationFrame(drawDust); }
+  sizeDust(); requestAnimationFrame(drawDust); addEventListener('resize', sizeDust);
 
-    <section id="projects" style="background:var(--w)">
-      <div class="in">
-        <div class="pill">Projects</div>
-        <h2 class="rv">Case studies</h2>
-        <p class="lead">A selection of projects that reflect my growth, curiosity, and attention to craft.</p>
-        <div class="pj" id="pj"></div>
-      </div>
-    </section>
+  /* ───── character (original art) ───── */
+  var CHAR = '<svg viewBox="0 0 400 440" fill="none" stroke="#15131c" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">'
+    + '<path d="M16 440C26 330 108 288 200 288C292 288 374 330 384 440Z" fill="#141c24"/>'
+    + '<rect x="168" y="240" width="64" height="64" fill="var(--skin)"/>'
+    + '<g class="wave"><path class="arm" d="M62 330L62 228" stroke="#141c24" stroke-width="50"/></g>'
+    + '<circle cx="92" cy="196" r="17" fill="var(--skin)"/><circle cx="308" cy="196" r="17" fill="var(--skin)"/>'
+    + '<rect x="96" y="108" width="208" height="166" rx="28" fill="var(--skin)"/>'
+    + '<ellipse cx="200" cy="112" rx="104" ry="22" fill="#10181f"/><g fill="none" stroke="#fff3dd" stroke-width="1.6" opacity=".4"><ellipse cx="200" cy="112" rx="86" ry="17"/><ellipse cx="200" cy="112" rx="66" ry="12.5"/><ellipse cx="200" cy="112" rx="46" ry="8.5"/><ellipse cx="200" cy="112" rx="26" ry="4.5"/></g>'
+    + '<g><circle cx="156" cy="188" r="23" fill="#fff"/><circle cx="244" cy="188" r="23" fill="#fff"/><circle class="pu" cx="156" cy="184" r="9.5" fill="#15131c"/><circle class="pu" cx="244" cy="184" r="9.5" fill="#15131c"/></g>'
+    + '<path d="M130 156Q156 142 178 154M222 154Q244 142 270 156" stroke-width="5"/>'
+    + '<path d="M168 232Q200 262 232 232Q200 244 168 232Z" fill="#15131c"/>'
+    + '<g class="capg"><path d="M92 118C90 52 140 22 204 22 262 22 308 56 308 118Z" fill="var(--cap)"/><ellipse cx="200" cy="120" rx="118" ry="19" fill="#3a2618"/><path d="M104 74C130 52 172 46 204 46" stroke="#6b4a32" stroke-width="5" opacity=".6"/></g>'
+    + '<g class="wave"><g class="hand"><g fill="var(--skin)"><rect x="34" y="150" width="19" height="66" rx="9.5"/><rect x="55" y="136" width="19" height="80" rx="9.5"/><rect x="76" y="148" width="19" height="68" rx="9.5"/><rect x="95" y="170" width="17" height="52" rx="8.5" transform="rotate(14 100 200)"/><path d="M34 196H96C100 232 84 252 66 252 46 252 32 232 34 196Z"/></g></g></g>'
+    + '</svg>';
+  $('#charA').innerHTML = CHAR; $('#charB').innerHTML = CHAR;
+  var capsA = $('#charA .capg'), capsB = $('#charB .capg'), pupils = $$('.pu');
+  // arm + hand follow one proxy so the arm always stays joined to the shoulder
+  function makeHand(root) {
+    var arm = $('.arm', root), hand = $('.hand', root), px = { x: 0, y: 0, r: 0 };
+    function upd() { arm.setAttribute('d', 'M62 330L' + (62 + px.x) + ' ' + (228 + px.y)); hand.setAttribute('transform', 'translate(' + px.x + ' ' + px.y + ') rotate(' + px.r + ' 65 215)'); }
+    upd(); return { px: px, upd: upd };
+  }
+  var handA = makeHand($('#charA')), handB = makeHand($('#charB'));
+  function scrolledClass() { document.body.classList.toggle('scrolled', scrollY > 4); }
+  addEventListener('scroll', scrolledClass, { passive: true }); scrolledClass();
+  addEventListener('pointermove', function (e) { var nx = (e.clientX / innerWidth - .5) * 2, ny = (e.clientY / innerHeight - .5) * 2; pupils.forEach(function (p) { p.style.transform = 'translate(' + nx * 7 + 'px,' + ny * 6 + 'px)'; }); });
 
-    <section id="achievements" class="dark">
-      <div class="in">
-        <div class="pill">Recognition</div>
-        <h2 class="rv">Milestones</h2>
-        <p class="lead">Small wins that reflect consistent effort and forward momentum.</p>
-        <div class="ms">
-          <div><em>Showcase</em><span>
-              <h4>Aptech Vision Showcase</h4>
-              <p>Presented an innovative web project at Aptech Vision, gaining experience in turning ideas into a
-                working product.</p>
-            </span></div>
-          <div><em>Projects</em><span>
-              <h4>Personal Projects</h4>
-              <p>Built and deployed multiple projects across the stack — from responsive, animated frontends to a
-                full-stack store with a PHP/MySQL backend.</p>
-            </span></div>
-          <div><em>GitHub</em><span>
-              <h4>10+ Public Repositories</h4>
-              <p>Actively contributing to a growing GitHub portfolio, documenting the learning journey in public.</p>
-            </span></div>
-          <div><em>Learning</em><span>
-              <h4>Continuous Learner</h4>
-              <p>Dedicated daily learner — studying design systems, backend patterns, and database design across the
-                stack.</p>
-            </span></div>
-        </div>
-      </div>
-    </section>
+  /* ───── icons (original stickers) ───── */
+  var S = 'fill="none" stroke="#15131c" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"';
+  var ICONS = {
+    code: '<svg viewBox="0 0 100 80" ' + S + '><rect x="4" y="6" width="92" height="68" rx="16" fill="#fff8ec"/><path d="M38 28 22 40l16 12M62 28l16 12-16 12" stroke-width="7"/><path d="M54 24 46 56" stroke="#2f80ed" stroke-width="6"/></svg>',
+    pen: '<svg viewBox="0 0 80 100" ' + S + '><path d="M40 6 66 44 54 78H26L14 44Z" fill="#fff8ec"/><path d="M40 44v26"/><circle cx="40" cy="42" r="6" fill="#15131c"/><rect x="22" y="80" width="36" height="14" rx="3" fill="#f2b441"/></svg>',
+    db: '<svg viewBox="0 0 80 90" ' + S + '><path d="M10 18v54c0 8 13 14 30 14s30-6 30-14V18" fill="#f2b441"/><ellipse cx="40" cy="18" rx="30" ry="12" fill="#ffd98a"/><path d="M10 45c0 8 13 14 30 14s30-6 30-14"/></svg>',
+    phone: '<svg viewBox="0 0 70 100" ' + S + '><rect x="8" y="4" width="54" height="92" rx="14" fill="#fff8ec"/><rect x="18" y="18" width="34" height="34" rx="8" fill="#7bd48a"/><path d="M18 64h34M18 76h22" stroke="#c9c2b0" stroke-width="6"/></svg>',
+    leaf: '<svg viewBox="0 0 100 50" ' + S + '><path d="M6 36C22 6 66 2 94 12 84 40 44 52 6 36Z" fill="#7bd48a"/><path d="M12 34C38 28 62 22 84 14"/></svg>',
+    dots: '<svg viewBox="0 0 90 90" ' + S + '><circle cx="24" cy="62" r="17" fill="#ee5f7d"/><circle cx="58" cy="30" r="21" fill="#2f80ed"/><circle cx="68" cy="68" r="10" fill="#fff8ec"/></svg>',
+    spark: '<svg viewBox="0 0 60 60" ' + S + '><path d="M30 4C32 22 38 28 56 30 38 32 32 38 30 56 28 38 22 32 4 30 22 28 28 22 30 4Z" fill="#15131c" stroke="#fff8ec" stroke-width="2"/></svg>',
+    bezier: '<svg viewBox="0 0 120 70" fill="none" stroke="#fff8ec" stroke-width="5" stroke-linecap="round"><path d="M16 56C16 6 104 6 104 56"/><path d="M16 56 28 14M104 56 92 14" stroke="#4a8ff0" stroke-width="3"/><g fill="#fff8ec" stroke="#4a8ff0" stroke-width="3"><rect x="9" y="50" width="14" height="14"/><rect x="97" y="50" width="14" height="14"/><circle cx="28" cy="12" r="6"/><circle cx="92" cy="12" r="6"/></g></svg>',
+    swatch: '<svg viewBox="0 0 100 100" ' + S + '><g transform="rotate(-22 20 90)"><rect x="12" y="10" width="26" height="80" rx="7" fill="#ee5f7d"/></g><g transform="rotate(-2 50 90)"><rect x="36" y="6" width="26" height="84" rx="7" fill="#f2b441"/></g><g transform="rotate(20 80 90)"><rect x="62" y="12" width="26" height="78" rx="7" fill="#7bd48a"/></g></svg>',
+    card: '<svg viewBox="0 0 140 90" ' + S + '><rect x="6" y="6" width="128" height="78" rx="12" fill="#fff8ec"/><circle cx="34" cy="30" r="12" fill="#2f80ed"/><path d="M58 24h58M58 38h40" stroke="#c9c2b0" stroke-width="7"/><rect x="22" y="56" width="62" height="18" rx="9" fill="#15131c"/></svg>',
+    faces: '<svg viewBox="0 0 150 80" ' + S + '><path d="M30 56 75 22 120 52" stroke-width="2.5"/><circle cx="26" cy="54" r="19" fill="#ee5f7d"/><circle cx="75" cy="26" r="21" fill="#fff8ec"/><circle cx="124" cy="52" r="19" fill="#2f80ed"/><g fill="#15131c" stroke="none"><circle cx="19" cy="49" r="2.6"/><circle cx="33" cy="49" r="2.6"/><circle cx="68" cy="21" r="2.6"/><circle cx="82" cy="21" r="2.6"/><circle cx="117" cy="47" r="2.6"/><circle cx="131" cy="47" r="2.6"/></g><path d="M18 60q8 6 16 0M66 32q9 7 18 0M116 58q8 6 16 0" stroke-width="3"/></svg>',
+    chat: '<svg viewBox="0 0 120 100" ' + S + '><path d="M8 12h66c6 0 10 4 10 10v28c0 6-4 10-10 10H40L22 74V60H8c-4 0-6-3-6-6V18c0-4 2-6 6-6Z" fill="#fff8ec"/><path d="M52 52h50c6 0 10 4 10 10v22c0 4-4 8-8 8H98v12L84 92H60c-6 0-10-4-10-10Z" fill="#f2b441" transform="translate(-4 -8)"/><circle cx="26" cy="32" r="4" fill="#a8a28f" stroke="none"/><circle cx="42" cy="32" r="4" fill="#a8a28f" stroke="none"/><circle cx="58" cy="32" r="4" fill="#a8a28f" stroke="none"/></svg>',
+    flag: '<svg viewBox="0 0 100 100" ' + S + '><path d="M12 90c10-14 66-14 78 0Z" fill="#7bd48a"/><path d="M50 88V16"/><path d="M50 16 84 26 50 40Z" fill="#ee5f7d"/></svg>'
+  };
+  $$('.ico').forEach(function (el) { el.innerHTML = [ICONS.code, ICONS.pen, ICONS.db, ICONS.leaf, ICONS.dots, ICONS.phone][+el.getAttribute('data-i')]; });
+  $$('.dd').forEach(function (el) { el.innerHTML = ICONS[el.getAttribute('data-d')]; });
+  var KIT = {
+    phone: '<svg viewBox="0 0 120 200" ' + S + '><rect x="8" y="6" width="104" height="188" rx="22" fill="#fff8ec"/><rect x="22" y="24" width="76" height="52" rx="12" fill="#7bd48a"/><circle cx="42" cy="50" r="10" fill="#15131c" stroke="none"/><path d="M22 96h76M22 114h50M22 134h76" stroke="#c9c2b0" stroke-width="8"/><rect x="22" y="156" width="76" height="22" rx="11" fill="#15131c"/></svg>',
+    code: '<svg viewBox="0 0 200 130" ' + S + '><rect x="6" y="6" width="188" height="118" rx="14" fill="#16222e" stroke="#15131c"/><g stroke="none"><circle cx="24" cy="24" r="5" fill="#ee5f7d"/><circle cx="40" cy="24" r="5" fill="#f2b441"/><circle cx="56" cy="24" r="5" fill="#7bd48a"/></g><path d="M24 54h60M36 72h96M36 88h58M24 104h40" stroke="#cfe3ff" stroke-width="7"/><path d="M104 88h50" stroke="#f2b441" stroke-width="7"/></svg>',
+    chart: '<svg viewBox="0 0 200 140" ' + S + '><rect x="6" y="6" width="188" height="128" rx="14" fill="#fff8ec"/><rect x="30" y="74" width="24" height="46" rx="5" fill="#2f80ed"/><rect x="68" y="50" width="24" height="70" rx="5" fill="#f2b441"/><rect x="106" y="86" width="24" height="34" rx="5" fill="#ee5f7d"/><rect x="144" y="34" width="24" height="86" rx="5" fill="#7bd48a"/></svg>'
+  };
+  $$('.kit').forEach(function (el) { el.innerHTML = KIT[el.getAttribute('data-k')]; });
+  $('#peek').innerHTML = '<path d="M18 70V44Q18 8 58 8H72Q112 8 112 44V70Z" fill="var(--skin)" stroke="#14202a" stroke-width="3"/><path d="M18 50Q18 8 58 8H72Q112 8 112 48Q104 38 94 44Q86 32 74 40Q64 28 52 38Q42 30 34 42Q24 38 18 50Z" fill="#14202a"/><ellipse cx="50" cy="58" rx="9" ry="11" fill="#fff" stroke="#14202a" stroke-width="2.5"/><ellipse cx="82" cy="58" rx="9" ry="11" fill="#fff" stroke="#14202a" stroke-width="2.5"/><circle class="peekp" cx="54" cy="60" r="4" fill="#14202a"/><circle class="peekp" cx="86" cy="60" r="4" fill="#14202a"/><path d="M4 70Q4 58 14 58Q24 58 24 70ZM106 70Q106 58 116 58Q126 58 126 70Z" fill="var(--skin)" stroke="#14202a" stroke-width="3"/>';
+  var peekP = $$('.peekp');
+  addEventListener('pointermove', function (e) { var nx = (e.clientX / innerWidth - .5) * 2, ny = (e.clientY / innerHeight - .5) * 2; peekP.forEach(function (q) { q.style.transform = 'translate(' + nx * 3.2 + 'px,' + ny * 2.6 + 'px)'; }); });
+  // heading: mixed-size letters like the reference
+  var workH = $('#workH'), workLetters = [];
+  [['Selected', [1, 3, 7], [5]], ['Work', [], []]].forEach(function (wd) { var w = document.createElement('span'); w.className = 'w'; wd[0].split('').forEach(function (ch, i) { var c = document.createElement('span'); c.textContent = ch; if (wd[1].indexOf(i) > -1) c.className = 's'; if (wd[2].indexOf(i) > -1) c.className = 'u'; w.appendChild(c); workLetters.push(c); }); workH.appendChild(w); });
 
-    <section id="capabilities">
-      <div class="in">
-        <div class="pill">Capabilities</div>
-        <h2 class="rv">What I can build</h2>
-        <p class="lead">Practical, working software — not just interfaces.</p>
-        <div class="cap" id="cap"></div>
+  /* ───── Karachi skyline + Tesla (original line-art) ───── */
+  (function () {
+    var C = '#fff3dd', E = 'stroke="' + C + '" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"', F1 = 'fill="rgba(255,243,221,.14)"', W1 = 'fill="#fff3dd" fill-opacity=".93"';
+    function win(x, y, cols, rows, gx, gy) { var o = ''; for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) { var lit = ((r * 7 + c * 3 + x) % 5) < 2; o += '<rect x="' + (x + c * gx) + '" y="' + (y + r * gy) + '" width="6" height="9" rx="1" fill="' + (lit ? '#ffe2b8' : 'rgba(255,243,221,.3)') + '" stroke="none"/>'; } return o; }
+    function arches(x, y, n, w, gap, h) { var o = ''; for (var i = 0; i < n; i++) { var ax = x + i * (w + gap); o += '<path d="M' + ax + ' ' + y + 'v-' + (h - w / 2) + 'a' + (w / 2) + ' ' + (w / 2) + ' 0 0 1 ' + w + ' 0v' + (h - w / 2) + '" fill="rgba(0,0,0,.13)"/>'; } return o; }
+    function palm(x, h) { var y = 400 - h; return '<g ' + E + ' fill="none"><path d="M' + x + ' 400C' + (x + 8) + ' ' + (400 - h * .5) + ' ' + (x - 6) + ' ' + (400 - h * .8) + ' ' + (x + 2) + ' ' + y + '"/><path d="M' + (x + 2) + ' ' + y + 'q-36 -6 -52 22M' + (x + 2) + ' ' + y + 'q-24 -26 -54 -8M' + (x + 2) + ' ' + y + 'q10 -34 44 -30M' + (x + 2) + ' ' + y + 'q34 -8 52 20M' + (x + 2) + ' ' + y + 'q26 -22 54 -2"/></g>'; }
+    function lamp(x) { return '<g ' + E + ' fill="none"><path d="M' + x + ' 400V312h-26"/><circle cx="' + (x - 30) + '" cy="312" r="5" fill="#ffe2b8"/></g>'; }
+    var v = '<svg viewBox="-300 0 2040 400" preserveAspectRatio="xMidYMax meet">';
+    // wide haze + edge blocks so the skyline spans the whole frame
+    v += '<g fill="rgba(255,243,221,.09)" stroke="rgba(255,243,221,.26)" stroke-width="2"><path d="M-300 400V292h60v-40h50v60h50v-70h44v50h60v-26h60v100zM1430 400V282h56v-44h46v62h52v-36h60v76h60v-30h66v94z"/></g>';
+    v += '<g ' + E + ' ' + F1 + '><path d="M-170 400V262h96v138"/><path d="M1470 400V250h100v150"/><path d="M1590 400V290h110v110"/></g>' + win(-160, 276, 5, 7, 17, 16) + win(1482, 264, 5, 8, 18, 16) + win(1602, 304, 5, 5, 20, 16) + palm(-60, 130) + palm(1700, 140);
+    // haze
+    v += '<g fill="rgba(255,243,221,.09)" stroke="rgba(255,243,221,.26)" stroke-width="2"><path d="M0 400V300h50v-34h44v54h46v-70h40v60h60v-26h64v82zM560 400V282h50v-34h40v54h54v-40h50v72zM930 400V272h44v-44h40v62h50v-34h54v82zM1200 400V290h50v-40h46v60h46v-30h60v60z"/></g>';
+    // Teen Talwar
+    v += '<g ' + E + ' ' + F1 + '><path d="M40 400C42 320 74 250 104 196C100 270 84 340 70 400Z"/><path d="M168 400C166 320 134 250 104 196C108 270 124 340 138 400Z"/><path d="M96 400V176l8-22 8 22V400Z" ' + W1 + '/><circle cx="104" cy="250" r="30" fill="none"/><path d="M26 400h156"/></g>';
+    // Frere Hall
+    v += '<g ' + E + ' ' + F1 + '><path d="M216 400V326h190v74"/>' + arches(224, 400, 6, 20, 10, 40) + '<path d="M296 326V232h30v94"/><path d="M290 232h42l-21-32Z" ' + W1 + '/><path d="M311 200v-16"/><path d="M216 326h190"/>' + arches(224, 354, 6, 20, 10, 20) + '</g>';
+    // Mazar-e-Quaid
+    v += '<g ' + E + ' ' + F1 + '><path d="M452 400V312h222v88"/><path d="M476 400V350a16 20 0 0 1 32 0v50M532 400V350a16 20 0 0 1 32 0v50M588 400V350a16 20 0 0 1 32 0v50" fill="rgba(0,0,0,.14)"/><path d="M486 312h154c0-62 -32-104 -77-104s-77 42 -77 104Z" ' + W1 + '/><path d="M563 208v-24"/><circle cx="563" cy="180" r="5" fill="#fff3dd"/><path d="M440 312h246M440 400h246"/><path d="M462 312v-26h18v26M646 312v-26h18v26"/></g>';
+    // Empress Market
+    v += '<g ' + E + ' ' + F1 + '><path d="M724 400V338h170v62"/>' + arches(734, 400, 5, 22, 10, 36) + '<path d="M792 338V190h34v148"/><path d="M786 190h46l-23-36Z" ' + W1 + '/><circle cx="809" cy="224" r="12" ' + W1 + '/><path d="M809 216v8l6 4"/><path d="M809 154v-16"/><path d="M724 338h170"/></g>';
+    // Mosque
+    v += '<g ' + E + ' ' + F1 + '><path d="M940 400V344h140v56"/><path d="M952 344c0-44 20-66 58-66s58 22 58 66Z" ' + W1 + '/><path d="M1010 278v-18"/><path d="M944 400V238h13v162M1076 400V238h13v162"/><path d="M944 238l6.5-22 6.5 22M1076 238l6.5-22 6.5 22"/>' + arches(962, 400, 4, 22, 10, 36) + '</g>';
+    // towers: Bahria Icon, MCB, Ocean, Habib Bank Plaza
+    v += '<g ' + E + ' ' + F1 + '><path d="M1118 400V120h52v280"/><path d="M1124 120l8-30h30l8 30"/><path d="M1148 90V56"/></g>' + win(1128, 140, 3, 16, 13, 15)
+       + '<g ' + E + ' ' + F1 + '><path d="M1186 400V190l30-26v236"/></g>' + win(1196, 204, 2, 12, 13, 15)
+       + '<g ' + E + ' ' + F1 + '><path d="M1236 400V210q0-30 22-34t22 34V400"/><path d="M1294 400V230q0-26 20-30t20 30V400"/></g>' + win(1246, 226, 2, 11, 12, 15)
+       + '<g ' + E + ' ' + F1 + '><path d="M1352 400V200h56v200"/></g>' + win(1362, 214, 3, 12, 14, 15);
+    // street furniture
+    v += palm(214, 150) + palm(700, 120) + palm(1420, 150) + lamp(430) + lamp(900) + lamp(1100);
+    v += '<g ' + E + ' fill="none"><path d="M1010 120c8-10 18-8 24 2 6-10 16-10 22-2"/><path d="M1060 90c7-8 14-6 19 2 5-8 13-8 18-1"/></g>';
+    v += '</svg>';
+    $('#sky').innerHTML = v;
+    var T = '#14202a';
+    $('#tesla').innerHTML = '<svg viewBox="0 0 320 120" fill="none" stroke="' + T + '" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round">'
+      + '<path id="beam" d="M300 70 L420 44 L420 110 L300 86Z" fill="rgba(255,238,180,.22)" stroke="none"/>'
+      + '<ellipse cx="160" cy="108" rx="140" ry="6" fill="rgba(0,0,0,.25)" stroke="none"/>'
+      + '<path d="M12 84C12 70 22 64 42 60L84 36C110 18 188 18 222 36L264 58C288 62 304 68 306 82V90H12Z" fill="#fff8ec"/>'
+      + '<path d="M92 56L112 36C136 28 180 28 206 38L238 56Z" fill="#1f2e3c"/><path d="M158 31V56"/>'
+      + '<path d="M44 66H82M232 66H270" stroke-width="3" opacity=".5"/>'
+      + '<path d="M298 72h8" stroke="#ffe2b8" stroke-width="6"/><path d="M14 74h8" stroke="#ff5d6c" stroke-width="6"/>'
+      + '<g class="wh"><circle cx="76" cy="90" r="19" fill="#14202a"/><circle cx="76" cy="90" r="8" fill="#fff3dd"/><path d="M76 72v36M58 90h36" stroke="#fff3dd" stroke-width="2" opacity=".6"/></g>'
+      + '<g class="wh"><circle cx="246" cy="90" r="19" fill="#14202a"/><circle cx="246" cy="90" r="8" fill="#fff3dd"/><path d="M246 72v36M228 90h36" stroke="#fff3dd" stroke-width="2" opacity=".6"/></g>'
+      + '</svg>';
+  })();
 
-        <div class="sub">
-          <h3>Why work with me</h3>
-          <p>I bring more than code to every project — I bring thoughtfulness, ownership, and drive.</p>
-        </div>
-        <div class="cols">
-          <div><em>01</em>
-            <h4>Full-Stack Thinking</h4>
-            <p>I understand how the frontend, backend, APIs, and database work together — not just one layer in
-              isolation.</p>
-          </div>
-          <div><em>02</em>
-            <h4>Building to Learn</h4>
-            <p>I learn by building real applications instead of only following tutorials. Every project connects one
-              more piece of the stack.</p>
-          </div>
-          <div><em>03</em>
-            <h4>Detail + Function</h4>
-            <p>I care about both visual quality and how the application actually works underneath.</p>
-          </div>
-        </div>
+  /* ───── text helpers ───── */
+  function mixCase(el, text) { el.innerHTML = ''; text.split('').forEach(function (ch, i) { var s = document.createElement('span'); s.textContent = ch === ' ' ? ' ' : ch; if (ch !== ' ' && i % 3 === 1) s.style.cssText = 'font-size:.8em;position:relative;top:.05em'; el.appendChild(s); }); }
+  mixCase($('#kickA'), 'INSIDE THE MIND OF'); mixCase($('#ySub'), 'BUILT. SHIPPED. LIVE.');
+  var hiTxt = $('#hiTxt'), hiLetters = [];
+  ['HI,', 'I’M', 'HAMMAD'].forEach(function (p) { var w = document.createElement('span'); w.className = 'w'; p.split('').forEach(function (ch) { var c = document.createElement('span'); c.className = 'c'; c.textContent = ch; w.appendChild(c); hiLetters.push(c); }); hiTxt.appendChild(w); hiTxt.appendChild(document.createTextNode(' ')); });
+  function words(el) { var t = el.textContent; el.innerHTML = ''; return t.split(' ').map(function (w) { var s = document.createElement('span'); s.className = 'wd'; s.textContent = w; el.appendChild(s); el.appendChild(document.createTextNode(' ')); return s; }); }
+  var bw = { b1h: words($('#b1 h2')), b1p: words($('#b1 p')), b2h: words($('#b2 h2')), b3h: words($('#b3 h2')), b3p: words($('#b3 p')), b4h: words($('#b4 h2')) };
+  var d1w = words($('#d1'));
+  var bigB = $('#bigB'), bigLetters = [];
+  'QUALITY IS NON-NEGOTIABLE.'.split(' ').forEach(function (word, wi, arr) {
+    var w = document.createElement('span'); w.style.cssText = 'display:inline-block;white-space:nowrap';
+    word.split('').forEach(function (ch, i) { var sp = document.createElement('span'); sp.textContent = ch; if ((wi * 5 + i) % 4 === 2) sp.style.cssText = 'font-size:.78em;position:relative;top:.05em'; w.appendChild(sp); bigLetters.push(sp); });
+    bigB.appendChild(w); if (wi < arr.length - 1) bigB.appendChild(document.createTextNode(' '));
+  });
+  var basedTxt = $('#basedTxt'); $$('.l', basedTxt).forEach(function (l) { var t = l.textContent; l.innerHTML = ''; t.split('').forEach(function (ch, i) { var s = document.createElement('span'); s.textContent = ch === ' ' ? ' ' : ch; s.style.display = 'inline-block'; if (ch !== ' ' && i % 3 === 1) s.style.cssText += ';font-size:.84em;position:relative;top:.04em'; l.appendChild(s); }); });
+  var basedLetters = $$('.l span', basedTxt);
 
-        <div class="sub">
-          <h3>Building trust</h3>
-        </div>
-        <div class="quote">“Open to collaboration, committed to quality, and always learning.”</div>
-        <div class="cols">
-          <div>
-            <h4>Open to Collaborations</h4>
-            <p>Whether it's a side project, a startup, or a freelance contract — I'm open to working with people who
-              care about doing good work.</p>
-          </div>
-          <div>
-            <h4>Quality-Focused</h4>
-            <p>I'd rather take extra time to get something right than ship something I'm not proud of. Quality is a
-              non-negotiable standard for me.</p>
-          </div>
-          <div>
-            <h4>Clear Communication</h4>
-            <p>I keep stakeholders informed, ask the right questions early, and flag issues before they become problems.
-            </p>
-          </div>
-        </div>
+  /* ───── rings ───── */
+  var rings = $('#rings'), ringEls = []; for (var i = 0; i < 9; i++) { var r = document.createElement('i'); rings.appendChild(r); ringEls.push(r); }
 
-        <div class="sub">
-          <h3>How I build</h3>
-          <p>A straightforward system, run the same way every time — idea to something live.</p>
-        </div>
-        <ol class="steps" id="pc"></ol>
-      </div>
-    </section>
+  /* ───── work reel ───── */
+  var WORK = [
+    { n: 'PhysioSync', c: 'Physiotherapy clinic', host: 'physiosync-pk.vercel.app', h: 'PhysioSync', s: 'A calm, conversion-oriented site that reads clearly on any device and loads quickly.', u: 'https://physiosync-pk.vercel.app/', i: 'shot-physiosync.jpg' },
+    { n: 'Cosmos', c: 'Immersive space experience', host: 'cosmos-pk.netlify.app', h: 'Cosmos', s: 'Built with pure CSS and the Canvas API \u2014 an animated star field, a soft planet, and layered section transitions driven by parallax scroll.', u: 'https://cosmos-pk.netlify.app/', i: 'shot-cosmos.jpg' },
+    { n: 'CTRL ZONE', c: 'Gaming peripherals store', host: 'ctrlzone.infinityfreeapp.com', h: 'CTRL ZONE', s: 'A complete, working storefront: customers can browse, register, fill a cart, and check out, while the owner manages catalog and orders from one place.', u: 'http://ctrlzone.infinityfreeapp.com/', i: 'shot-ctrlzone.jpg' },
+    { n: 'PathSeeker', c: 'Career discovery', host: 'careerpassporttw.vercel.app', h: 'PathSeeker', s: 'An interactive career-discovery app that turns a broad question into a tailored path.', u: 'https://careerpassporttw.vercel.app/', i: 'shot-pathseeker.jpg' }
+  ];
+  var reel = $('#reel');
+  WORK.forEach(function (w) {
+    var a = document.createElement('a'); a.className = 'proj'; a.href = w.u; a.target = '_blank'; a.rel = 'noopener noreferrer';
+    a.innerHTML = '<div class="label"><span>' + w.n + '</span><em>' + w.c + '</em></div><div class="cover"><img src="' + w.i + '" alt="' + w.n + ' homepage" loading="lazy"></div><h3>' + w.h + '</h3><p>' + w.s + '</p>';
+    reel.appendChild(a);
+  });
 
-    <section id="contact">
-      <div class="in">
-        <div class="pill">Contact</div>
-        <h2 class="rv" style="max-width:20ch">Got a project? Let's build the whole thing.</h2>
-        <p class="lead">Have an idea in mind, or just want to connect? I'd love to hear from you.</p>
-        <div class="cbox">
-          <div>
-            <h3>Get in touch</h3>
-            <p>I'm currently available for freelance work and full-time opportunities. Whether you have a question or
-              just want to say hi — my inbox is always open.</p><a class="btn" href="Hammad Jawaid CV.pdf"
-              download>Download Resume ↓</a>
-          </div>
-          <div class="cl">
-            <a
-              href="mailto:droidhammad2006@gmail.com"><span><small>Email</small><b>droidhammad2006@gmail.com</b></span>↗</a>
-            <a href="https://www.linkedin.com/in/hammad-jawaid-4610793ba/" target="_blank"
-              rel="noopener"><span><small>LinkedIn</small><b>linkedin.com/in/hammad-jawaid-4610793ba</b></span>↗</a>
-            <a href="https://github.com/hammadjawaiddev" target="_blank"
-              rel="noopener"><span><small>GitHub</small><b>github.com/hammadjawaiddev</b></span>↗</a>
-          </div>
-        </div>
-        <div class="mega" aria-hidden="true">Hammad.dev</div>
-      </div>
-    </section>
-  </main>
-  <footer><b>Hammad Jawaid · Full-Stack Developer · 2026</b><span>Designed &amp; built with care by Hammad Jawaid</span>
-  </footer>
+  /* ───── ruler ───── */
+  var T = { hello: 21, build: 30, beliefs: 48, karachi: 82, work: 99, about: 124, contact: 133 };
+  var ruler = $('#ruler'), labs = [['hello', 'Hello'], ['build', 'Systems'], ['beliefs', 'Beliefs'], ['karachi', 'Karachi'], ['work', 'Work'], ['about', 'About'], ['contact', 'Contact']];
+  labs.forEach(function (l) { var b = document.createElement('button'); b.className = 'lab'; b.textContent = l[1]; b.setAttribute('data-go', l[0]); ruler.appendChild(b); });
 
-  <script src="script.js"></script>
+  $('#copyMail').addEventListener('click', function () { try { navigator.clipboard.writeText('droidhammad2006@gmail.com'); } catch (e) {} var b = this; b.style.opacity = 1; b.style.color = '#61e37a'; setTimeout(function () { b.style.color = ''; b.style.opacity = ''; }, 1200); });
+
+  /* ───── reduced motion / no gsap ───── */
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced || !window.gsap) { $('#track').style.display = 'none'; var st2 = $('#stage'); st2.style.cssText = 'position:static;border-radius:0;background:#1d3f6e'; $$('.scene').forEach(function (s) { s.style.cssText = 'position:relative;visibility:visible;opacity:1;min-height:100vh;padding:80px 6vw'; }); $$('.ico,.ruler,.rings,.hint,.sel,.cur').forEach(function (e) { e.style.display = 'none'; }); $$('.about li,.bl').forEach(function (l) { l.style.opacity = 1; l.style.position = 'relative'; }); $('.reelwrap').style.cssText = 'position:relative;left:0;top:0;overflow-x:auto;display:block'; return; }
+
+  /* ───── timeline ───── */
+  gsap.registerPlugin(ScrollTrigger);
+  var stage = $('#stage'), mark = $('#mark');
+  var SC = ['#s1', '#s2', '#s3', '#s4', '#s4y', '#s5', '#s6', '#s7', '#s8', '#s9', '#s10'];
+  var tl = gsap.timeline({ defaults: { ease: 'none' } });
+  tl.set(SC, { autoAlpha: 0 }).set('#s1', { autoAlpha: 1 });
+  var BG = { s1: '#1d3f6e', s2: '#0a1322', s3: '#a3243b', s4: '#0f7a4a', s4y: '#7a3b12', s5: '#101c33', s6: '#123f5c', s7: '#2d5f8b', s8: '#6b2f2f', s9: '#0f4c4a', s10: '#1d3f6e' };
+  function swap(from, to, at) { var f = .7; if (from) tl.to(from, { autoAlpha: 0, duration: f }, at - f / 2); tl.to(to, { autoAlpha: 1, duration: f }, at - f / 2); tl.to(stage, { backgroundColor: BG[to.slice(1)], duration: 1.1 }, at - .8); }
+
+  // 1 hero
+  var LID = { svgOrigin: '92 118' };
+  tl.fromTo(capsA, { rotation: -8, svgOrigin: '92 118' }, { rotation: -78, duration: 3.4, ease: 'power2.out', svgOrigin: '92 118' }, 2.4);
+  var capLift = { rotation: 36, x: 16, y: -16, transformOrigin: '300px 118px', duration: 3.4, ease: 'power2.out' };
+  var heroIcons = $$('#s1 .ico'), fan = [[9, -20, -10], [16, -30, 10], [23, -18, 0], [30, -26, 14], [13, -9, 0], [21, -36, -12]];
+  heroIcons.forEach(function (ic, k) { tl.fromTo(ic, { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: .2, opacity: 0, rotation: 0 }, { x: function () { return fan[k][0] * innerWidth / 100; }, y: function () { return fan[k][1] * innerHeight / 100 * .9; }, scale: 1, opacity: 1, rotation: fan[k][2], duration: 2.4, ease: 'back.out(1.5)' }, 3.6 + k * .3); });
+  tl.set('.ruler .lab', { opacity: 0 }, 0).to('.ruler .lab', { opacity: .62, duration: 1 }, 11.4);
+  tl.to('#hint', { opacity: 0, duration: .8 }, 1.2);
+  tl.to('#roleA, #sel, #curA', { opacity: 0, y: 12, duration: 1 }, 7.2);
+  tl.to('#charA', { scale: 5.5, transformOrigin: '50% 30%', y: '8vh', duration: 2.6, ease: 'power2.in' }, 8.2);
+  tl.to('#s1 .name, #s1 .kicker, #s1 .phrase, #s1 .birds', { opacity: 0, y: -40, duration: 1.4 }, 8.4);
+  tl.to(heroIcons, { opacity: 0, scale: 2.6, duration: 1.6, ease: 'power2.in' }, 8.6);
+
+  // 2 rings
+  swap('#s1', '#s2', 11.2);
+  ringEls.forEach(function (el, k) { tl.fromTo(el, { scale: .06 + k * .02, opacity: 0 }, { scale: 6 + k * 1.1, opacity: 1, duration: 9.6 + k * .1, ease: 'power1.in' }, 11.6 + k * .45); tl.to(el, { opacity: 0, duration: 1.4 }, 20 + k * .1); });
+
+  // 3 hello
+  swap('#s2', '#s3', 21);
+  hiLetters.forEach(function (c, k) { var dir = k % 2 ? 1 : -1; tl.fromTo(c, { y: dir * 90 + (k % 5) * 26, rotation: dir * (24 + k * 2), opacity: 0, scale: .6 }, { y: function () { return Math.sin(k * 1.1) * 8 + k * 2; }, rotation: function () { return -6 + k * 1.7 + Math.sin(k) * 4; }, opacity: function () { return k > 7 ? Math.max(.4, 1 - (k - 7) * .12) : 1; }, scale: 1, duration: 2.4, ease: 'back.out(1.3)' }, 20.7 + k * .26); });
+  var sqp = $('#squig'), sqlen = sqp.getTotalLength(); gsap.set(sqp, { strokeDasharray: sqlen, strokeDashoffset: sqlen });
+  tl.to(sqp, { strokeDashoffset: 0, duration: 2.2 }, 22.4);
+  tl.fromTo('#hiCap', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 1.4 }, 24);
+  tl.to('#hiTxt', { scale: 1.05, duration: 6 }, 23.4);
+
+  // 4 systems
+  swap('#s3', '#s4', 30.5);
+  tl.fromTo('#sysSmall', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2 }, 30);
+  tl.fromTo('#sysWord', { scale: .55, rotation: -10, opacity: 0 }, { scale: 1, rotation: -3, opacity: 1, duration: 2.6, ease: 'back.out(1.4)' }, 30.2);
+  tl.to('#sysWord', { fontWeight: 900, duration: 3 }, 32);
+  tl.fromTo('#sysChips span', { y: 20, opacity: 0, scale: .8 }, { y: 0, opacity: 1, scale: 1, duration: .9, stagger: .15, ease: 'back.out(2)' }, 32.6);
+  tl.fromTo('#sysCap', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1.4 }, 34);
+  $$('#s4 .kit').forEach(function (k, n) { tl.fromTo(k, { scale: 0, rotation: -20 }, { scale: 1, rotation: 0, duration: 1.8, ease: 'back.out(2)' }, 31.4 + n * .5); });
+
+  // 4b years
+  swap('#s4', '#s4y', 40.5);
+  tl.fromTo('#yrs em', { y: 90, opacity: 0, rotationX: -50 }, { y: 0, opacity: 1, rotationX: 0, duration: 2.2, stagger: .5, ease: 'power3.out' }, 40.2);
+  var sq2 = $('#squig2'), sq2len = sq2.getTotalLength(); gsap.set(sq2, { strokeDasharray: sq2len, strokeDashoffset: sq2len });
+  tl.to(sq2, { strokeDashoffset: 0, duration: 2.4 }, 42);
+  tl.fromTo('#ySub span', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: .045 }, 42.8);
+
+  // 5 beliefs
+  swap('#s4y', '#s5', 47.5);
+  function inOut(sel, at, hold) { tl.to(sel, { opacity: 1, duration: .6 }, at); tl.to(sel, { opacity: 0, duration: .8 }, at + hold); }
+  inOut('#b1', 47.6, 6.2); tl.fromTo(bw.b1h, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.5, stagger: .22, ease: 'power3.out' }, 47.8); tl.fromTo(bw.b1p, { opacity: .05 }, { opacity: 1, duration: .6, stagger: .08 }, 50);
+  inOut('#b2', 54.6, 3.4); tl.fromTo(bw.b2h, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.5, stagger: .25, ease: 'power3.out' }, 54.8);
+  inOut('#b3', 59, 6.6); tl.fromTo(bw.b3h, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.5, stagger: .22, ease: 'power3.out' }, 59.2); tl.fromTo(bw.b3p, { opacity: .05 }, { opacity: 1, duration: .6, stagger: .07 }, 61.4);
+  tl.to('#b4', { opacity: 1, duration: .6 }, 66.2); tl.fromTo(bw.b4h, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, stagger: .12, ease: 'power3.out' }, 66.4);
+  tl.fromTo(bigLetters, { y: 40, opacity: 0, rotation: function (i) { return (i % 2 ? 1 : -1) * 14; } }, { y: 0, opacity: 1, rotation: 0, duration: 1, stagger: .09, ease: 'back.out(1.6)' }, 67.6);
+  tl.to('#b4', { opacity: 0, duration: .8 }, 73.2);
+
+  // 6 doodles
+  swap('#s5', '#s6', 74.2);
+  tl.fromTo('#dh .l1', { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.8, ease: 'power3.out' }, 73.9).fromTo('#dh .l2', { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1.8, ease: 'power3.out' }, 74.7);
+  tl.fromTo('#dsub, #dsub2', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.2, stagger: .5 }, 76);
+  tl.fromTo('#s6 .dd', { scale: 0, rotation: -30, opacity: 0 }, { scale: 1, rotation: 0, opacity: 1, duration: 1.8, stagger: .22, ease: 'back.out(2)' }, 74.3);
+
+  // 7 karachi
+  swap('#s6', '#s7', 82);
+  tl.fromTo(basedLetters, { y: 120, opacity: 0, rotation: function (i) { return (i % 2 ? 1 : -1) * 10; } }, { y: 0, opacity: 1, rotation: 0, duration: 1.6, stagger: .09, ease: 'back.out(1.3)' }, 81.6);
+  tl.fromTo('#basedCap', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 1.4 }, 84.4);
+  tl.fromTo('#sky', { y: 120, opacity: 0 }, { y: 0, opacity: 1, duration: 3, ease: 'power2.out' }, 82.6);
+  var tesla = $('#tesla'), whs = $$('.wh', tesla);
+  tl.fromTo(tesla, { x: function () { return -tesla.offsetWidth * 1.2; } }, { x: function () { return $('#stage').clientWidth + tesla.offsetWidth * .3; }, duration: 12, ease: 'none' }, 84.6);
+  whs.forEach(function (w) { tl.fromTo(w, { rotation: 0, transformOrigin: '50% 50%' }, { rotation: 1440, transformOrigin: '50% 50%', duration: 12, ease: 'none' }, 84.6); });
+  tl.to({}, { duration: 1.2 }, 96.6);
+
+  // 8 work
+  swap('#s7', '#s8', 98.4);
+  tl.fromTo('#s8 .head', { opacity: 0, y: 52 }, { opacity: 1, y: 0, duration: 1.4, ease: 'power2.out' }, 98.2);
+  tl.fromTo(workLetters, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: .9, stagger: .06, ease: 'back.out(1.6)' }, 98.6);
+  tl.fromTo('#peek', { yPercent: 70, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.2, ease: 'back.out(1.4)' }, 99.6);
+  tl.fromTo('#s8 .head p', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 1, stagger: .25 }, 99.2);
+  tl.fromTo('#reel .proj', { opacity: 0, y: 80, rotation: 2 }, { opacity: 1, y: 0, rotation: 0, duration: 1.4, stagger: .35, ease: 'power3.out' }, 98.8);
+  var reelEl = $('#reel');
+  tl.fromTo(reelEl, { x: 0 }, { x: function () { return -(reelEl.scrollWidth - $('#reelwrap').clientWidth + 24); }, duration: 22, ease: 'power1.inOut' }, 100);
+
+  // 9 about
+  swap('#s8', '#s9', 123);
+  tl.fromTo(d1w, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1.4, stagger: .3, ease: 'power3.out' }, 122.7);
+  $$('#s9 li').forEach(function (li, k) { tl.fromTo(li, { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 1.2 }, 124.4 + k * .9); });
+  tl.fromTo('#pointer', { x: 120, y: 120, rotation: 20 }, { x: 0, y: 0, rotation: 0, duration: 3 }, 123.5).to('#pointer', { x: -60, y: 70, duration: 3 }, 126.5);
+
+  // 10 contact
+  swap('#s9', '#s10', 130.6);
+  tl.to('.ruler .lab', { opacity: 0, duration: 1 }, 130.6);
+  tl.fromTo('#ft span', { y: 90, opacity: 0 }, { y: 0, opacity: 1, duration: 1.6, stagger: .22, ease: 'power3.out' }, 130.7);
+  tl.fromTo('#s10 .eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, 130.6);
+  tl.fromTo('#s10 .fsub, #s10 .mail, #s10 .loc', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: .25 }, 132);
+  tl.fromTo('#s10 .row a', { y: 20, opacity: 0, scale: .9 }, { y: 0, opacity: 1, scale: 1, duration: .8, stagger: .12, ease: 'back.out(2)' }, 132.8);
+  tl.fromTo('#charB', { x: 90, opacity: 0 }, { x: 0, opacity: 1, duration: 1.8, ease: 'power3.out' }, 130.9);
+  tl.fromTo(capsB, { rotation: -8, svgOrigin: '92 118' }, { rotation: -78, duration: 3.2, ease: 'power2.out', svgOrigin: '92 118' }, 132.2);
+  tl.fromTo('#s10 .dream', { scale: 0, rotation: -30 }, { scale: 1, rotation: -8, duration: 1.2, ease: 'back.out(2)' }, 133.4);
+  tl.to({}, { duration: 2.6 }, 135);
+
+  var total = tl.duration();
+  var P = {}; Object.keys(T).forEach(function (k) { P[k] = T[k] / total * 100; });
+  $$('.lab').forEach(function (b) { b.style.left = P[b.getAttribute('data-go')] + '%'; });
+  ScrollTrigger.create({ trigger: '#track', start: 'top top', end: 'bottom bottom', scrub: 1, animation: tl, onUpdate: function (self) {
+    var pct = self.progress * 100; mark.style.left = pct + '%';
+    var cur = null; Object.keys(P).forEach(function (k) { if (pct >= P[k] - 2) cur = k; }); $$('.lab').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-go') === cur); });
+  } });
+
+  function goTo(key) { var pct = (key === '0' || key === 0) ? 0 : (P[key] || 0); var max = document.documentElement.scrollHeight - innerHeight; window.scrollTo({ top: pct / 100 * max, behavior: 'smooth' }); }
+  document.addEventListener('click', function (e) { var t = e.target.closest('[data-go]'); if (!t) return; e.preventDefault(); goTo(t.getAttribute('data-go')); });
+  document.fonts && document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
+  addEventListener('resize', function () { ScrollTrigger.refresh(); });
+})();
+</script>
 </body>
-
 </html>
