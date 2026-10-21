@@ -66,6 +66,9 @@ a { color: inherit; }
 .sel i { position: absolute; width: 8px; height: 8px; background: #fff; border: 1.5px solid #3a8bf5; }
 .sel i:nth-child(1) { left: -5px; top: -5px; } .sel i:nth-child(2) { right: -5px; top: -5px; } .sel i:nth-child(3) { left: -5px; bottom: -5px; } .sel i:nth-child(4) { right: -5px; bottom: -5px; }
 .sel b { position: absolute; right: 0; top: -22px; font-size: 11px; font-weight: 700; background: #3a8bf5; color: #fff; padding: 1px 7px; border-radius: 3px; letter-spacing: 0; }
+.lid { fill: var(--skin); stroke: none; transform-box: fill-box; transform-origin: 50% 0%; transform: scaleY(0); animation: blink 4.6s infinite; }
+.lid.b2 { animation-duration: 5.7s; animation-delay: 1.3s; }
+@keyframes blink { 0%, 93%, 100% { transform: scaleY(0); } 96% { transform: scaleY(1); } }
 .cur { position: absolute; z-index: 5; width: 22px; pointer-events: none; }
 .cur svg { width: 22px; display: block; filter: drop-shadow(0 1px 1px rgba(0,0,0,.3)); }
 .cur span { position: absolute; left: 14px; top: 20px; background: #3a8bf5; color: #fff; font-size: 11px; font-weight: 800; padding: 2px 9px 3px; border-radius: 4px 12px 12px 12px; white-space: nowrap; letter-spacing: .01em; }
@@ -254,7 +257,7 @@ a { color: inherit; }
   .about h2 { font-size: 12.4vw; } .about .in { left: 6%; right: 6%; top: 22%; } .about li { font-size: 1.1rem; }
   .final .fgrid { padding: 12vh 7vw 8vh; }
 }
-@media (prefers-reduced-motion: reduce) { .grain, .wave, .kit.f, .kit.f2, .dd.f, .dd.f2, .hint::after { animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { .grain, .wave, .kit.f, .kit.f2, .dd.f, .dd.f2, .hint::after, .lid { animation: none !important; } }
 </style>
 </head>
 <body>
@@ -404,7 +407,7 @@ a { color: inherit; }
   var handA = makeHand($('#charA')), handB = makeHand($('#charB'));
   function scrolledClass() { document.body.classList.toggle('scrolled', scrollY > 4); }
   addEventListener('scroll', scrolledClass, { passive: true }); scrolledClass();
-  addEventListener('pointermove', function (e) { var nx = (e.clientX / innerWidth - .5) * 2, ny = (e.clientY / innerHeight - .5) * 2; pupils.forEach(function (p) { p.style.transform = 'translate(' + nx * 7 + 'px,' + ny * 6 + 'px)'; }); });
+  /* eye tracking + blinking now live in the hero script at the end of the file */
 
   /* ───── icons (original stickers) ───── */
   var S = 'fill="none" stroke="#15131c" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"';
@@ -650,24 +653,43 @@ a { color: inherit; }
 })();
 </script>
 <script>
-/* fit hero name to its selection box, and the "5 PROJECTS." title to the screen */
+/* HERO: selection box that is "dragged out" like a Figma frame, name fitting, "5 PROJECTS." fitting,
+   plus eyes that really look at the cursor and blink */
 (function () {
   var stage = document.getElementById('stage');
   var name = document.querySelector('#s1 .name');
   var sel = document.getElementById('sel');
+  var cur = document.getElementById('curA');
   var yrs = document.getElementById('yrs');
   if (!stage) return;
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var animate = !!window.gsap && !reduced && sel;
+  var box = { left: 0, top: 0, width: 0, height: 0 };
+  var st = { px: animate ? 0 : 1, py: animate ? 0 : 1 };         // drag progress (0 = nothing drawn yet)
 
   function shrinkTo(el, measure, maxW) {
-    el.style.fontSize = '';                       // back to the CSS size (incl. media queries)
+    el.style.fontSize = '';
     var w = measure();
     if (w > maxW && w > 0) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * maxW / w * 0.98) + 'px';
+  }
+
+  /* draw the box at the current drag progress; the cursor rides the bottom-right corner */
+  function renderBox() {
+    if (!sel || !box.width) return;
+    var w = box.width * st.px, h = box.height * st.py, W = stage.offsetWidth;
+    sel.style.left = box.left + 'px'; sel.style.top = box.top + 'px';
+    sel.style.width = w + 'px'; sel.style.height = h + 'px';
+    var tag = sel.querySelector('b'); if (tag) tag.textContent = Math.round(w) + ' \u00d7 ' + Math.round(h);
+    if (cur) {
+      cur.style.left = Math.max(0, Math.min(box.left + w - 3, W - 80)) + 'px';
+      cur.style.top = (box.top + h - 2) + 'px';
+    }
   }
 
   function fitHero() {
     if (!name) return;
     var W = stage.offsetWidth, mobile = innerWidth <= 760;
-    var k = stage.getBoundingClientRect().width / W || 1;       // ignore any CSS transforms
+    var k = stage.getBoundingClientRect().width / W || 1;
     var spans = name.querySelectorAll('span');
     function union() {
       var l = 1e9, r = -1e9;
@@ -675,20 +697,14 @@ a { color: inherit; }
       return { l: l, r: r, w: (r - l) / k };
     }
     shrinkTo(name, function () { return union().w; }, W * (mobile ? 0.74 : 0.68));
-
     if (!sel) return;
     var par = sel.offsetParent || name.offsetParent, pr = par.getBoundingClientRect();
     var pk = pr.width / par.offsetWidth || 1;
     var u = union(), nb = name.getBoundingClientRect();
-    var fs = parseFloat(getComputedStyle(name).fontSize);
-    var padX = fs * 0.07, padY = fs * 0.07;
-    var left = (u.l - pr.left) / pk - padX, top = (nb.top - pr.top) / pk - padY;
-    var width = u.w + padX * 2, height = nb.height / pk + padY * 2;
-    sel.style.left = left + 'px'; sel.style.top = top + 'px';
-    sel.style.width = width + 'px'; sel.style.height = height + 'px';
-    var tag = sel.querySelector('b'); if (tag) tag.textContent = Math.round(width) + ' \u00d7 ' + Math.round(height);
-    var cur = document.getElementById('curA');
-    if (cur) { cur.style.left = Math.max(0, Math.min(left + width - 6, W - 96)) + 'px'; cur.style.top = (top + height - 8) + 'px'; }
+    var fs = parseFloat(getComputedStyle(name).fontSize), pad = fs * 0.07;
+    box.left = (u.l - pr.left) / pk - pad; box.top = (nb.top - pr.top) / pk - pad;
+    box.width = u.w + pad * 2; box.height = nb.height / pk + pad * 2;
+    renderBox();
   }
 
   function fitYears() {
@@ -700,11 +716,69 @@ a { color: inherit; }
 
   var raf;
   function fitAll() { cancelAnimationFrame(raf); raf = requestAnimationFrame(function () { fitHero(); fitYears(); }); }
+
+  /* ── the drag-out intro ── */
+  if (animate) {
+    renderBox();                                              // 0 x 0 straight away
+    gsap.set(sel.querySelectorAll('i'), { scale: 0 });
+    var started = false;
+    function play() {
+      if (started) return; started = true;
+      fitHero();                                              // final geometry known now
+      var tl = gsap.timeline({ delay: .35 });
+      tl.to(st, { px: 1, duration: 1.7, ease: 'power3.inOut', onUpdate: renderBox }, 0)
+        .to(st, { py: 1, duration: 1.55, ease: 'power2.inOut', onUpdate: renderBox }, .12)
+        .to(sel.querySelectorAll('i'), { scale: 1, duration: .38, ease: 'back.out(3)', stagger: .07 }, '>-.1')
+        .fromTo(cur, { scale: 1 }, { scale: .9, duration: .12, yoyo: true, repeat: 1, ease: 'power1.inOut', transformOrigin: '0 0' }, '>-.25');
+    }
+    var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+    Promise.race([fontsReady, new Promise(function (r) { setTimeout(r, 1500); })]).then(function () { requestAnimationFrame(play); });
+  }
+
   fitAll();
   addEventListener('resize', fitAll);
   addEventListener('orientationchange', fitAll);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
   addEventListener('load', fitAll);
+
+  /* ── eyes: look at the cursor, blink ── */
+  var NS = 'http://www.w3.org/2000/svg', EYES = [[156, 188], [244, 188]], MAX = 11;
+  var tracks = [];
+  ['#charA', '#charB'].forEach(function (id, n) {
+    var root = document.querySelector(id), svg = root && root.querySelector('svg'); if (!svg) return;
+    var pus = svg.querySelectorAll('.pu'); if (!pus.length) return;
+    EYES.forEach(function (e, i) {                            // eyelids that close for a blink
+      var lid = document.createElementNS(NS, 'circle');
+      lid.setAttribute('cx', e[0]); lid.setAttribute('cy', e[1]); lid.setAttribute('r', 26);
+      lid.setAttribute('class', 'lid' + (n ? ' b2' : ''));
+      pus[1].parentNode.appendChild(lid);
+    });
+    tracks.push({ svg: svg, pus: pus, pos: [{ x: 0, y: 4 }, { x: 0, y: 4 }] });
+  });
+  if (tracks.length) {
+    var gaze = { x: innerWidth / 2, y: innerHeight * .45 }, last = 0, nextWander = 0;
+    addEventListener('pointermove', function (e) { gaze.x = e.clientX; gaze.y = e.clientY; last = performance.now(); }, { passive: true });
+    addEventListener('pointerdown', function (e) { gaze.x = e.clientX; gaze.y = e.clientY; last = performance.now(); }, { passive: true });
+    (function loop(now) {
+      requestAnimationFrame(loop);
+      if (document.hidden) return;
+      if (now - last > 3500 && now > nextWander) {            // no pointer for a while: glance around
+        gaze.x = innerWidth * (.15 + Math.random() * .7); gaze.y = innerHeight * (.15 + Math.random() * .6); nextWander = now + 1800 + Math.random() * 2200;
+      }
+      var reach = Math.max(innerWidth, innerHeight) * .22;
+      tracks.forEach(function (t) {
+        var r = t.svg.getBoundingClientRect(); if (!r.width) return;
+        var s = r.width / 400;
+        t.pus.forEach(function (p, i) {
+          var ex = r.left + EYES[i][0] * s, ey = r.top + EYES[i][1] * s;
+          var dx = gaze.x - ex, dy = gaze.y - ey, d = Math.hypot(dx, dy) || 1, q = Math.min(1, d / reach);
+          var tx = dx / d * MAX * q, ty = 4 + dy / d * MAX * q;   // +4: pupils are drawn 4 above eye centre
+          var c = t.pos[i]; c.x += (tx - c.x) * .2; c.y += (ty - c.y) * .2;
+          p.style.transform = 'translate(' + c.x.toFixed(2) + 'px,' + c.y.toFixed(2) + 'px)';
+        });
+      });
+    })(0);
+  }
 })();
 </script>
 </body>
