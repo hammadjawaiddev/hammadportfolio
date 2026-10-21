@@ -61,7 +61,7 @@ a { color: inherit; }
 
 /* hero */
 .hero .kicker { position: absolute; top: 11.2%; left: 0; right: 0; text-align: center; font-weight: 800; font-size: clamp(1rem, 1.9vw, 1.7rem); letter-spacing: .03em; color: var(--lilac); text-transform: uppercase; }
-.hero .name { position: absolute; top: 16%; left: 0; right: 0; text-align: center; font-family: var(--f-name); font-weight: 400; font-size: 11.6vw; line-height: .9; letter-spacing: -.01em; text-transform: uppercase; color: #fff; white-space: nowrap; }
+.hero .name { position: absolute; top: 16%; left: 0; right: 0; text-align: center; font-family: var(--f-name); font-weight: 400; font-size: min(10.4vw, 30vh); line-height: .9; letter-spacing: -.01em; text-transform: uppercase; color: #fff; white-space: nowrap; }
 .sel { position: absolute; left: 15.5%; width: 69%; top: 15.3%; height: 21%; border: 1.5px solid #3a8bf5; z-index: 4; pointer-events: none; }
 .sel i { position: absolute; width: 8px; height: 8px; background: #fff; border: 1.5px solid #3a8bf5; }
 .sel i:nth-child(1) { left: -5px; top: -5px; } .sel i:nth-child(2) { right: -5px; top: -5px; } .sel i:nth-child(3) { left: -5px; bottom: -5px; } .sel i:nth-child(4) { right: -5px; bottom: -5px; }
@@ -150,7 +150,7 @@ a { color: inherit; }
 
 /* years */
 .years .stack { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10vh 6vw 14vh; gap: 2.4vh; }
-.years .big { font-family: var(--f-name); font-weight: 400; font-size: min(15vw, 26vh); line-height: 1; letter-spacing: -.01em; white-space: nowrap; color: #fff; }
+.years .big { font-family: var(--f-name); font-weight: 400; font-size: min(12vw, 26vh); line-height: 1; letter-spacing: -.01em; white-space: nowrap; width: max-content; max-width: none; color: #fff; }
 .years .big em { font-style: normal; display: inline-block; margin: 0 .04em; }
 .years .sq { width: min(30vw, 400px); overflow: visible; flex: none; }
 .years .ysub { font-weight: 900; font-size: min(3vw, 5.2vh); letter-spacing: .03em; text-transform: uppercase; color: var(--lilac); }
@@ -223,7 +223,7 @@ a { color: inherit; }
   /* hero */
   .hero .kicker { top: 12.5%; font-size: 3.6vw; }
   .hero .name { top: 16%; left: 0; right: 0; font-size: 21vw; white-space: normal; padding: 0; line-height: .94; }
-  .hero .name span { display: block; }
+  .hero .name span { display: block; width: max-content; margin: 0 auto; }
   .sel { display: block; left: 9%; width: 82%; top: 15.2%; height: 30%; } .sel b { display: none; }
   #curA { display: block; left: 66%; top: 33%; }
   .hero .phrase { width: 92vw; font-size: 4.3vw; top: 48%; justify-content: center; gap: 2.2vw; }
@@ -238,7 +238,7 @@ a { color: inherit; }
   .hello .stack { padding: 12vh 6vw 10vh; }
   .sys small { font-size: 5.4vw; } .sys .word { font-size: min(17.5vw, 20vh); }
   .sys .stack { padding: 14vh 6vw 16vh; } .kit { opacity: .95; }
-  .years .big { font-size: min(21vw, 22vh); }
+  .years .big { font-size: min(15vw, 22vh); }
   /* beliefs: left-aligned like the reference */
   .bl { left: 6%; right: 6%; top: 24%; } .bl h2 { font-size: 9vw; line-height: 1.05; } .bl p { font-size: 1.05rem; max-width: 30ch; }
   .bl.r { left: 6%; top: 28%; } .bl.c { left: 6%; right: 6%; text-align: left; top: 28%; } .bl.c h2 { font-size: 6.4vw; margin: 0; max-width: none; } .bl .big { font-size: 12vw; white-space: normal; line-height: .98; margin-top: 2vh; }
@@ -535,7 +535,8 @@ a { color: inherit; }
   var stage = $('#stage'), mark = $('#mark');
   var SC = ['#s1', '#s2', '#s3', '#s4', '#s4y', '#s5', '#s6', '#s7', '#s8', '#s9', '#s10'];
   var tl = gsap.timeline({ defaults: { ease: 'none' } });
-  tl.set(SC, { autoAlpha: 0 }).set('#s1', { autoAlpha: 1 });
+  /* initial states are set once, outside the timeline: a tl.set() at time 0 gets "un-done" in the wrong order when the scrub returns to exactly 0, which left the hero hidden */
+  gsap.set(SC, { autoAlpha: 0 }); gsap.set('#s1', { autoAlpha: 1 });
   var BG = { s1: '#1d3f6e', s2: '#0a1322', s3: '#a3243b', s4: '#0f7a4a', s4y: '#7a3b12', s5: '#101c33', s6: '#123f5c', s7: '#2d5f8b', s8: '#6b2f2f', s9: '#0f4c4a', s10: '#1d3f6e' };
   function swap(from, to, at) { var f = .7; if (from) tl.to(from, { autoAlpha: 0, duration: f }, at - f / 2); tl.to(to, { autoAlpha: 1, duration: f }, at - f / 2); tl.to(stage, { backgroundColor: BG[to.slice(1)], duration: 1.1 }, at - .8); }
 
@@ -545,7 +546,7 @@ a { color: inherit; }
   var capLift = { rotation: 36, x: 16, y: -16, transformOrigin: '300px 118px', duration: 3.4, ease: 'power2.out' };
   var heroIcons = $$('#s1 .ico'), fan = [[9, -20, -10], [16, -30, 10], [23, -18, 0], [30, -26, 14], [13, -9, 0], [21, -36, -12]];
   heroIcons.forEach(function (ic, k) { tl.fromTo(ic, { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: .2, opacity: 0, rotation: 0 }, { x: function () { return fan[k][0] * innerWidth / 100; }, y: function () { return fan[k][1] * innerHeight / 100 * .9; }, scale: 1, opacity: 1, rotation: fan[k][2], duration: 2.4, ease: 'back.out(1.5)' }, 3.6 + k * .3); });
-  tl.set('.ruler .lab', { opacity: 0 }, 0).to('.ruler .lab', { opacity: .62, duration: 1 }, 11.4);
+  gsap.set('.ruler .lab', { opacity: 0 }); tl.to('.ruler .lab', { opacity: .62, duration: 1 }, 11.4);
   tl.to('#hint', { opacity: 0, duration: .8 }, 1.2);
   tl.to('#roleA, #sel, #curA', { opacity: 0, y: 12, duration: 1 }, 7.2);
   tl.to('#charA', { scale: 5.5, transformOrigin: '50% 30%', y: '8vh', duration: 2.6, ease: 'power2.in' }, 8.2);
@@ -646,6 +647,64 @@ a { color: inherit; }
   document.addEventListener('click', function (e) { var t = e.target.closest('[data-go]'); if (!t) return; e.preventDefault(); goTo(t.getAttribute('data-go')); });
   document.fonts && document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
   addEventListener('resize', function () { ScrollTrigger.refresh(); });
+})();
+</script>
+<script>
+/* fit hero name to its selection box, and the "5 PROJECTS." title to the screen */
+(function () {
+  var stage = document.getElementById('stage');
+  var name = document.querySelector('#s1 .name');
+  var sel = document.getElementById('sel');
+  var yrs = document.getElementById('yrs');
+  if (!stage) return;
+
+  function shrinkTo(el, measure, maxW) {
+    el.style.fontSize = '';                       // back to the CSS size (incl. media queries)
+    var w = measure();
+    if (w > maxW && w > 0) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * maxW / w * 0.98) + 'px';
+  }
+
+  function fitHero() {
+    if (!name) return;
+    var W = stage.offsetWidth, mobile = innerWidth <= 760;
+    var k = stage.getBoundingClientRect().width / W || 1;       // ignore any CSS transforms
+    var spans = name.querySelectorAll('span');
+    function union() {
+      var l = 1e9, r = -1e9;
+      spans.forEach(function (s) { var b = s.getBoundingClientRect(); l = Math.min(l, b.left); r = Math.max(r, b.right); });
+      return { l: l, r: r, w: (r - l) / k };
+    }
+    shrinkTo(name, function () { return union().w; }, W * (mobile ? 0.74 : 0.68));
+
+    if (!sel) return;
+    var par = sel.offsetParent || name.offsetParent, pr = par.getBoundingClientRect();
+    var pk = pr.width / par.offsetWidth || 1;
+    var u = union(), nb = name.getBoundingClientRect();
+    var fs = parseFloat(getComputedStyle(name).fontSize);
+    var padX = fs * 0.07, padY = fs * 0.07;
+    var left = (u.l - pr.left) / pk - padX, top = (nb.top - pr.top) / pk - padY;
+    var width = u.w + padX * 2, height = nb.height / pk + padY * 2;
+    sel.style.left = left + 'px'; sel.style.top = top + 'px';
+    sel.style.width = width + 'px'; sel.style.height = height + 'px';
+    var tag = sel.querySelector('b'); if (tag) tag.textContent = Math.round(width) + ' \u00d7 ' + Math.round(height);
+    var cur = document.getElementById('curA');
+    if (cur) { cur.style.left = Math.max(0, Math.min(left + width - 6, W - 96)) + 'px'; cur.style.top = (top + height - 8) + 'px'; }
+  }
+
+  function fitYears() {
+    if (!yrs) return;
+    var stack = yrs.parentNode, cs = getComputedStyle(stack);
+    var avail = stack.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    shrinkTo(yrs, function () { return yrs.offsetWidth; }, avail);
+  }
+
+  var raf;
+  function fitAll() { cancelAnimationFrame(raf); raf = requestAnimationFrame(function () { fitHero(); fitYears(); }); }
+  fitAll();
+  addEventListener('resize', fitAll);
+  addEventListener('orientationchange', fitAll);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+  addEventListener('load', fitAll);
 })();
 </script>
 </body>
