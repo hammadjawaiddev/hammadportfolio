@@ -6,6 +6,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&(window.scrollY||0)<40){document.documentElement.classList.add('js-intro');setTimeout(function(){document.documentElement.classList.remove('js-intro')},6000)}</script>
 <title>Hammad Jawaid — Full-Stack Developer</title>
 <meta name="description" content="Step inside the mind of Hammad Jawaid, a full-stack developer who builds modern interfaces, powerful backends and database-driven web apps. Five live projects.">
 <meta property="og:title" content="Hammad Jawaid — Inside the mind of">
@@ -32,6 +33,9 @@ a { color: inherit; }
 .grain { position: absolute; inset: -50%; z-index: 40; pointer-events: none; opacity: .3; mix-blend-mode: overlay; animation: grain .7s steps(5) infinite;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.1 -.35'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
 @keyframes grain { 0% { transform: translate(0,0); } 20% { transform: translate(-3%,2%); } 40% { transform: translate(2%,-3%); } 60% { transform: translate(-2%,-1%); } 80% { transform: translate(3%,3%); } 100% { transform: translate(0,0); } }
+
+/* intro: everything starts hidden, the script reveals it in sequence */
+.js-intro .hero .kicker, .js-intro .hero .name, .js-intro .hero .phrase, .js-intro .hero .birds, .js-intro .hero .char, .js-intro .hero .role, .js-intro .top, .js-intro .ruler, .js-intro .hint, .js-intro .sel, .js-intro .cur { opacity: 0; }
 
 /* top bar */
 .top { position: absolute; z-index: 30; top: 0; left: 0; right: 0; display: flex; align-items: center; padding: 30px 32px; }
@@ -194,7 +198,7 @@ a { color: inherit; }
 .work .head p { margin-top: 3.2vh; font-weight: 600; font-size: clamp(1rem, 1.5vw, 1.45rem); line-height: 1.3; max-width: 22ch; }
 .work .head p.dim { color: rgba(255,248,236,.62); margin-top: 2vh; }
 .work .head p a { text-underline-offset: 3px; }
-.reelwrap { position: absolute; left: 39.5vw; right: 0; top: 16%; bottom: 4%; overflow: hidden; padding: 6px 0 0 0; }
+.reelwrap { position: absolute; left: 0; right: 0; top: 16%; bottom: 4%; overflow: hidden; padding: 6px 0 0 39.5vw; }
 .reel { display: flex; gap: 6vw; will-change: transform; width: max-content; align-items: flex-start; }
 .proj { flex: none; width: min(40vw, 640px); text-decoration: none; display: block; will-change: transform, opacity; }
 .proj .label { display: flex; justify-content: space-between; align-items: baseline; font-weight: 700; font-size: clamp(.85rem, 1vw, 1rem); margin-bottom: .55rem; gap: 1rem; }
@@ -252,7 +256,7 @@ a { color: inherit; }
   .work .head { width: 90%; left: 6%; top: 15%; } .work .peek { width: 86px; top: -42px; left: 4px; }
   .work h2 { font-size: min(18vw, 6rem); line-height: .9; } .work h2 .w { display: block; margin-right: 0; }
   .work .head p { display: block; font-size: 1rem; max-width: 30ch; margin-top: 1.6vh; } .work .head p.dim { display: none; }
-  .reelwrap { left: 5vw; right: 0; top: 55%; bottom: 3%; } .reel { gap: 7vw; } .proj { width: 76vw; }
+  .reelwrap { left: 5vw; right: 0; top: 55%; bottom: 3%; padding-left: 0; } .reel { gap: 7vw; } .proj { width: 76vw; }
   .proj .label { font-size: .8rem; } .proj h3 { font-size: 1.35rem; margin-top: .6rem; } .proj p { font-size: .85rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .about h2 { font-size: 12.4vw; } .about .in { left: 6%; right: 6%; top: 22%; } .about li { font-size: 1.1rem; }
   .final .fgrid { padding: 12vh 7vw 8vh; }
@@ -618,7 +622,10 @@ a { color: inherit; }
   tl.fromTo('#s8 .head p', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 1, stagger: .25 }, 99.2);
   tl.fromTo('#reel .proj', { opacity: 0, y: 80, rotation: 2 }, { opacity: 1, y: 0, rotation: 0, duration: 1.4, stagger: .35, ease: 'power3.out' }, 98.8);
   var reelEl = $('#reel');
-  tl.fromTo(reelEl, { x: 0 }, { x: function () { return -(reelEl.scrollWidth - $('#reelwrap').clientWidth + 24); }, duration: 22, ease: 'power1.inOut' }, 100);
+  var reelX = function () { var w = $('#reelwrap'); return -(reelEl.scrollWidth + parseFloat(getComputedStyle(w).paddingLeft) - w.clientWidth + 24); };
+  tl.fromTo(reelEl, { x: 0 }, { x: reelX, duration: 22, ease: 'power1.inOut' }, 100);
+  /* the left info rides along with the cards, as if it were the first item of the strip (desktop only) */
+  tl.fromTo('#s8 .head', { x: 0 }, { x: function () { return innerWidth > 760 ? reelX() : 0; }, duration: 22, ease: 'power1.inOut' }, 100);
 
   // 9 about
   swap('#s8', '#s9', 123);
@@ -702,7 +709,7 @@ a { color: inherit; }
     var pk = pr.width / par.offsetWidth || 1;
     var u = union(), nb = name.getBoundingClientRect();
     var fs = parseFloat(getComputedStyle(name).fontSize), pad = fs * 0.07;
-    box.left = (u.l - pr.left) / pk - pad; box.top = (nb.top - pr.top) / pk - pad;
+    box.left = (u.l - pr.left) / pk - pad; box.top = (nb.top - pr.top) / pk - (window.gsap ? (+gsap.getProperty(name, 'y') || 0) : 0) - pad;
     box.width = u.w + pad * 2; box.height = nb.height / pk + pad * 2;
     renderBox();
   }
@@ -719,13 +726,42 @@ a { color: inherit; }
 
   /* ── the drag-out intro ── */
   if (animate) {
+    sel.style.width = '0px'; sel.style.height = '0px';        // no flash of the full-size box before the drag starts
+    if (cur) cur.style.opacity = 0;
     renderBox();                                              // 0 x 0 straight away
     gsap.set(sel.querySelectorAll('i'), { scale: 0 });
+    /* staged reveal: empty stage -> box drags out -> name -> phrase -> character -> role -> nav / ruler */
+    function reveal(tl) {
+      var root = document.documentElement;
+      if (!root.classList.contains('js-intro')) return;
+      var Q = function (q) { return document.querySelectorAll(q); };
+      var kick = Q('#kickA span'), phr = Q('#s1 .phrase span');
+      gsap.set(['#s1 .kicker', '#s1 .phrase'], { opacity: 1 });
+      gsap.set(kick, { y: 22, opacity: 0 });
+      gsap.set(phr, { y: 26, opacity: 0 });
+      gsap.set('#s1 .name', { opacity: 0, y: 34, filter: 'blur(10px)' });
+      gsap.set(['#s1 .birds', '#charA', '#roleA', '.top', '.ruler', '#hint'], { opacity: 0 });
+      gsap.set('#charA', { y: 150 });
+      gsap.set('.top', { y: -24 });
+      root.classList.remove('js-intro');
+      var block = function (e) { if (e.type !== 'keydown' || [32, 33, 34, 35, 36, 38, 40].indexOf(e.keyCode) > -1) e.preventDefault(); };
+      ['wheel', 'touchmove', 'keydown'].forEach(function (t) { addEventListener(t, block, { passive: false }); });
+      tl.to(kick, { y: 0, opacity: 1, duration: .6, stagger: .035, ease: 'power3.out', clearProps: 'transform,opacity' }, .05)
+        .to('#s1 .name', { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power3.out', clearProps: 'transform,opacity,filter' }, .45)
+        .to(phr, { y: 0, opacity: 1, duration: .8, stagger: .18, ease: 'power3.out', clearProps: 'transform,opacity' }, 1.6)
+        .to('#s1 .birds', { opacity: 1, duration: .9, clearProps: 'opacity' }, 1.8)
+        .to('#charA', { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', clearProps: 'transform,opacity' }, 1.5)
+        .to('#roleA', { opacity: 1, duration: .8, clearProps: 'opacity' }, 2.4)
+        .to('.top', { y: 0, opacity: 1, duration: .8, ease: 'power3.out', clearProps: 'transform,opacity' }, 2.5)
+        .to(['.ruler', '#hint'], { opacity: 1, duration: .8, clearProps: 'opacity' }, 2.9)
+        .add(function () { ['wheel', 'touchmove', 'keydown'].forEach(function (t) { removeEventListener(t, block, { passive: false }); }); });
+    }
     var started = false;
     function play() {
       if (started) return; started = true;
       fitHero();                                              // final geometry known now
-      var tl = gsap.timeline({ delay: .35 });
+      if (cur) cur.style.opacity = 1;
+      var tl = gsap.timeline({ delay: .35 }); reveal(tl);
       tl.to(st, { px: 1, duration: 1.7, ease: 'power3.inOut', onUpdate: renderBox }, 0)
         .to(st, { py: 1, duration: 1.55, ease: 'power2.inOut', onUpdate: renderBox }, .12)
         .to(sel.querySelectorAll('i'), { scale: 1, duration: .38, ease: 'back.out(3)', stagger: .07 }, '>-.1')
