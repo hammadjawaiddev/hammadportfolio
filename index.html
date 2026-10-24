@@ -78,7 +78,7 @@ a { color: inherit; }
 .cur span { position: absolute; left: 14px; top: 20px; background: #3a8bf5; color: #fff; font-size: 11px; font-weight: 800; padding: 2px 9px 3px; border-radius: 4px 12px 12px 12px; white-space: nowrap; letter-spacing: .01em; }
 .hero .phrase { position: absolute; top: 37.5%; left: 50%; transform: translateX(-50%); width: 68vw; display: flex; justify-content: space-between; font-family: var(--f-name); font-weight: 400; font-size: 3.1vw; letter-spacing: .02em; text-transform: uppercase; color: var(--lilac); }
 .hero .birds { position: absolute; left: 10.8%; top: 46%; width: 13.4%; }
-.hero .char { position: absolute; left: 50%; bottom: -12%; width: clamp(300px, min(42vw, 76vh), 740px); transform: translateX(-50%); }
+.hero .char { position: absolute; left: 50%; bottom: -12%; width: clamp(280px, min(37vw, 66vh), 650px); transform: translateX(-50%); }
 .hero .char svg { width: 100%; display: block; overflow: visible; }
 .hero .role { position: absolute; left: 50%; bottom: 6.8%; transform: translateX(-50%); text-align: center; font-weight: 600; font-size: clamp(.9rem, 1.2vw, 1.2rem); line-height: 1.25; color: var(--lilac); width: 44ch; z-index: 3; }
 .hero .role b { color: var(--paper); font-weight: 600; }
@@ -150,7 +150,7 @@ a { color: inherit; }
 .final .row a:hover { background: var(--accent); border-color: var(--accent); color: var(--ink); transform: translateY(-2px); }
 .final .loc { margin-top: 2.4vh; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: min(1vw, 1.9vh); opacity: .75; }
 .final .fr { position: relative; display: grid; place-items: center; align-self: stretch; }
-.final .char { position: relative; left: auto; bottom: auto; transform: none; width: min(30vw, 56vh); align-self: end; margin-top: auto; }
+.final .char { position: relative; left: auto; bottom: auto; transform: none; width: min(30vw, 56vh); align-self: end; justify-self: center; margin-top: auto; }
 .final .char svg { width: 100%; display: block; overflow: visible; }
 .final .dream { left: auto; right: 2%; top: 8%; }
 @media (max-width: 760px) { .final .fgrid { grid-template-columns: 1fr; padding: 10vh 7vw 12vh; gap: 2vh; align-content: start; } .final .fr { order: -1; max-height: 26vh; } .final .char { width: min(40vw, 24vh); } .final .dream { display: none; } .final .ft span { font-size: 15vw; } .final .mail { font-size: 4.4vw; } .final .row a { font-size: .8rem; padding: 6px 14px; } .final .fsub { font-size: 1rem; } }
@@ -397,7 +397,18 @@ a { color: inherit; }
     + '<g><circle cx="156" cy="188" r="23" fill="#fff"/><circle cx="244" cy="188" r="23" fill="#fff"/><circle class="pu" cx="156" cy="184" r="9.5" fill="#15131c"/><circle class="pu" cx="244" cy="184" r="9.5" fill="#15131c"/></g>'
     + '<path d="M130 156Q156 142 178 154M222 154Q244 142 270 156" stroke-width="5"/>'
     + '<path d="M168 232Q200 262 232 232Q200 244 168 232Z" fill="#15131c"/>'
-    + '<g class="capg"><path d="M92 118C90 52 140 22 204 22 262 22 308 56 308 118Z" fill="var(--cap)"/><ellipse cx="200" cy="120" rx="118" ry="19" fill="#3a2618"/><path d="M104 74C130 52 172 46 204 46" stroke="#6b4a32" stroke-width="5" opacity=".6"/></g>'
+    + '<g class="capg">'
+    + '<defs><linearGradient id="capW" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#262626"/><stop offset=".55" stop-color="#0f0f10"/><stop offset="1" stop-color="#030303"/></linearGradient><linearGradient id="capB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1c1e"/><stop offset="1" stop-color="#060606"/></linearGradient><linearGradient id="capSh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a6238" stop-opacity=".5"/><stop offset="1" stop-color="#9a6238" stop-opacity="0"/></linearGradient></defs>'
+    + '<rect x="98" y="124" width="204" height="26" fill="url(#capSh)" stroke="none"/>'
+    + '<path d="M96 116C90 50 140 12 200 12 260 12 310 50 304 116Z" fill="url(#capW)"/>'
+    + '<path d="M97 98C140 108 260 108 303 98L304 116H96Z" fill="#000" stroke="none" opacity=".55"/>'
+    + '<g fill="none" stroke="#3a3a3d" stroke-width="2.5" stroke-linecap="round"><path d="M200 14C168 28 150 64 148 104"/><path d="M200 14C232 28 250 64 252 104"/></g>'
+    + '<path d="M112 80C118 56 138 38 160 29" stroke="#6a6a70" stroke-width="5" opacity=".55"/>'
+    + '<g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M181 52V78M195 52V78M181 65H195"/><path d="M218 52V69C218 77 207 79 203 72"/></g>'
+    + '<ellipse cx="200" cy="13" rx="9" ry="5" fill="#0b0b0c" stroke-width="4"/>'
+    + '<ellipse cx="200" cy="118" rx="124" ry="17" fill="url(#capB)"/>'
+    + '<path d="M84 121A118 14 0 0 0 316 121" stroke="#3d3d42" stroke-width="3" fill="none" opacity=".9"/>'
+    + '</g>'
     + '<g class="wave"><g class="hand"><g fill="var(--skin)"><rect x="34" y="150" width="19" height="66" rx="9.5"/><rect x="55" y="136" width="19" height="80" rx="9.5"/><rect x="76" y="148" width="19" height="68" rx="9.5"/><rect x="95" y="170" width="17" height="52" rx="8.5" transform="rotate(14 100 200)"/><path d="M34 196H96C100 232 84 252 66 252 46 252 32 232 34 196Z"/></g></g></g>'
     + '</svg>';
   $('#charA').innerHTML = CHAR; $('#charB').innerHTML = CHAR;
@@ -549,7 +560,7 @@ a { color: inherit; }
 
   // 1 hero
   var LID = { svgOrigin: '92 118' };
-  tl.fromTo(capsA, { rotation: -8, svgOrigin: '92 118' }, { rotation: -78, duration: 3.4, ease: 'power2.out', svgOrigin: '92 118' }, 2.4);
+  tl.fromTo(capsA, { rotation: 0, svgOrigin: '92 118' }, { rotation: -78, duration: 3.4, ease: 'power2.out', svgOrigin: '92 118' }, 2.4);
   var capLift = { rotation: 36, x: 16, y: -16, transformOrigin: '300px 118px', duration: 3.4, ease: 'power2.out' };
   var heroIcons = $$('#s1 .ico'), fan = [[9, -20, -10], [16, -30, 10], [23, -18, 0], [30, -26, 14], [13, -9, 0], [21, -36, -12]];
   heroIcons.forEach(function (ic, k) { tl.fromTo(ic, { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: .2, opacity: 0, rotation: 0 }, { x: function () { return fan[k][0] * innerWidth / 100; }, y: function () { return fan[k][1] * innerHeight / 100 * .9; }, scale: 1, opacity: 1, rotation: fan[k][2], duration: 2.4, ease: 'back.out(1.5)' }, 3.6 + k * .3); });
@@ -640,8 +651,8 @@ a { color: inherit; }
   tl.fromTo('#s10 .eyebrow', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, 130.6);
   tl.fromTo('#s10 .fsub, #s10 .mail, #s10 .loc', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: .25 }, 132);
   tl.fromTo('#s10 .row a', { y: 20, opacity: 0, scale: .9 }, { y: 0, opacity: 1, scale: 1, duration: .8, stagger: .12, ease: 'back.out(2)' }, 132.8);
-  tl.fromTo('#charB', { x: 90, opacity: 0 }, { x: 0, opacity: 1, duration: 1.8, ease: 'power3.out' }, 130.9);
-  tl.fromTo(capsB, { rotation: -8, svgOrigin: '92 118' }, { rotation: -78, duration: 3.2, ease: 'power2.out', svgOrigin: '92 118' }, 132.2);
+  tl.fromTo('#charB', { x: 0, y: 60, opacity: 0 }, { x: 0, y: 0, opacity: 1, duration: 1.8, ease: 'power3.out' }, 130.9);
+  gsap.set(capsB, { rotation: 0 }); // hat stays closed on the contact page
   tl.fromTo('#s10 .dream', { scale: 0, rotation: -30 }, { scale: 1, rotation: -8, duration: 1.2, ease: 'back.out(2)' }, 133.4);
   tl.to({}, { duration: 2.6 }, 135);
 
