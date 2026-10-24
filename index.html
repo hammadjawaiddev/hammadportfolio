@@ -6,7 +6,7 @@
 <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&(window.scrollY||0)<40){document.documentElement.classList.add('js-intro');setTimeout(function(){document.documentElement.classList.remove('js-intro')},6000)}</script>
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&(window.scrollY||0)<40){document.documentElement.classList.add('js-intro','has-loader');setTimeout(function(){document.documentElement.classList.remove('js-intro')},16000);setTimeout(function(){document.documentElement.classList.remove('has-loader')},14000)}</script>
 <title>Hammad Jawaid — Full-Stack Developer</title>
 <meta name="description" content="Step inside the mind of Hammad Jawaid, a full-stack developer who builds modern interfaces, powerful backends and database-driven web apps. Five live projects.">
 <meta property="og:title" content="Hammad Jawaid — Inside the mind of">
@@ -262,9 +262,44 @@ a { color: inherit; }
   .final .fgrid { padding: 12vh 7vw 8vh; }
 }
 @media (prefers-reduced-motion: reduce) { .grain, .wave, .kit.f, .kit.f2, .dd.f, .dd.f2, .hint::after, .lid { animation: none !important; } }
+
+/* ───────── premium loading screen ───────── */
+.loader { display: none; position: fixed; inset: 0; z-index: 100000; color: var(--paper); font-family: var(--f-bs); pointer-events: all; }
+html.has-loader .loader { display: block; }
+html.has-loader { overflow: hidden; }
+.ld-p { position: absolute; left: 0; right: 0; height: 50.2%; background: #050607; will-change: transform; }
+.ld-top { top: 0; } .ld-bot { bottom: 0; }
+.ld-ui { position: absolute; inset: 0; display: grid; place-items: center; padding: clamp(18px, 3.2vw, 44px); }
+.ld-meta { position: absolute; left: clamp(18px, 3.2vw, 44px); right: clamp(18px, 3.2vw, 44px); display: flex; justify-content: space-between; font-size: clamp(.72rem, .95vw, .95rem); letter-spacing: .22em; text-transform: uppercase; color: rgba(255,248,236,.55); font-weight: 600; }
+.ld-meta.t { top: clamp(18px, 3vw, 40px); } .ld-meta.b { bottom: clamp(18px, 3vw, 40px); align-items: flex-end; }
+.ld-meta b { color: var(--paper); font-weight: 700; }
+.ld-mid { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.ld-name { overflow: hidden; font-family: var(--f-name); font-size: clamp(1.5rem, 6.4vw, 7rem); letter-spacing: .16em; padding-left: .16em; text-transform: uppercase; line-height: 1.2; white-space: nowrap; }
+.ld-name span { display: inline-block; }
+.ld-role { overflow: hidden; margin-top: clamp(10px, 1.8vh, 18px); font-size: clamp(.8rem, 1.3vw, 1.3rem); letter-spacing: .34em; padding-left: .34em; text-transform: uppercase; color: var(--lilac); font-weight: 600; }
+.ld-role span { display: inline-block; }
+.ld-num { font-weight: 300; font-size: clamp(4rem, 13vw, 11rem); line-height: .8; letter-spacing: -.02em; font-variant-numeric: tabular-nums; color: var(--paper); }
+.ld-num small { font-size: .28em; font-weight: 600; letter-spacing: .1em; margin-left: .15em; color: var(--accent); vertical-align: top; position: relative; top: .35em; }
+.ld-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgba(255,248,236,.08); }
+.ld-bar i { display: block; height: 100%; width: 100%; background: var(--accent); transform: scaleX(0); transform-origin: 0 50%; }
+.ld-seam { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--paper); transform: scaleX(0); opacity: 0; }
+@media (max-width: 600px) { .ld-meta .hide-m { display: none; } }
 </style>
 </head>
 <body>
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="ld-p ld-top"></div><div class="ld-p ld-bot"></div>
+  <div class="ld-ui">
+    <div class="ld-meta t"><span>Portfolio &mdash; <b>2026</b></span><span class="hide-m">Karachi <b id="ldClock">--:--</b></span></div>
+    <div class="ld-mid">
+      <div class="ld-name"><span>Hammad Jawaid</span></div>
+      <div class="ld-role"><span>Full-Stack Developer</span></div>
+    </div>
+    <div class="ld-meta b"><div class="ld-num"><span id="ldNum">0</span><small>%</small></div><span class="hide-m">Loading experience</span></div>
+    <div class="ld-bar"><i id="ldBar"></i></div>
+  </div>
+  <div class="ld-seam" id="ldSeam"></div>
+</div>
 <div class="track" id="track"></div>
 
 <div class="stage" id="stage">
@@ -374,6 +409,48 @@ a { color: inherit; }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/* premium loader: draws the HJ monogram, counts up with the real load, then splits open along a hairline */
+(function () {
+  var root = document.documentElement, L = document.getElementById('loader');
+  var skip = function () { root.classList.remove('has-loader'); window.__loaderDone = Promise.resolve(); };
+  if (!L || !root.classList.contains('has-loader') || !window.gsap) return skip();
+  var done; window.__loaderDone = new Promise(function (r) { done = r; });
+  var $ = function (q) { return L.querySelector(q); };
+  var num = $('#ldNum'), bar = $('#ldBar'), seam = $('#ldSeam'), clock = $('#ldClock');
+  try { var tick = function () { clock.textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Karachi' }); }; tick(); var ck = setInterval(tick, 20000); } catch (e) {}
+  var st = { p: 0 };
+  function render() { var v = Math.round(st.p); num.textContent = v; bar.style.transform = 'scaleX(' + st.p / 100 + ')'; }
+  var fontsP = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+  var loadP = new Promise(function (r) { if (document.readyState === 'complete') r(); else addEventListener('load', r); });
+  var readyP = Promise.race([Promise.all([fontsP, loadP]), new Promise(function (r) { setTimeout(r, 7000); })]);
+
+  gsap.set('.ld-name span, .ld-role span', { yPercent: 110 });
+  gsap.set('.ld-meta', { opacity: 0 });
+  var intro = gsap.timeline();
+  intro.to('.ld-name span', { yPercent: 0, duration: 1.2, ease: 'power4.out' }, .15)
+       .to('.ld-role span', { yPercent: 0, duration: 1, ease: 'power4.out' }, .5)
+       .to('.ld-meta', { opacity: 1, duration: .9 }, .3);
+
+  function finish() {
+    gsap.to(st, { p: 100, duration: .8, ease: 'power2.inOut', onUpdate: render, onComplete: exit });
+  }
+  function exit() {
+    var tl = gsap.timeline({ onComplete: function () { clearInterval(ck); root.classList.remove('has-loader'); L.parentNode && L.parentNode.removeChild(L); } });
+    tl.to('.ld-mid, .ld-meta', { opacity: 0, y: -14, duration: .55, ease: 'power2.in' }, 0)
+      .to('.ld-bar', { opacity: 0, duration: .3 }, 0)
+      .set(seam, { opacity: 1 }, .35)
+      .to(seam, { scaleX: 1, duration: .7, ease: 'expo.inOut' }, .35)
+      .to('.ld-top', { yPercent: -100, duration: 1.15, ease: 'expo.inOut' }, 1.0)
+      .to('.ld-bot', { yPercent: 100, duration: 1.15, ease: 'expo.inOut' }, 1.0)
+      .to(seam, { opacity: 0, duration: .3 }, 1.05)
+      .add(function () { done(); }, 1.25);
+  }
+  // counts to 88% on its own (min ~2.4s so the monogram finishes drawing), then completes once the page is truly ready
+  gsap.to(st, { p: 88, duration: 2.4, ease: 'power2.out', onUpdate: render, onComplete: function () { readyP.then(finish); } });
+  setTimeout(function () { if (!document.getElementById('loader')) return; if (st.p < 100) { gsap.killTweensOf(st); done(); root.classList.remove('has-loader'); } }, 13000);
+})();
+</script>
 <script>
 (function () {
   'use strict';
@@ -779,7 +856,7 @@ a { color: inherit; }
         .fromTo(cur, { scale: 1 }, { scale: .9, duration: .12, yoyo: true, repeat: 1, ease: 'power1.inOut', transformOrigin: '0 0' }, '>-.25');
     }
     var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
-    Promise.race([fontsReady, new Promise(function (r) { setTimeout(r, 1500); })]).then(function () { requestAnimationFrame(play); });
+    Promise.race([fontsReady, new Promise(function (r) { setTimeout(r, 1500); })]).then(function () { return window.__loaderDone; }).then(function () { requestAnimationFrame(play); });
   }
 
   fitAll();
