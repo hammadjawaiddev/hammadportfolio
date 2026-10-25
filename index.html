@@ -159,7 +159,7 @@ a { color: inherit; }
 .final .char { position: relative; left: auto; bottom: auto; transform: none; width: min(30vw, 56vh); align-self: end; justify-self: center; margin-top: auto; }
 .final .char svg { width: 100%; display: block; overflow: visible; }
 .final .dream { left: auto; right: 2%; top: 8%; }
-@media (max-width: 760px) { .final .fgrid { grid-template-columns: 1fr; padding: 10vh 7vw 12vh; gap: 2vh; align-content: start; } .final .fr { order: -1; max-height: 26vh; } .final .char { width: min(40vw, 24vh); } .final { --cw: min(84vw, 46vh); } .final > .char.vid { left: calc(50vw - var(--cw) / 2); bottom: auto; top: 8vh; -webkit-mask-image: linear-gradient(#000 78%, transparent); mask-image: linear-gradient(#000 78%, transparent); } .final .dream { display: none; } .final .ft span { font-size: 15vw; } .final .mail { font-size: 4.4vw; } .final .row a { font-size: .8rem; padding: 6px 14px; } .final .fsub { font-size: 1rem; } }
+@media (max-width: 760px) { .final .fgrid { grid-template-columns: 1fr; padding: 10vh 7vw 12vh; gap: 2vh; align-content: start; } .final .fr { display: none; } .final .char { width: min(40vw, 24vh); } .final { --cw: clamp(160px, calc((88vh - 122vw - 40px) * 1.78), 120vw); } .final > .char.vid { left: calc(50vw - var(--cw) / 2); top: auto; bottom: 0; } .final .dream { display: none; } .final .ft span { font-size: 15vw; } .final .mail { font-size: 4.4vw; } .final .row a { font-size: .8rem; padding: 6px 14px; } .final .fsub { font-size: 1rem; } }
 
 /* years */
 .years .stack { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10vh 6vw 14vh; gap: 2.4vh; }
@@ -237,16 +237,16 @@ a { color: inherit; }
   .hero .kicker { top: 12.5%; font-size: 3.6vw; }
   .hero .name { top: 16%; left: 0; right: 0; font-size: 21vw; white-space: normal; padding: 0; line-height: .94; }
   .hero .name span { display: block; width: max-content; margin: 0 auto; }
-  .sel { display: block; left: 9%; width: 82%; top: 15.2%; height: 30%; } .sel b { display: none; }
-  #curA { display: block; left: 66%; top: 33%; }
-  .hero .phrase { width: 92vw; font-size: 4.3vw; top: 48%; justify-content: center; gap: 2.2vw; }
+  .sel { display: block; left: 9%; width: 82%; top: 15.2%; height: calc(.8% + 32.6vw); } .sel b { display: none; }
+  #curA { display: block; left: 66%; top: calc(16% + 31vw); }
+  .hero .phrase { width: 92vw; font-size: 4.3vw; top: calc(16% + 34.6vw); justify-content: center; gap: 2.2vw; }
   .hero .phrase span:first-child::after { content: ' '; }
   .hero .birds { display: none; }
   .hero .char { width: min(86vw, 52vh); bottom: -9%; }
   .hero .char.vid { width: auto; height: 46vh; bottom: 0; }
-  .hero .role { bottom: auto; top: calc(48% + 4.3vw * 1.5 + 6px); font-size: .9rem; width: 32ch; max-width: 88vw; }
+  .hero .role { bottom: auto; top: calc(16% + 39.7vw + 8px); font-size: .88rem; width: 34ch; max-width: 90vw; text-wrap: balance; }
   .hero .role b, .hero .role br { display: none; }   /* phone: the tagline sits right under the FULL-STACK DEVELOPER line, so skip the duplicate title */
-  .hero .char.vid { bottom: -4vh; }
+  .hero .char.vid { height: 50vh; bottom: -2vh; }
   .dream { left: 4%; top: 50%; transform: rotate(-6deg) scale(.82); }
   .ico { top: 66%; }
   /* hello / systems / years */
