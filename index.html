@@ -81,6 +81,7 @@ a { color: inherit; }
 .hero .char { position: absolute; left: 50%; bottom: -12%; width: clamp(280px, min(37vw, 66vh), 650px); transform: translateX(-50%); }
 .hero .char svg { width: 100%; display: block; overflow: visible; }
 .char.vid { aspect-ratio: 1392 / 864; }
+#charB.char.vid { aspect-ratio: 16 / 9; }
 .char.vid video, .char.vid canvas { display: block; width: 100%; height: 100%; pointer-events: none; }
 .hero .char.vid { width: auto; height: 74vh; bottom: -1%; }
 .final { --cw: min(54vw, 120vh); }
@@ -243,7 +244,9 @@ a { color: inherit; }
   .hero .birds { display: none; }
   .hero .char { width: min(86vw, 52vh); bottom: -9%; }
   .hero .char.vid { width: auto; height: 46vh; bottom: 0; }
-  .hero .role { bottom: auto; top: 58%; font-size: .95rem; width: 30ch; }
+  .hero .role { bottom: auto; top: calc(48% + 4.3vw * 1.5 + 6px); font-size: .9rem; width: 32ch; max-width: 88vw; }
+  .hero .role b, .hero .role br { display: none; }   /* phone: the tagline sits right under the FULL-STACK DEVELOPER line, so skip the duplicate title */
+  .hero .char.vid { bottom: -4vh; }
   .dream { left: 4%; top: 50%; transform: rotate(-6deg) scale(.82); }
   .ico { top: 66%; }
   /* hello / systems / years */
@@ -467,7 +470,7 @@ html.has-loader { overflow: hidden; }
   var probe = document.createElement('video');
   var alphaOK = !apple && probe.canPlayType && probe.canPlayType('video/webm; codecs="vp9"');
 
-  function mount(boxId, sceneId, autoStart) {
+  function mount(boxId, sceneId, autoStart, webmSrc, mp4Src) {
     var box = document.getElementById(boxId), scene = document.getElementById(sceneId); if (!box || !scene) return null;
     box.classList.add('vid');
     var v = document.createElement('video');
@@ -477,7 +480,7 @@ html.has-loader { overflow: hidden; }
 
     function mountCanvas() {                                  // fallback: key the green on a canvas (same maths as the WebM)
       useCanvas = true;
-      v.src = 'hero-character-green.mp4';
+      v.src = mp4Src;
       var cv = document.createElement('canvas'), cx = cv.getContext('2d', { willReadFrequently: true });
       v.style.cssText = 'position:absolute;width:1px;height:1px;opacity:0;pointer-events:none';
       box.appendChild(v); box.appendChild(cv);
@@ -505,7 +508,7 @@ html.has-loader { overflow: hidden; }
       v.addEventListener('loadeddata', function () { paint(); tick(); }, { once: true });
     }
     function mountAlpha() {
-      v.src = 'hero-character.webm';
+      v.src = webmSrc;
       box.appendChild(v);
       v.addEventListener('error', function () { if (!useCanvas) { v.remove(); mountCanvas(); if (started) v.play().catch(function () {}); } }, { once: true });
     }
@@ -524,8 +527,8 @@ html.has-loader { overflow: hidden; }
     }, 400);
     return start;
   }
-  window.__heroVideoStart = mount('charA', 's1', true) || function () {};
-  mount('charB', 's10', false);
+  window.__heroVideoStart = mount('charA', 's1', true, 'hero-character.webm', 'hero-character-green.mp4') || function () {};
+  mount('charB', 's10', false, 'contact-character.webm', 'contact-character-green.mp4');
 })();
 </script>
 <script>
