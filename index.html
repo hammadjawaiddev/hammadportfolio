@@ -196,7 +196,8 @@ a { color: inherit; }
 
 /* work */
 .work .head { position: absolute; left: 5%; top: 17%; width: min(33vw, 470px); z-index: 3; }
-.work .peek { position: absolute; left: 6px; top: -62px; width: 120px; z-index: 0; overflow: visible; }
+.work .peek { --pw: 170px; position: absolute; width: var(--pw); left: calc(66px - var(--pw) * .49); top: calc(2.6px - var(--pw) * .551); z-index: 0; }
+.work .peek video, .work .peek canvas { display: block; width: 100%; height: auto; pointer-events: none; }
 .work h2 { font-family: var(--f-bs); font-weight: 900; text-transform: uppercase; line-height: .84; font-size: clamp(3.4rem, 8.6vw, 8.8rem); position: relative; z-index: 1; letter-spacing: 0; }
 .work h2 .w { display: block; white-space: nowrap; }
 .work h2 .w span { display: inline-block; }
@@ -263,7 +264,7 @@ a { color: inherit; }
   /* based in karachi */
   .based .stack { padding-top: 12vh; } .based .txt { font-size: min(24vw, 21vh); } .based .cap { padding: 0 7vw; max-width: none; } .sky { height: 30%; } .sky img { position: absolute; left: 50%; bottom: 0; width: 94%; max-width: none; height: auto; transform: translateX(-50%); } .tesla { width: 30vw; }
   /* work: heading + intro on top, cards low and swiping sideways */
-  .work .head { width: 90%; left: 6%; top: 15%; } .work .peek { width: 86px; top: -42px; left: 4px; }
+  .work .head { width: 90%; left: 6%; top: 15%; } .work .peek { --pw: 120px; left: calc(47px - var(--pw) * .49); }
   .work h2 { font-size: min(18vw, 6rem); line-height: .9; } .work h2 .w { display: block; margin-right: 0; }
   .work .head p { display: block; font-size: 1rem; max-width: 30ch; margin-top: 1.6vh; } .work .head p.dim { display: none; }
   .reelwrap { left: 5vw; right: 0; top: 55%; bottom: 3%; padding-left: 0; } .reel { gap: 7vw; } .proj { width: 76vw; }
@@ -386,7 +387,7 @@ html.has-loader { overflow: hidden; }
 
   <!-- 8 · work -->
   <section class="scene work" id="s8">
-    <div class="head"><svg class="peek" viewBox="0 0 130 70" id="peek" aria-hidden="true"></svg><h2 id="workH" aria-label="Selected work"></h2>
+    <div class="head"><div class="peek" id="peek" aria-hidden="true"></div><h2 id="workH" aria-label="Selected work"></h2>
       <p>Five live projects, from a physiotherapy landing page to a full-stack store.</p>
       <p class="dim">There&rsquo;s more where that came from. Explore the rest of my code on <a href="https://github.com/hammadjawaiddev" target="_blank" rel="noopener">GitHub</a>.</p></div>
     <div class="reelwrap" id="reelwrap"><div class="reel" id="reel"></div></div>
@@ -531,6 +532,7 @@ html.has-loader { overflow: hidden; }
   window.__heroVideoStart = mount('charA', 's1', true, 'hero-character.webm', 'hero-character-green.mp4') || function () {};
   mount('charB', 's10', false, 'contact-character.webm', 'contact-character-green.mp4');
   mount('tesla', 's7', false, 'car-driving.webm', 'car-driving-green.mp4');   // Karachi car
+  mount('peek', 's8', false, 'peek-character.webm', 'peek-character-green.mp4');   // peeking man (Work)
 })();
 </script>
 <script>
@@ -612,9 +614,6 @@ html.has-loader { overflow: hidden; }
     chart: '<svg viewBox="0 0 200 140" ' + S + '><rect x="6" y="6" width="188" height="128" rx="14" fill="#fff8ec"/><rect x="30" y="74" width="24" height="46" rx="5" fill="#2f80ed"/><rect x="68" y="50" width="24" height="70" rx="5" fill="#f2b441"/><rect x="106" y="86" width="24" height="34" rx="5" fill="#ee5f7d"/><rect x="144" y="34" width="24" height="86" rx="5" fill="#7bd48a"/></svg>'
   };
   $$('.kit').forEach(function (el) { el.innerHTML = KIT[el.getAttribute('data-k')]; });
-  $('#peek').innerHTML = '<path d="M18 70V44Q18 8 58 8H72Q112 8 112 44V70Z" fill="var(--skin)" stroke="#14202a" stroke-width="3"/><path d="M18 50Q18 8 58 8H72Q112 8 112 48Q104 38 94 44Q86 32 74 40Q64 28 52 38Q42 30 34 42Q24 38 18 50Z" fill="#14202a"/><ellipse cx="50" cy="58" rx="9" ry="11" fill="#fff" stroke="#14202a" stroke-width="2.5"/><ellipse cx="82" cy="58" rx="9" ry="11" fill="#fff" stroke="#14202a" stroke-width="2.5"/><circle class="peekp" cx="54" cy="60" r="4" fill="#14202a"/><circle class="peekp" cx="86" cy="60" r="4" fill="#14202a"/><path d="M4 70Q4 58 14 58Q24 58 24 70ZM106 70Q106 58 116 58Q126 58 126 70Z" fill="var(--skin)" stroke="#14202a" stroke-width="3"/>';
-  var peekP = $$('.peekp');
-  addEventListener('pointermove', function (e) { var nx = (e.clientX / innerWidth - .5) * 2, ny = (e.clientY / innerHeight - .5) * 2; peekP.forEach(function (q) { q.style.transform = 'translate(' + nx * 3.2 + 'px,' + ny * 2.6 + 'px)'; }); });
   // heading: mixed-size letters like the reference
   var workH = $('#workH'), workLetters = [];
   [['Selected', [1, 3, 7], [5]], ['Work', [], []]].forEach(function (wd) { var w = document.createElement('span'); w.className = 'w'; wd[0].split('').forEach(function (ch, i) { var c = document.createElement('span'); c.textContent = ch; if (wd[1].indexOf(i) > -1) c.className = 's'; if (wd[2].indexOf(i) > -1) c.className = 'u'; w.appendChild(c); workLetters.push(c); }); workH.appendChild(w); });
