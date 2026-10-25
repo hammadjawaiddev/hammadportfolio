@@ -186,12 +186,13 @@ a { color: inherit; }
 .dd svg { width: 100%; overflow: visible; display: block; }
 
 /* based in karachi */
-.sky { position: absolute; left: -2%; right: -2%; bottom: 8.4%; width: 104%; height: 35%; z-index: 2; }
-.sky svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.sky { position: absolute; left: -2%; right: -2%; bottom: 8.4%; width: 104%; height: 48%; z-index: 2; }
+.sky img { width: 100%; height: 100%; display: block; object-fit: contain; object-position: center bottom; pointer-events: none; user-select: none; }
 .ground { position: absolute; left: 0; right: 0; bottom: 8.4%; height: 1.5px; background: rgba(255,243,221,.85); z-index: 3; }
 .road { position: absolute; left: 0; right: 0; bottom: 0; height: 8.4%; z-index: 2; background: linear-gradient(rgba(0,0,0,.14), rgba(0,0,0,.02)); }
-.tesla { position: absolute; left: 0; bottom: 8.2%; width: clamp(180px, 23vw, 360px); z-index: 5; will-change: transform; }
-.tesla svg { width: 100%; display: block; overflow: visible; }
+.tesla { position: absolute; left: 0; bottom: 8.2%; width: clamp(170px, 20vw, 310px); z-index: 5; will-change: transform; }
+.tesla video, .tesla canvas { display: block; width: 100%; height: auto; pointer-events: none; }
+.tesla::after { content: ''; position: absolute; left: 91%; top: 42%; width: 42%; height: 24%; pointer-events: none; background: linear-gradient(90deg, rgba(255,238,180,.34), rgba(255,238,180,0)); clip-path: polygon(0 38%, 100% 0, 100% 100%, 0 68%); }
 
 /* work */
 .work .head { position: absolute; left: 5%; top: 17%; width: min(33vw, 470px); z-index: 3; }
@@ -260,7 +261,7 @@ a { color: inherit; }
   .bl.r { left: 6%; top: 28%; } .bl.c { left: 6%; right: 6%; text-align: left; top: 28%; } .bl.c h2 { font-size: 6.4vw; margin: 0; max-width: none; } .bl .big { font-size: 12vw; white-space: normal; line-height: .98; margin-top: 2vh; }
   .doodles .stack { padding: 14vh 8vw 18vh; } .doodles h2 { font-size: min(10.6vw, 8vh); } .dd { opacity: .9; }
   /* based in karachi */
-  .based .stack { padding-top: 12vh; } .based .txt { font-size: min(24vw, 21vh); } .based .cap { padding: 0 7vw; max-width: none; } .sky { height: 30%; } .tesla { width: 42vw; }
+  .based .stack { padding-top: 12vh; } .based .txt { font-size: min(24vw, 21vh); } .based .cap { padding: 0 7vw; max-width: none; } .sky { height: 30%; } .sky img { position: absolute; left: 50%; bottom: 0; width: 165vw; max-width: none; height: auto; transform: translateX(-50%); } .tesla { width: 34vw; }
   /* work: heading + intro on top, cards low and swiping sideways */
   .work .head { width: 90%; left: 6%; top: 15%; } .work .peek { width: 86px; top: -42px; left: 4px; }
   .work h2 { font-size: min(18vw, 6rem); line-height: .9; } .work h2 .w { display: block; margin-right: 0; }
@@ -379,7 +380,7 @@ html.has-loader { overflow: hidden; }
   <section class="scene based" id="s7">
     <div class="stack"><h2 class="txt" id="basedTxt" aria-label="Based in Karachi"><span class="l">Based in</span><span class="l">Karachi.</span></h2>
     <p class="cap" id="basedCap">Karachi by address. A city of chai, traffic and the sea breeze. I build from here, for anywhere.</p></div>
-    <div class="sky" id="sky"></div><div class="ground"></div><div class="road"></div>
+    <div class="sky" id="sky"><img src="karachi-skyline.png" alt="" aria-hidden="true" draggable="false"></div><div class="ground"></div><div class="road"></div>
     <div class="tesla" id="tesla"></div>
   </section>
 
@@ -529,6 +530,7 @@ html.has-loader { overflow: hidden; }
   }
   window.__heroVideoStart = mount('charA', 's1', true, 'hero-character.webm', 'hero-character-green.mp4') || function () {};
   mount('charB', 's10', false, 'contact-character.webm', 'contact-character-green.mp4');
+  mount('tesla', 's7', false, 'car-driving.webm', 'car-driving-green.mp4');   // Karachi car
 })();
 </script>
 <script>
@@ -617,51 +619,6 @@ html.has-loader { overflow: hidden; }
   var workH = $('#workH'), workLetters = [];
   [['Selected', [1, 3, 7], [5]], ['Work', [], []]].forEach(function (wd) { var w = document.createElement('span'); w.className = 'w'; wd[0].split('').forEach(function (ch, i) { var c = document.createElement('span'); c.textContent = ch; if (wd[1].indexOf(i) > -1) c.className = 's'; if (wd[2].indexOf(i) > -1) c.className = 'u'; w.appendChild(c); workLetters.push(c); }); workH.appendChild(w); });
 
-  /* ───── Karachi skyline + Tesla (original line-art) ───── */
-  (function () {
-    var C = '#fff3dd', E = 'stroke="' + C + '" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"', F1 = 'fill="rgba(255,243,221,.14)"', W1 = 'fill="#fff3dd" fill-opacity=".93"';
-    function win(x, y, cols, rows, gx, gy) { var o = ''; for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) { var lit = ((r * 7 + c * 3 + x) % 5) < 2; o += '<rect x="' + (x + c * gx) + '" y="' + (y + r * gy) + '" width="6" height="9" rx="1" fill="' + (lit ? '#ffe2b8' : 'rgba(255,243,221,.3)') + '" stroke="none"/>'; } return o; }
-    function arches(x, y, n, w, gap, h) { var o = ''; for (var i = 0; i < n; i++) { var ax = x + i * (w + gap); o += '<path d="M' + ax + ' ' + y + 'v-' + (h - w / 2) + 'a' + (w / 2) + ' ' + (w / 2) + ' 0 0 1 ' + w + ' 0v' + (h - w / 2) + '" fill="rgba(0,0,0,.13)"/>'; } return o; }
-    function palm(x, h) { var y = 400 - h; return '<g ' + E + ' fill="none"><path d="M' + x + ' 400C' + (x + 8) + ' ' + (400 - h * .5) + ' ' + (x - 6) + ' ' + (400 - h * .8) + ' ' + (x + 2) + ' ' + y + '"/><path d="M' + (x + 2) + ' ' + y + 'q-36 -6 -52 22M' + (x + 2) + ' ' + y + 'q-24 -26 -54 -8M' + (x + 2) + ' ' + y + 'q10 -34 44 -30M' + (x + 2) + ' ' + y + 'q34 -8 52 20M' + (x + 2) + ' ' + y + 'q26 -22 54 -2"/></g>'; }
-    function lamp(x) { return '<g ' + E + ' fill="none"><path d="M' + x + ' 400V312h-26"/><circle cx="' + (x - 30) + '" cy="312" r="5" fill="#ffe2b8"/></g>'; }
-    var v = '<svg viewBox="-300 0 2040 400" preserveAspectRatio="xMidYMax meet">';
-    // wide haze + edge blocks so the skyline spans the whole frame
-    v += '<g fill="rgba(255,243,221,.09)" stroke="rgba(255,243,221,.26)" stroke-width="2"><path d="M-300 400V292h60v-40h50v60h50v-70h44v50h60v-26h60v100zM1430 400V282h56v-44h46v62h52v-36h60v76h60v-30h66v94z"/></g>';
-    v += '<g ' + E + ' ' + F1 + '><path d="M-170 400V262h96v138"/><path d="M1470 400V250h100v150"/><path d="M1590 400V290h110v110"/></g>' + win(-160, 276, 5, 7, 17, 16) + win(1482, 264, 5, 8, 18, 16) + win(1602, 304, 5, 5, 20, 16) + palm(-60, 130) + palm(1700, 140);
-    // haze
-    v += '<g fill="rgba(255,243,221,.09)" stroke="rgba(255,243,221,.26)" stroke-width="2"><path d="M0 400V300h50v-34h44v54h46v-70h40v60h60v-26h64v82zM560 400V282h50v-34h40v54h54v-40h50v72zM930 400V272h44v-44h40v62h50v-34h54v82zM1200 400V290h50v-40h46v60h46v-30h60v60z"/></g>';
-    // Teen Talwar
-    v += '<g ' + E + ' ' + F1 + '><path d="M40 400C42 320 74 250 104 196C100 270 84 340 70 400Z"/><path d="M168 400C166 320 134 250 104 196C108 270 124 340 138 400Z"/><path d="M96 400V176l8-22 8 22V400Z" ' + W1 + '/><circle cx="104" cy="250" r="30" fill="none"/><path d="M26 400h156"/></g>';
-    // Frere Hall
-    v += '<g ' + E + ' ' + F1 + '><path d="M216 400V326h190v74"/>' + arches(224, 400, 6, 20, 10, 40) + '<path d="M296 326V232h30v94"/><path d="M290 232h42l-21-32Z" ' + W1 + '/><path d="M311 200v-16"/><path d="M216 326h190"/>' + arches(224, 354, 6, 20, 10, 20) + '</g>';
-    // Mazar-e-Quaid
-    v += '<g ' + E + ' ' + F1 + '><path d="M452 400V312h222v88"/><path d="M476 400V350a16 20 0 0 1 32 0v50M532 400V350a16 20 0 0 1 32 0v50M588 400V350a16 20 0 0 1 32 0v50" fill="rgba(0,0,0,.14)"/><path d="M486 312h154c0-62 -32-104 -77-104s-77 42 -77 104Z" ' + W1 + '/><path d="M563 208v-24"/><circle cx="563" cy="180" r="5" fill="#fff3dd"/><path d="M440 312h246M440 400h246"/><path d="M462 312v-26h18v26M646 312v-26h18v26"/></g>';
-    // Empress Market
-    v += '<g ' + E + ' ' + F1 + '><path d="M724 400V338h170v62"/>' + arches(734, 400, 5, 22, 10, 36) + '<path d="M792 338V190h34v148"/><path d="M786 190h46l-23-36Z" ' + W1 + '/><circle cx="809" cy="224" r="12" ' + W1 + '/><path d="M809 216v8l6 4"/><path d="M809 154v-16"/><path d="M724 338h170"/></g>';
-    // Mosque
-    v += '<g ' + E + ' ' + F1 + '><path d="M940 400V344h140v56"/><path d="M952 344c0-44 20-66 58-66s58 22 58 66Z" ' + W1 + '/><path d="M1010 278v-18"/><path d="M944 400V238h13v162M1076 400V238h13v162"/><path d="M944 238l6.5-22 6.5 22M1076 238l6.5-22 6.5 22"/>' + arches(962, 400, 4, 22, 10, 36) + '</g>';
-    // towers: Bahria Icon, MCB, Ocean, Habib Bank Plaza
-    v += '<g ' + E + ' ' + F1 + '><path d="M1118 400V120h52v280"/><path d="M1124 120l8-30h30l8 30"/><path d="M1148 90V56"/></g>' + win(1128, 140, 3, 16, 13, 15)
-       + '<g ' + E + ' ' + F1 + '><path d="M1186 400V190l30-26v236"/></g>' + win(1196, 204, 2, 12, 13, 15)
-       + '<g ' + E + ' ' + F1 + '><path d="M1236 400V210q0-30 22-34t22 34V400"/><path d="M1294 400V230q0-26 20-30t20 30V400"/></g>' + win(1246, 226, 2, 11, 12, 15)
-       + '<g ' + E + ' ' + F1 + '><path d="M1352 400V200h56v200"/></g>' + win(1362, 214, 3, 12, 14, 15);
-    // street furniture
-    v += palm(214, 150) + palm(700, 120) + palm(1420, 150) + lamp(430) + lamp(900) + lamp(1100);
-    v += '<g ' + E + ' fill="none"><path d="M1010 120c8-10 18-8 24 2 6-10 16-10 22-2"/><path d="M1060 90c7-8 14-6 19 2 5-8 13-8 18-1"/></g>';
-    v += '</svg>';
-    $('#sky').innerHTML = v;
-    var T = '#14202a';
-    $('#tesla').innerHTML = '<svg viewBox="0 0 320 120" fill="none" stroke="' + T + '" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round">'
-      + '<path id="beam" d="M300 70 L420 44 L420 110 L300 86Z" fill="rgba(255,238,180,.22)" stroke="none"/>'
-      + '<ellipse cx="160" cy="108" rx="140" ry="6" fill="rgba(0,0,0,.25)" stroke="none"/>'
-      + '<path d="M12 84C12 70 22 64 42 60L84 36C110 18 188 18 222 36L264 58C288 62 304 68 306 82V90H12Z" fill="#fff8ec"/>'
-      + '<path d="M92 56L112 36C136 28 180 28 206 38L238 56Z" fill="#1f2e3c"/><path d="M158 31V56"/>'
-      + '<path d="M44 66H82M232 66H270" stroke-width="3" opacity=".5"/>'
-      + '<path d="M298 72h8" stroke="#ffe2b8" stroke-width="6"/><path d="M14 74h8" stroke="#ff5d6c" stroke-width="6"/>'
-      + '<g class="wh"><circle cx="76" cy="90" r="19" fill="#14202a"/><circle cx="76" cy="90" r="8" fill="#fff3dd"/><path d="M76 72v36M58 90h36" stroke="#fff3dd" stroke-width="2" opacity=".6"/></g>'
-      + '<g class="wh"><circle cx="246" cy="90" r="19" fill="#14202a"/><circle cx="246" cy="90" r="8" fill="#fff3dd"/><path d="M246 72v36M228 90h36" stroke="#fff3dd" stroke-width="2" opacity=".6"/></g>'
-      + '</svg>';
-  })();
 
   /* ───── text helpers ───── */
   function mixCase(el, text) { el.innerHTML = ''; text.split('').forEach(function (ch, i) { var s = document.createElement('span'); s.textContent = ch === ' ' ? ' ' : ch; if (ch !== ' ' && i % 3 === 1) s.style.cssText = 'font-size:.8em;position:relative;top:.05em'; el.appendChild(s); }); }
