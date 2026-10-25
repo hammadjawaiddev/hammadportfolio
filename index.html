@@ -80,6 +80,11 @@ a { color: inherit; }
 .hero .birds { position: absolute; left: 10.8%; top: 46%; width: 13.4%; }
 .hero .char { position: absolute; left: 50%; bottom: -12%; width: clamp(280px, min(37vw, 66vh), 650px); transform: translateX(-50%); }
 .hero .char svg { width: 100%; display: block; overflow: visible; }
+.char.vid { aspect-ratio: 1392 / 864; }
+.char.vid video, .char.vid canvas { display: block; width: 100%; height: 100%; pointer-events: none; }
+.hero .char.vid { width: auto; height: 74vh; bottom: -1%; }
+.final { --cw: min(54vw, 120vh); }
+.final > .char.vid { position: absolute; width: var(--cw); left: calc(77vw - var(--cw) / 2); bottom: 0; margin: 0; z-index: 3; pointer-events: none; }
 .hero .role { position: absolute; left: 50%; bottom: 6.8%; transform: translateX(-50%); text-align: center; font-weight: 600; font-size: clamp(.9rem, 1.2vw, 1.2rem); line-height: 1.25; color: var(--lilac); width: 44ch; z-index: 3; }
 .hero .role b { color: var(--paper); font-weight: 600; }
 .ico { position: absolute; left: 50%; top: 45%; width: clamp(46px, 5.4vw, 84px); opacity: 0; z-index: 2; }
@@ -138,7 +143,7 @@ a { color: inherit; }
 .based .txt .l { display: block; }
 .based .cap { margin-top: 1.8vh; max-width: 40ch; }
 /* final */
-.final .fgrid { position: absolute; inset: 0; display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 3vw; padding: 11vh 6vw 14vh 7vw; }
+.final .fgrid { position: absolute; inset: 0; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); align-items: center; gap: 3vw; padding: 11vh 6vw 14vh 7vw; }
 .final .eyebrow { font-weight: 800; letter-spacing: .14em; text-transform: uppercase; font-size: min(1.1vw, 2vh); color: var(--lilac); margin-bottom: 1.6vh; }
 .final .ft span { display: block; font-weight: 900; font-size: min(9.4vw, 17vh); line-height: .88; text-transform: uppercase; letter-spacing: .005em; }
 .final .ft span:last-child { color: var(--accent); }
@@ -153,7 +158,7 @@ a { color: inherit; }
 .final .char { position: relative; left: auto; bottom: auto; transform: none; width: min(30vw, 56vh); align-self: end; justify-self: center; margin-top: auto; }
 .final .char svg { width: 100%; display: block; overflow: visible; }
 .final .dream { left: auto; right: 2%; top: 8%; }
-@media (max-width: 760px) { .final .fgrid { grid-template-columns: 1fr; padding: 10vh 7vw 12vh; gap: 2vh; align-content: start; } .final .fr { order: -1; max-height: 26vh; } .final .char { width: min(40vw, 24vh); } .final .dream { display: none; } .final .ft span { font-size: 15vw; } .final .mail { font-size: 4.4vw; } .final .row a { font-size: .8rem; padding: 6px 14px; } .final .fsub { font-size: 1rem; } }
+@media (max-width: 760px) { .final .fgrid { grid-template-columns: 1fr; padding: 10vh 7vw 12vh; gap: 2vh; align-content: start; } .final .fr { order: -1; max-height: 26vh; } .final .char { width: min(40vw, 24vh); } .final { --cw: min(84vw, 46vh); } .final > .char.vid { left: calc(50vw - var(--cw) / 2); bottom: auto; top: 8vh; -webkit-mask-image: linear-gradient(#000 78%, transparent); mask-image: linear-gradient(#000 78%, transparent); } .final .dream { display: none; } .final .ft span { font-size: 15vw; } .final .mail { font-size: 4.4vw; } .final .row a { font-size: .8rem; padding: 6px 14px; } .final .fsub { font-size: 1rem; } }
 
 /* years */
 .years .stack { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10vh 6vw 14vh; gap: 2.4vh; }
@@ -237,6 +242,7 @@ a { color: inherit; }
   .hero .phrase span:first-child::after { content: ' '; }
   .hero .birds { display: none; }
   .hero .char { width: min(86vw, 52vh); bottom: -9%; }
+  .hero .char.vid { width: auto; height: 46vh; bottom: 0; }
   .hero .role { bottom: auto; top: 58%; font-size: .95rem; width: 30ch; }
   .dream { left: 4%; top: 50%; transform: rotate(-6deg) scale(.82); }
   .ico { top: 66%; }
@@ -397,9 +403,10 @@ html.has-loader { overflow: hidden; }
       <div class="row"><a href="https://www.linkedin.com/in/hammad-jawaid-4610793ba/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/hammadjawaiddev" target="_blank" rel="noopener">GitHub</a><a href="Hammad-Jawaid-CV.pdf" target="_blank" rel="noopener">R&eacute;sum&eacute;</a></div>
       <p class="loc">Karachi, Pakistan</p>
     </div>
-    <div class="fr"><div class="char" id="charB"></div>
+    <div class="fr">
       <div class="dream"><svg viewBox="0 0 40 40"><path d="M27 6a15 15 0 1 0 8 20A12 12 0 0 1 27 6Z" fill="#ff9f43" stroke="#14202a" stroke-width="3" stroke-linejoin="round"/></svg><div><small>You&rsquo;ve been dreaming in</small><b>Hammad&rsquo;s mind</b></div></div></div>
-  </div></section>
+  </div>
+  <div class="char" id="charB"></div></section>
 
   <div class="ruler" id="ruler"><div class="line"></div><div class="mark" id="mark"></div></div>
   <div class="grain"></div>
@@ -452,6 +459,76 @@ html.has-loader { overflow: hidden; }
 })();
 </script>
 <script>
+/* character videos (hero + contact): green-screen footage keyed to transparent.
+   Chrome / Edge / Firefox play the pre-keyed alpha WebM directly; Safari & iOS fall back to keying the MP4 on a canvas. */
+(function () {
+  var ua = navigator.userAgent, root = document.documentElement;
+  var apple = /iP(hone|ad|od)/.test(ua) || (/^((?!chrome|android|crios|fxios|edg).)*safari/i.test(ua));
+  var probe = document.createElement('video');
+  var alphaOK = !apple && probe.canPlayType && probe.canPlayType('video/webm; codecs="vp9"');
+
+  function mount(boxId, sceneId, autoStart) {
+    var box = document.getElementById(boxId), scene = document.getElementById(sceneId); if (!box || !scene) return null;
+    box.classList.add('vid');
+    var v = document.createElement('video');
+    v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true; v.preload = 'auto'; v.disablePictureInPicture = true;
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true'); v.tabIndex = -1;
+    var started = false, useCanvas = false;
+
+    function mountCanvas() {                                  // fallback: key the green on a canvas (same maths as the WebM)
+      useCanvas = true;
+      v.src = 'hero-character-green.mp4';
+      var cv = document.createElement('canvas'), cx = cv.getContext('2d', { willReadFrequently: true });
+      v.style.cssText = 'position:absolute;width:1px;height:1px;opacity:0;pointer-events:none';
+      box.appendChild(v); box.appendChild(cv);
+      var bad = false;
+      function paint() {
+        if (!v.videoWidth || bad) return;
+        if (cv.width !== v.videoWidth) { cv.width = v.videoWidth; cv.height = v.videoHeight; }
+        cx.drawImage(v, 0, 0);
+        try {
+          var im = cx.getImageData(0, 0, cv.width, cv.height), d = im.data;
+          for (var i = 0, L = d.length; i < L; i += 4) {
+            var r = d[i], g = d[i + 1], b = d[i + 2], m = r > b ? r : b, k = g - m;
+            if (k > 3) {
+              d[i + 1] = m + 3;
+              if (k > 22) d[i + 3] = k >= 80 ? 0 : (80 - k) * 255 / 58;
+            }
+          }
+          cx.putImageData(im, 0, 0);
+        } catch (e) { bad = true; cv.style.display = 'none'; v.style.cssText = ''; }   // e.g. opened from file:// — show the plain video instead
+      }
+      function tick() {
+        if (!v.paused && !v.ended) paint();
+        if (v.requestVideoFrameCallback) v.requestVideoFrameCallback(tick); else setTimeout(function () { requestAnimationFrame(tick); }, 33);
+      }
+      v.addEventListener('loadeddata', function () { paint(); tick(); }, { once: true });
+    }
+    function mountAlpha() {
+      v.src = 'hero-character.webm';
+      box.appendChild(v);
+      v.addEventListener('error', function () { if (!useCanvas) { v.remove(); mountCanvas(); if (started) v.play().catch(function () {}); } }, { once: true });
+    }
+    if (alphaOK) mountAlpha(); else mountCanvas();
+
+    function start() { if (started) return; started = true; try { v.currentTime = 0; } catch (e) {} var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    if (autoStart && !root.classList.contains('js-intro')) start();   // no intro (reduced motion / reload mid-page): just play
+    if (!autoStart) started = true;                           // contact video: the visibility watcher below plays it when its scene is shown
+
+    // only decode while this scene is on screen (and the tab is visible)
+    setInterval(function () {
+      if (!started) return;
+      var show = !document.hidden && getComputedStyle(scene).visibility !== 'hidden';
+      if (show && v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      else if (!show && !v.paused) v.pause();
+    }, 400);
+    return start;
+  }
+  window.__heroVideoStart = mount('charA', 's1', true) || function () {};
+  mount('charB', 's10', false);
+})();
+</script>
+<script>
 (function () {
   'use strict';
   var $ = function (s, r) { return (r || document).querySelector(s); }, $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -474,6 +551,13 @@ html.has-loader { overflow: hidden; }
     + '<g><circle cx="156" cy="188" r="23" fill="#fff"/><circle cx="244" cy="188" r="23" fill="#fff"/><circle class="pu" cx="156" cy="184" r="9.5" fill="#15131c"/><circle class="pu" cx="244" cy="184" r="9.5" fill="#15131c"/></g>'
     + '<path d="M130 156Q156 142 178 154M222 154Q244 142 270 156" stroke-width="5"/>'
     + '<path d="M168 232Q200 262 232 232Q200 244 168 232Z" fill="#15131c"/>'
+    + '<g class="shades"><defs><linearGradient id="lens" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b2b31"/><stop offset=".5" stop-color="#0b0b0d"/><stop offset="1" stop-color="#000"/></linearGradient></defs>'
+    + '<path d="M96 174L118 178M304 174L282 178" stroke-width="7" stroke="#0b0b0d"/>'
+    + '<path d="M118 166C118 160 124 158 130 158H182C190 158 194 164 194 172V188C194 206 180 216 162 216H146C128 216 118 206 118 190Z" fill="url(#lens)" stroke-width="6"/>'
+    + '<path d="M282 166C282 160 276 158 270 158H218C210 158 206 164 206 172V188C206 206 220 216 238 216H254C272 216 282 206 282 190Z" fill="url(#lens)" stroke-width="6"/>'
+    + '<path d="M194 172Q200 166 206 172" stroke-width="6"/>'
+    + '<path d="M118 160H194M206 160H282" stroke-width="9" stroke="#0b0b0d"/>'
+    + '<path d="M132 172L152 172M132 184L142 184M224 172L244 172M224 184L234 184" stroke="#fff" stroke-width="4" opacity=".28"/></g>'
     + '<g class="capg">'
     + '<defs><linearGradient id="capW" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#262626"/><stop offset=".55" stop-color="#0f0f10"/><stop offset="1" stop-color="#030303"/></linearGradient><linearGradient id="capB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1c1e"/><stop offset="1" stop-color="#060606"/></linearGradient><linearGradient id="capSh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a6238" stop-opacity=".5"/><stop offset="1" stop-color="#9a6238" stop-opacity="0"/></linearGradient></defs>'
     + '<rect x="98" y="124" width="204" height="26" fill="url(#capSh)" stroke="none"/>'
@@ -488,15 +572,12 @@ html.has-loader { overflow: hidden; }
     + '</g>'
     + '<g class="wave"><g class="hand"><g fill="var(--skin)"><rect x="34" y="150" width="19" height="66" rx="9.5"/><rect x="55" y="136" width="19" height="80" rx="9.5"/><rect x="76" y="148" width="19" height="68" rx="9.5"/><rect x="95" y="170" width="17" height="52" rx="8.5" transform="rotate(14 100 200)"/><path d="M34 196H96C100 232 84 252 66 252 46 252 32 232 34 196Z"/></g></g></g>'
     + '</svg>';
-  $('#charA').innerHTML = CHAR; $('#charB').innerHTML = CHAR;
-  var capsA = $('#charA .capg'), capsB = $('#charB .capg'), pupils = $$('.pu');
   // arm + hand follow one proxy so the arm always stays joined to the shoulder
   function makeHand(root) {
     var arm = $('.arm', root), hand = $('.hand', root), px = { x: 0, y: 0, r: 0 };
     function upd() { arm.setAttribute('d', 'M62 330L' + (62 + px.x) + ' ' + (228 + px.y)); hand.setAttribute('transform', 'translate(' + px.x + ' ' + px.y + ') rotate(' + px.r + ' 65 215)'); }
     upd(); return { px: px, upd: upd };
   }
-  var handA = makeHand($('#charA')), handB = makeHand($('#charB'));
   function scrolledClass() { document.body.classList.toggle('scrolled', scrollY > 4); }
   addEventListener('scroll', scrolledClass, { passive: true }); scrolledClass();
   /* eye tracking + blinking now live in the hero script at the end of the file */
@@ -637,14 +718,13 @@ html.has-loader { overflow: hidden; }
 
   // 1 hero
   var LID = { svgOrigin: '92 118' };
-  tl.fromTo(capsA, { rotation: 0, svgOrigin: '92 118' }, { rotation: -78, duration: 3.4, ease: 'power2.out', svgOrigin: '92 118' }, 2.4);
-  var capLift = { rotation: 36, x: 16, y: -16, transformOrigin: '300px 118px', duration: 3.4, ease: 'power2.out' };
   var heroIcons = $$('#s1 .ico'), fan = [[9, -20, -10], [16, -30, 10], [23, -18, 0], [30, -26, 14], [13, -9, 0], [21, -36, -12]];
   heroIcons.forEach(function (ic, k) { tl.fromTo(ic, { xPercent: -50, yPercent: -50, x: 0, y: 0, scale: .2, opacity: 0, rotation: 0 }, { x: function () { return fan[k][0] * innerWidth / 100; }, y: function () { return fan[k][1] * innerHeight / 100 * .9; }, scale: 1, opacity: 1, rotation: fan[k][2], duration: 2.4, ease: 'back.out(1.5)' }, 3.6 + k * .3); });
   gsap.set('.ruler .lab', { opacity: 0 }); tl.to('.ruler .lab', { opacity: .62, duration: 1 }, 11.4);
   tl.to('#hint', { opacity: 0, duration: .8 }, 1.2);
   tl.to('#roleA, #sel, #curA', { opacity: 0, y: 12, duration: 1 }, 7.2);
-  tl.to('#charA', { scale: 5.5, transformOrigin: '50% 30%', y: '8vh', duration: 2.6, ease: 'power2.in' }, 8.2);
+  tl.to('#charA', { scale: 2.6, transformOrigin: '50% 17%', y: '6vh', duration: 2.6, ease: 'power2.in' }, 8.2);
+  tl.to('#charA', { opacity: 0, duration: 1.2, ease: 'power1.in' }, 9.6);
   tl.to('#s1 .name, #s1 .kicker, #s1 .phrase, #s1 .birds', { opacity: 0, y: -40, duration: 1.4 }, 8.4);
   tl.to(heroIcons, { opacity: 0, scale: 2.6, duration: 1.6, ease: 'power2.in' }, 8.6);
 
@@ -729,7 +809,6 @@ html.has-loader { overflow: hidden; }
   tl.fromTo('#s10 .fsub, #s10 .mail, #s10 .loc', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: .25 }, 132);
   tl.fromTo('#s10 .row a', { y: 20, opacity: 0, scale: .9 }, { y: 0, opacity: 1, scale: 1, duration: .8, stagger: .12, ease: 'back.out(2)' }, 132.8);
   tl.fromTo('#charB', { x: 0, y: 60, opacity: 0 }, { x: 0, y: 0, opacity: 1, duration: 1.8, ease: 'power3.out' }, 130.9);
-  gsap.set(capsB, { rotation: 0 }); // hat stays closed on the contact page
   tl.fromTo('#s10 .dream', { scale: 0, rotation: -30 }, { scale: 1, rotation: -8, duration: 1.2, ease: 'back.out(2)' }, 133.4);
   tl.to({}, { duration: 2.6 }, 135);
 
@@ -839,6 +918,7 @@ html.has-loader { overflow: hidden; }
         .to(phr, { y: 0, opacity: 1, duration: .8, stagger: .18, ease: 'power3.out', clearProps: 'transform,opacity' }, 1.6)
         .to('#s1 .birds', { opacity: 1, duration: .9, clearProps: 'opacity' }, 1.8)
         .to('#charA', { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', clearProps: 'transform,opacity' }, 1.5)
+        .add(function () { window.__heroVideoStart && window.__heroVideoStart(); }, 1.5)
         .to('#roleA', { opacity: 1, duration: .8, clearProps: 'opacity' }, 2.4)
         .to('.top', { y: 0, opacity: 1, duration: .8, ease: 'power3.out', clearProps: 'transform,opacity' }, 2.5)
         .to(['.ruler', '#hint'], { opacity: 1, duration: .8, clearProps: 'opacity' }, 2.9)
