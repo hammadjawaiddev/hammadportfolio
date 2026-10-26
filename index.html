@@ -84,6 +84,18 @@ a { color: inherit; }
 #charB.char.vid { aspect-ratio: 16 / 9; }
 .char.vid video, .char.vid canvas { display: block; width: 100%; height: 100%; pointer-events: none; }
 .hero .char.vid { width: auto; height: 74vh; bottom: -1%; }
+.char.vid .media { position: relative; width: 100%; height: 100%; }
+/* hero character rig: tilts toward the cursor, reacts to hover / click (see "hero character: interactive" script) */
+.hero .char .media { transform-origin: 50% 90%; will-change: transform; }
+.char.vid .media canvas.ghost { position: absolute; inset: 0; opacity: 0; transition: opacity .4s ease; pointer-events: none; }
+.char.vid .media canvas.ghost.hold { opacity: 1; transition: none; }
+.hero .char .glow { position: absolute; left: 22%; right: 22%; top: 6%; bottom: -8%; z-index: -1; pointer-events: none; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,159,67,.32), rgba(207,227,255,.12) 58%, transparent); filter: blur(24px); opacity: .5; transition: opacity .6s ease; }
+.hero .char.on .glow { opacity: 1; }
+.hero .char .hit { all: unset; position: absolute; left: 33%; width: 34%; top: 3%; bottom: 0; z-index: 2; cursor: pointer; border-radius: 42% 42% 10% 10%; -webkit-tap-highlight-color: transparent; }
+.hero .char .hit:focus-visible { outline: 2px dashed var(--accent); outline-offset: 4px; }
+.hero .char .say { position: absolute; right: 66%; top: 6%; z-index: 3; pointer-events: none; white-space: nowrap; background: var(--paper); color: var(--ink); border: 2px solid var(--ink); border-radius: 14px 14px 4px 14px; box-shadow: 0 4px 0 var(--ink); padding: 7px 14px 8px; font-weight: 800; font-size: clamp(.8rem, 1.05vw, 1.05rem); letter-spacing: .03em; text-transform: uppercase; transform-origin: 100% 100%; transform: scale(.4) rotate(6deg); opacity: 0; transition: transform .35s cubic-bezier(.3, 1.6, .5, 1), opacity .2s; }
+.hero .char .say.show { transform: scale(1) rotate(-4deg); opacity: 1; }
+@media (max-width: 760px) { .hero .char .say { right: auto; left: 50%; top: -2%; translate: -50% -100%; border-radius: 14px; transform-origin: 50% 100%; } }
 .final { --cw: min(54vw, 120vh); }
 .final > .char.vid { position: absolute; width: var(--cw); left: calc(77vw - var(--cw) / 2); bottom: 0; margin: 0; z-index: 3; pointer-events: none; }
 .hero .role { position: absolute; left: 50%; bottom: 6.8%; transform: translateX(-50%); text-align: center; font-weight: 600; font-size: clamp(.9rem, 1.2vw, 1.2rem); line-height: 1.25; color: var(--lilac); width: 44ch; z-index: 3; }
@@ -479,13 +491,15 @@ html.has-loader { overflow: hidden; }
     v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true; v.preload = 'auto'; v.disablePictureInPicture = true;
     v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true'); v.tabIndex = -1;
     var started = false, useCanvas = false;
+    var host = document.createElement('div'), surface = v;   // host: inner wrapper the hero rig can tilt without fighting GSAP on the box
+    host.className = 'media'; box.appendChild(host);
 
     function mountCanvas() {                                  // fallback: key the green on a canvas (same maths as the WebM)
       useCanvas = true;
       v.src = mp4Src;
       var cv = document.createElement('canvas'), cx = cv.getContext('2d', { willReadFrequently: true });
       v.style.cssText = 'position:absolute;width:1px;height:1px;opacity:0;pointer-events:none';
-      box.appendChild(v); box.appendChild(cv);
+      host.appendChild(v); host.appendChild(cv); surface = cv;
       var bad = false;
       function paint() {
         if (!v.videoWidth || bad) return;
@@ -501,7 +515,7 @@ html.has-loader { overflow: hidden; }
             }
           }
           cx.putImageData(im, 0, 0);
-        } catch (e) { bad = true; cv.style.display = 'none'; v.style.cssText = ''; }   // e.g. opened from file:// — show the plain video instead
+        } catch (e) { bad = true; cv.style.display = 'none'; v.style.cssText = ''; surface = v; }   // e.g. opened from file:// — show the plain video instead
       }
       function tick() {
         if (!v.paused && !v.ended) paint();
@@ -511,7 +525,7 @@ html.has-loader { overflow: hidden; }
     }
     function mountAlpha() {
       v.src = webmSrc;
-      box.appendChild(v);
+      host.appendChild(v);
       v.addEventListener('error', function () { if (!useCanvas) { v.remove(); mountCanvas(); if (started) v.play().catch(function () {}); } }, { once: true });
     }
     if (alphaOK) mountAlpha(); else mountCanvas();
@@ -527,12 +541,97 @@ html.has-loader { overflow: hidden; }
       if (show && v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
       else if (!show && !v.paused) v.pause();
     }, 400);
-    return start;
+    return { start: start, video: v, host: host, surface: function () { return surface; }, started: function () { return started; } };
   }
-  window.__heroVideoStart = mount('charA', 's1', true, 'hero-character.webm', 'hero-character-green.mp4') || function () {};
+  var hero = mount('charA', 's1', true, 'hero-character.webm', 'hero-character-green.mp4');
+  window.__heroVideoStart = hero ? hero.start : function () {};
+  window.__heroChar = hero;
   mount('charB', 's10', false, 'contact-character.webm', 'contact-character-green.mp4');
   mount('tesla', 's7', false, 'car-driving.webm', 'car-driving-green.mp4');   // Karachi car
   mount('peek', 's8', false, 'peek-character.webm', 'peek-character-green.mp4');   // peeking man (Work)
+})();
+</script>
+<script>
+/* hero character: interactive. The clip runs idle (0–2.08s) -> wave (2.08–4.25s) -> builds a holographic UI (4.25–10s).
+   Idle loops on its own; hovering him waves hello, a click / tap builds the UI, and after a quiet spell he plays the whole thing.
+   Jumps between moments are covered by a short crossfade from a snapshot of the last frame.
+   Mouse users also get a cursor tilt + depth parallax (stars, birds, icons drift at different depths). */
+(function () {
+  var hero = window.__heroChar, box = document.getElementById('charA');
+  if (!hero || !box) return;
+  var v = hero.video, host = hero.host;
+  var T = { idleIn: .79, idleOut: 2.08, wave: 2.08, holo: 4.25 }, AUTO = 9000;
+  var LINES = { wave: 'Hey there!', holo: 'Watch me build.' };
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  var glow = document.createElement('div'); glow.className = 'glow'; box.insertBefore(glow, box.firstChild);
+  var ghost = document.createElement('canvas'); ghost.className = 'ghost'; ghost.setAttribute('aria-hidden', 'true'); host.appendChild(ghost);
+  var gx = ghost.getContext('2d');
+  var say = document.createElement('p'); say.className = 'say'; say.setAttribute('aria-live', 'polite'); box.appendChild(say);
+  var hit = document.createElement('button'); hit.type = 'button'; hit.className = 'hit'; hit.setAttribute('aria-label', 'Say hi to Hammad'); box.appendChild(hit);
+
+  var state = 'idle', last = performance.now(), prevT = 0, sayTimer;
+  function talk(txt) {
+    clearTimeout(sayTimer); if (!txt) return;
+    say.textContent = txt; say.classList.add('show');
+    sayTimer = setTimeout(function () { say.classList.remove('show'); }, 1900);
+  }
+  // freeze the current frame on the ghost canvas, seek, then dissolve the ghost away
+  function jump(t) {
+    var src = hero.surface(), w = src.videoWidth || src.width, h = src.videoHeight || src.height;
+    if (w && h) {
+      try { if (ghost.width !== w) { ghost.width = w; ghost.height = h; } gx.clearRect(0, 0, w, h); gx.drawImage(src, 0, 0, w, h); ghost.classList.add('hold'); } catch (e) {}
+    }
+    var done = false, fade = function () { if (done) return; done = true; requestAnimationFrame(function () { requestAnimationFrame(function () { ghost.classList.remove('hold'); }); }); };
+    v.addEventListener('seeked', fade, { once: true }); setTimeout(fade, 600);
+    v.currentTime = t;
+  }
+  function go(next) {
+    if (!hero.started() || v.readyState < 2) return;
+    last = performance.now(); state = next; talk(LINES[next]);
+    jump(next === 'wave' ? T.wave : T.holo);
+  }
+
+  hit.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { box.classList.add('on'); if (state === 'idle') go('wave'); } });
+  hit.addEventListener('pointerleave', function () { box.classList.remove('on'); });
+  hit.addEventListener('click', function () {                 // touch / keyboard: first press waves, the next one builds
+    if (state === 'idle') go('wave');
+    else if (v.currentTime < T.holo - .1) go('holo');
+  });
+
+  (function tick(now) {
+    requestAnimationFrame(tick);
+    if (!hero.started() || v.paused) { last = now; return; }   // the quiet-spell clock only runs while he's on screen
+    var t = v.currentTime;
+    if (state === 'idle' && t >= T.idleOut - .03 && t < T.holo) {
+      if (now - last > AUTO) state = 'show';                  // nobody's played with him for a while: let the full clip run
+      else jump(T.idleIn);
+    } else if (state === 'wave' && t >= T.holo - .03) { state = 'idle'; jump(T.idleIn); }
+    else if (state !== 'idle' && t < prevT - 1) { state = 'idle'; last = now; }   // clip wrapped back to the start
+    prevT = t;
+  })(performance.now());
+
+  if (!fine || reduced) return;
+  /* cursor tilt + parallax; fades out as you scroll into the zoom so it never fights the GSAP timeline */
+  var dust = document.getElementById('dust');
+  var birds = Array.prototype.slice.call(document.querySelectorAll('#s1 .birds path'));
+  var icons = Array.prototype.slice.call(document.querySelectorAll('#s1 .ico'));
+  var tx = 0, ty = 0, cx = 0, cy = 0;
+  addEventListener('pointermove', function (e) { if (e.pointerType !== 'mouse') return; tx = e.clientX / innerWidth * 2 - 1; ty = e.clientY / innerHeight * 2 - 1; }, { passive: true });
+  document.addEventListener('mouseout', function (e) { if (!e.relatedTarget) tx = ty = 0; });
+  (function drift() {
+    requestAnimationFrame(drift);
+    var k = Math.max(0, 1 - (window.scrollY || 0) / (innerHeight * .8));
+    var dx = tx * k - cx, dy = ty * k - cy;
+    if (Math.abs(dx) < .0005 && Math.abs(dy) < .0005) return;
+    cx += dx * .07; cy += dy * .07;
+    host.style.transform = 'perspective(1100px) rotateY(' + (cx * 7).toFixed(2) + 'deg) rotateX(' + (-cy * 3.5).toFixed(2) + 'deg) translate3d(' + (cx * 14).toFixed(1) + 'px,' + (cy * 6).toFixed(1) + 'px,0)';
+    glow.style.transform = 'translate(' + (cx * 46).toFixed(1) + 'px,' + (cy * 26).toFixed(1) + 'px)';
+    if (dust) dust.style.transform = 'translate(' + (-cx * 12).toFixed(1) + 'px,' + (-cy * 9).toFixed(1) + 'px)';
+    birds.forEach(function (p, i) { p.style.transform = 'translate(' + (cx * (8 + i * 5)).toFixed(1) + 'px,' + (cy * (4 + i * 2)).toFixed(1) + 'px)'; });
+    icons.forEach(function (ic, i) { var s = ic.firstElementChild; if (s) s.style.transform = 'translate(' + (cx * (10 + i * 4)).toFixed(1) + 'px,' + (cy * (8 + i * 3)).toFixed(1) + 'px)'; });
+  })();
 })();
 </script>
 <script>
