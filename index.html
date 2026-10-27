@@ -43,6 +43,10 @@ a { color: inherit; }
 .top { position: absolute; z-index: 30; top: 0; left: 0; right: 0; display: flex; align-items: center; padding: 30px 32px; }
 .brand { display: flex; align-items: center; gap: 12px; }
 .who { font-weight: 800; font-size: 18px; text-transform: uppercase; letter-spacing: .03em; }
+/* signature mark: sized by width, height follows the PNG ratio (1327x965). The vertical margin makes it occupy the same 27px the old text/pill row did,
+   so the status pill and nav links keep their exact positions. The PNG is black, the stage is always dark, so it is inverted to white at paint time (file itself untouched). */
+.who.sig { --sig-w: 96px; display: block; flex: none; width: var(--sig-w); margin-block: calc((27px - var(--sig-w) / 1.3751) / 2); line-height: 0; }
+.who.sig img { display: block; width: 100%; height: auto; object-fit: contain; filter: invert(1); }
 .status { display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid rgba(255,248,236,.5); border-radius: 999px; padding: 4px 13px 5px; font-size: 14px; font-weight: 600; letter-spacing: .01em; }
 .status i { width: 8px; height: 8px; border-radius: 50%; background: #61e37a; box-shadow: 0 0 9px #61e37a; }
 .nav { margin-left: auto; display: flex; gap: 28px; align-items: center; font-weight: 700; font-size: 18px; text-transform: uppercase; letter-spacing: .03em; position: relative; }
@@ -230,9 +234,11 @@ a { color: inherit; }
 
 @media (max-width: 760px) {
   .stage { inset: 8px; border-radius: 18px; }
-  /* top bar: status pill left, links right, no brand text (as the reference) */
+  /* top bar: signature + status pill stacked left, links right */
   .top { padding: 14px 14px; align-items: flex-start; gap: 10px; }
-  .brand .who { display: none; }
+  .brand { flex-direction: column; align-items: flex-start; gap: 3px; }
+  /* hero kicker sits at 12.5% of stage height, so the stacked mark shrinks on short phones to stay clear of it (40px floor, 56px cap) */
+  .who.sig { --sig-w: 48px; --sig-w: clamp(40px, calc((12.5vh - 62.6px) * 1.3751), 56px); --sig-w: clamp(40px, calc((12.5dvh - 62.6px) * 1.3751), 56px); margin-block: 0; }
   .status { white-space: normal; max-width: 118px; font-size: 11px; line-height: 1.12; padding: 5px 11px 6px; align-items: flex-start; border-radius: 16px; }
   .status i { margin-top: 3px; flex: none; }
   .nav { gap: 11px; font-size: 13px; letter-spacing: .02em; padding-top: 5px; }
@@ -319,7 +325,7 @@ html.has-loader { overflow: hidden; }
   <canvas class="dust" id="dust"></canvas>
 
   <header class="top">
-    <div class="brand"><a class="who" href="#" data-go="0" style="text-decoration:none">Hammad Jawaid</a><span class="status"><i></i>Available for work</span></div>
+    <div class="brand"><a class="who sig" href="#" data-go="0" style="text-decoration:none"><img src="assets/signature.png" alt="Hammad Jawaid signature" width="1327" height="965" decoding="async"></a><span class="status"><i></i>Available for work</span></div>
     <nav class="nav" aria-label="Sections">
       <a href="#" data-go="work">Work</a><a href="#" data-go="about">About</a><a href="#" data-go="contact" class="keep">Contact</a>
     </nav>
