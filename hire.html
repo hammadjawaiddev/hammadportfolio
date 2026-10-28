@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3f0e8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<title>Hire Hammad Jawaid — Full-Stack Developer</title>
+<meta name="description" content="Hire Hammad Jawaid, full-stack developer in Karachi. Build your order, see it as a receipt, and send it straight to WhatsApp.">
+<meta property="og:title" content="Hire Hammad Jawaid">
+<meta property="og:description" content="One developer. The whole stack. Build your order and send it on WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f3f0e8;--ink:#0d0d0d;--lime:#c8ff2e;--mute:#6b6a64;--line:#0d0d0d;--wa:#25d366;--r:18px;
+--sans:'Space Grotesk',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--paper)}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+::selection{background:var(--lime)}
+.wrap{width:min(1240px,92vw);margin:0 auto}
+.mono{font-family:var(--mono)}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(243,240,232,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:2px solid var(--ink)}
+.nav .wrap{display:flex;align-items:center;gap:22px;height:64px}
+.logo{font-weight:700;font-size:20px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+.logo b{background:var(--ink);color:var(--lime);padding:2px 8px;border-radius:6px;font-family:var(--mono);font-size:15px}
+.nav ul{display:flex;gap:26px;list-style:none;margin-left:auto;font-family:var(--mono);font-size:14px;font-weight:500}
+.nav ul a{padding:4px 0;border-bottom:2px solid transparent;transition:border-color .2s}
+.nav ul a:hover{border-color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:10px;border:2px solid var(--ink);background:var(--lime);color:var(--ink);font-weight:700;font-size:16px;padding:12px 22px;border-radius:999px;box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s;cursor:pointer}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.btn.sm{padding:8px 16px;font-size:14px;box-shadow:3px 3px 0 var(--ink)}
+.btn.wa{background:var(--wa)}
+.btn.ghost{background:transparent}
+.btn.dark{background:var(--ink);color:var(--paper);box-shadow:4px 4px 0 var(--lime)}
+.btn svg{width:20px;height:20px;flex:none}
+
+/* hero */
+.hero{padding:clamp(40px,7vw,96px) 0 clamp(50px,7vw,100px)}
+.hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(28px,4vw,64px);align-items:center}
+.tag{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;font-weight:500;border:2px solid var(--ink);border-radius:999px;padding:5px 14px;background:#fff}
+.tag i{width:9px;height:9px;border-radius:50%;background:#16c35a;box-shadow:0 0 0 3px rgba(22,195,90,.25);animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.35}}
+h1{font-weight:700;font-size:clamp(3rem,8.4vw,8.2rem);line-height:.9;letter-spacing:-.045em;margin:26px 0 24px}
+h1 mark{background:var(--lime);padding:0 .08em;margin:0 -.04em;border-radius:.1em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+h1 .st{display:inline-block;transform:rotate(-2deg)}
+.lede{font-size:clamp(1.05rem,1.5vw,1.3rem);max-width:46ch;color:#2a2a28}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.term{background:var(--ink);color:#d9ffa0;border-radius:var(--r);border:2px solid var(--ink);box-shadow:10px 10px 0 var(--lime);font-family:var(--mono);font-size:14px;overflow:hidden;transform:rotate(1.2deg)}
+.term .bar{display:flex;gap:7px;align-items:center;padding:12px 16px;background:#1c1c1c;color:#8a8a84;font-size:12px}
+.term .bar i{width:11px;height:11px;border-radius:50%;background:#ff5f57}.term .bar i:nth-child(2){background:#febc2e}.term .bar i:nth-child(3){background:#28c840}
+.term .bar span{margin-left:10px}
+.term pre{padding:20px 18px 24px;min-height:300px;white-space:pre-wrap;line-height:1.75}
+.term .p{color:var(--lime)}.term .d{color:#8a8a84}.term .ok{color:#6dff9b}
+.caret{display:inline-block;width:9px;height:17px;background:var(--lime);vertical-align:-3px;animation:blink 1s steps(1) infinite}
+
+/* ticker */
+.ticker{background:var(--ink);color:var(--lime);border-block:2px solid var(--ink);overflow:hidden;padding:16px 0}
+.ticker div{display:flex;gap:44px;width:max-content;animation:tk 30s linear infinite;font-weight:700;font-size:clamp(1.4rem,3vw,2.6rem);letter-spacing:-.02em;white-space:nowrap}
+.ticker span{display:inline-flex;gap:44px;align-items:center}
+.ticker span::after{content:'→';color:var(--paper)}
+@keyframes tk{to{transform:translateX(-50%)}}
+
+section{padding:clamp(64px,9vw,130px) 0}
+.eyebrow{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--mute);letter-spacing:.04em;margin-bottom:14px}
+.eyebrow b{color:var(--ink);background:var(--lime);padding:1px 7px;border-radius:4px;margin-right:8px}
+h2{font-weight:700;font-size:clamp(2.4rem,6vw,5.4rem);line-height:.95;letter-spacing:-.04em;max-width:16ch}
+h2 em{font-style:normal;background:var(--lime);padding:0 .08em;border-radius:.1em}
+.sub{margin-top:18px;max-width:50ch;color:#33332f;font-size:clamp(1.02rem,1.35vw,1.2rem)}
+
+.rv{opacity:0;transform:translateY(34px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:2px solid var(--ink);border-radius:var(--r);background:#fff;overflow:hidden;box-shadow:8px 8px 0 var(--ink)}
+.stat{padding:clamp(18px,2.6vw,36px);border-right:2px solid var(--ink)}
+.stat:last-child{border:0}
+.stat b{display:block;font-size:clamp(2.8rem,6vw,5.4rem);line-height:.9;letter-spacing:-.05em;font-weight:700}
+.stat span{display:block;margin-top:10px;font-family:var(--mono);font-size:12.5px;color:var(--mute)}
+
+/* configurator */
+.cfg{background:#fff;border-block:2px solid var(--ink)}
+.cfg .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,80px);align-items:start;margin-top:54px}
+.step{margin-bottom:44px}
+.step>h3{display:flex;align-items:center;gap:12px;font-size:1.35rem;letter-spacing:-.02em;margin-bottom:6px}
+.step>h3 i{font-style:normal;font-family:var(--mono);font-size:13px;background:var(--ink);color:var(--lime);border-radius:6px;padding:3px 8px}
+.step>p{color:var(--mute);font-size:15px;margin-bottom:16px}
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt label{display:block;height:100%;border:2px solid var(--ink);border-radius:14px;padding:16px 18px 16px 52px;background:var(--paper);cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s;position:relative}
+.opt label::before{content:'';position:absolute;left:16px;top:18px;width:22px;height:22px;border:2px solid var(--ink);border-radius:6px;background:#fff;transition:all .15s}
+.opt.r label::before{border-radius:50%}
+.opt label b{display:block;font-size:16px;letter-spacing:-.01em}
+.opt label small{display:block;color:var(--mute);font-size:13.5px;line-height:1.35;margin-top:2px}
+.opt label:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.opt input:checked+label{background:var(--lime);box-shadow:4px 4px 0 var(--ink)}
+.opt input:checked+label::before{background:var(--ink)}
+.opt input:checked+label::after{content:'';position:absolute;left:23px;top:23px;width:8px;height:12px;border:solid var(--lime);border-width:0 2.5px 2.5px 0;transform:translate(-2px,-4px) rotate(45deg)}
+.opt.r input:checked+label::after{width:8px;height:8px;border:0;background:var(--lime);border-radius:50%;transform:none;left:23px;top:25px}
+.opt input:focus-visible+label{outline:3px solid var(--ink);outline-offset:3px}
+.opts.three{grid-template-columns:repeat(3,1fr)}
+.fld{display:block;margin-bottom:14px}
+.fld span{display:block;font-family:var(--mono);font-size:12.5px;color:var(--mute);margin-bottom:6px}
+.fld input,.fld textarea{width:100%;border:2px solid var(--ink);border-radius:14px;padding:14px 16px;background:var(--paper);font:500 17px var(--sans);outline:none;transition:box-shadow .15s,background .15s}
+.fld textarea{min-height:110px;resize:vertical}
+.fld input:focus,.fld textarea:focus{background:#fff;box-shadow:4px 4px 0 var(--lime),4px 4px 0 2px var(--ink)}
+
+/* receipt */
+.rc-wrap{position:sticky;top:90px}
+.receipt{position:relative;background:#fffef8;border:2px solid var(--ink);border-bottom:0;border-radius:6px 6px 0 0;padding:28px 26px 34px;font-family:var(--mono);font-size:14px;box-shadow:10px 10px 0 var(--ink);transform:rotate(-1.2deg);transition:transform .3s}
+.receipt:hover{transform:rotate(0)}
+.receipt::after{content:'';position:absolute;left:-2px;right:-2px;bottom:-14px;height:14px;background:linear-gradient(135deg,#fffef8 50%,transparent 50%) 0 0/20px 14px,linear-gradient(225deg,#fffef8 50%,transparent 50%) 0 0/20px 14px;filter:drop-shadow(0 2px 0 var(--ink))}
+.rc-h{text-align:center;border-bottom:2px dashed var(--ink);padding-bottom:16px}
+.rc-h b{display:block;font-family:var(--sans);font-size:26px;letter-spacing:-.03em}
+.rc-h small{color:var(--mute)}
+.rc-meta{display:flex;justify-content:space-between;padding:12px 0;border-bottom:2px dashed var(--ink);color:var(--mute);font-size:12.5px}
+.rc-lines{list-style:none;padding:14px 0;border-bottom:2px dashed var(--ink);min-height:96px}
+.rc-lines li{display:flex;justify-content:space-between;gap:14px;padding:3px 0;animation:ln .35s}
+.rc-lines li em{font-style:normal;color:var(--mute)}
+.rc-lines .empty{color:var(--mute);justify-content:center;padding:22px 0}
+@keyframes ln{from{opacity:0;transform:translateX(-10px)}}
+.rc-row{display:flex;justify-content:space-between;gap:14px;padding:5px 0}
+.rc-row span:first-child{color:var(--mute)}
+.rc-row b{text-align:right;font-weight:700}
+.rc-tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;padding-top:12px;border-top:2px solid var(--ink);font-family:var(--sans);font-weight:700;font-size:20px}
+.rc-tot span:last-child{background:var(--lime);padding:0 8px;border-radius:5px;font-size:16px}
+.rc-note{margin-top:16px;color:var(--mute);font-size:12px;text-align:center}
+.rc-cta{margin-top:34px;display:flex;flex-direction:column;gap:12px}
+.rc-cta .btn{justify-content:center;font-size:18px;padding:16px 22px}
+.rc-cta p{text-align:center;font-family:var(--mono);font-size:12.5px;color:var(--mute)}
+.rc-cta p a{text-decoration:underline;cursor:pointer;color:var(--ink)}
+
+/* work */
+.work{background:var(--ink);color:var(--paper)}
+.work h2 em{color:var(--ink)}
+.work .eyebrow{color:#9a998f}
+.work .sub{color:#bdbcb3}
+.list{margin-top:54px;border-top:2px solid #3a3a37}
+.row{display:grid;grid-template-columns:70px 1.1fr 1fr 40px;gap:20px;align-items:center;padding:clamp(20px,2.6vw,34px) 6px;border-bottom:2px solid #3a3a37;transition:background .2s,padding .25s,color .2s;position:relative}
+.row .n{font-family:var(--mono);color:#8a897f;font-size:14px}
+.row h3{font-size:clamp(1.7rem,3.8vw,3.6rem);line-height:1;letter-spacing:-.04em;font-weight:700}
+.row .t{font-family:var(--mono);font-size:13px;color:#9a998f}
+.row .t p{font-family:var(--sans);color:#cfcec5;font-size:15px;margin-top:6px;max-width:40ch}
+.row .ar{font-size:28px;transition:transform .25s;justify-self:end}
+.row:hover{background:var(--lime);color:var(--ink);padding-left:26px}
+.row:hover .n,.row:hover .t,.row:hover .t p{color:var(--ink)}
+.row:hover .ar{transform:translate(4px,-4px) rotate(0)}
+.row .shot{display:none;grid-column:1/-1;border-radius:12px;overflow:hidden;border:2px solid var(--paper);aspect-ratio:1.7;margin-top:4px}
+.row .shot img{width:100%;height:100%;object-fit:cover;object-position:left top;display:block}
+.pv{position:fixed;left:0;top:0;width:min(380px,30vw);aspect-ratio:1.4;border:3px solid var(--ink);border-radius:14px;overflow:hidden;background:#222;pointer-events:none;z-index:60;opacity:0;transform:translate(-50%,-50%) scale(.85) rotate(-3deg);transition:opacity .2s,transform .2s;box-shadow:8px 8px 0 var(--ink)}
+.pv.on{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-3deg)}
+.pv img{width:100%;height:100%;object-fit:cover;object-position:left top;display:block}
+.more{margin-top:34px;font-family:var(--mono);font-size:14px;color:#bdbcb3}
+.more a{color:var(--lime);text-decoration:underline;text-underline-offset:4px}
+
+/* process (git log) */
+.git{margin-top:54px;max-width:900px;font-family:var(--mono);position:relative}
+.git::before{content:'';position:absolute;left:11px;top:10px;bottom:10px;width:3px;background:var(--ink)}
+.commit{position:relative;padding:0 0 38px 52px}
+.commit::before{content:'';position:absolute;left:0;top:6px;width:25px;height:25px;border-radius:50%;background:var(--lime);border:3px solid var(--ink)}
+.commit .h{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:13px;color:var(--mute)}
+.commit .h b{background:var(--ink);color:var(--lime);padding:2px 9px;border-radius:5px;font-weight:500}
+.commit h3{font-family:var(--sans);font-size:clamp(2rem,4.4vw,3.8rem);letter-spacing:-.04em;line-height:1;margin:8px 0 6px}
+.commit p{font-family:var(--sans);max-width:52ch;color:#33332f}
+
+/* faq */
+.faq{background:#fff;border-block:2px solid var(--ink)}
+.fq{margin-top:44px;max-width:920px;border-top:2px solid var(--ink)}
+details{border-bottom:2px solid var(--ink);padding:22px 4px}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;font-weight:600;font-size:clamp(1.15rem,2vw,1.6rem);letter-spacing:-.02em}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'+';font-family:var(--mono);font-size:1.6rem;width:38px;height:38px;border:2px solid var(--ink);border-radius:50%;display:grid;place-items:center;flex:none;transition:all .25s;background:var(--paper)}
+details[open] summary::after{content:'–';background:var(--lime);transform:rotate(180deg)}
+details p{margin-top:14px;max-width:62ch;color:#33332f}
+
+/* footer cta */
+.end{background:var(--lime);border-top:2px solid var(--ink);text-align:center;padding:clamp(70px,11vw,150px) 0 40px}
+.end h2{max-width:none;font-size:clamp(3.2rem,12vw,12rem);line-height:.86;margin:0 auto}
+.end h2 em{background:var(--ink);color:var(--lime)}
+.end .sub{margin:26px auto 0;color:#1d1d1a}
+.end .cta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:34px}
+.foot{margin-top:clamp(60px,9vw,120px);padding-top:22px;border-top:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:space-between;font-family:var(--mono);font-size:13.5px;font-weight:500;text-align:left}
+.foot a:hover{text-decoration:underline}
+.foot .l{display:flex;gap:22px;flex-wrap:wrap}
+.cp{all:unset;cursor:pointer;margin-left:6px;opacity:.75;text-decoration:underline}.cp:hover{opacity:1}
+
+.fab{position:fixed;right:22px;bottom:22px;z-index:70;display:flex;align-items:center;gap:10px;background:var(--wa);border:2px solid var(--ink);border-radius:999px;padding:12px 20px 12px 14px;font-weight:700;box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.fab:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.fab svg{width:26px;height:26px}
+
+@media(max-width:980px){
+.hero .wrap,.cfg .grid{grid-template-columns:1fr}
+.term{transform:none}
+.rc-wrap{position:static}
+.stats{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:2px solid var(--ink)}
+.row{grid-template-columns:44px 1fr 30px}.row .t{grid-column:2/3;grid-row:2}.row .ar{grid-row:1;grid-column:3}
+.row .shot{display:block}.row:hover{padding-left:6px}.pv{display:none}
+}
+@media(max-width:640px){
+.nav ul{display:none}.nav .btn{margin-left:auto}
+.opts,.opts.three{grid-template-columns:1fr}
+.fab span{display:none}.fab{padding:13px}
+.btn{font-size:15px;padding:11px 18px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="index.html"><b>HJ/</b>Hammad Jawaid</a>
+    <ul><li><a href="#order">Build order</a></li><li><a href="#work">Work</a></li><li><a href="#process">Process</a></li><li><a href="#faq">FAQ</a></li><li><a href="index.html">Portfolio</a></li></ul>
+    <a class="btn wa sm" href="#" data-wa>WhatsApp</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="tag"><i></i>taking on new projects · Karachi <span id="clock"></span></span>
+      <h1>One developer. <span class="st"><mark>Whole stack.</mark></span> Zero hand-offs.</h1>
+      <p class="lede">I build the interface, the server and the database, then ship it. Tell me what you need, see it as a receipt, and send it straight to my WhatsApp.</p>
+      <div class="cta">
+        <a class="btn wa" href="#" data-wa><svg viewBox="0 0 24 24" fill="currentColor" data-ico="wa"></svg>Message on WhatsApp</a>
+        <a class="btn ghost" href="#order">Build your order ↓</a>
+      </div>
+    </div>
+    <div class="term" aria-label="Terminal animation">
+      <div class="bar"><i></i><i></i><i></i><span>hammad@karachi: ~</span></div>
+      <pre id="termOut"></pre>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true"><div id="tk"></div></div>
+
+<section style="padding-bottom:0">
+  <div class="wrap">
+    <div class="stats rv">
+      <div class="stat"><b data-n="5">0</b><span>live projects shipped</span></div>
+      <div class="stat"><b data-n="4">0</b><span>layers owned: UI · API · DB · deploy</span></div>
+      <div class="stat"><b data-n="2">0</b><span>databases: MySQL + MongoDB</span></div>
+      <div class="stat"><b data-n="1">0</b><span>person to talk to. Just me.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cfg" id="order" style="margin-top:clamp(64px,9vw,130px)">
+  <div class="wrap">
+    <p class="eyebrow rv"><b>01</b>build your order</p>
+    <h2 class="rv">Pick what you need. Watch the <em>receipt</em> print.</h2>
+    <p class="sub rv">Everything you choose below becomes a ready-written WhatsApp message. No forms that disappear into the void.</p>
+
+    <div class="grid">
+      <form id="form" novalidate>
+        <div class="step rv">
+          <h3><i>1</i>What should I build?</h3><p>Pick as many as you like.</p>
+          <div class="opts">
+            <div class="opt"><input type="checkbox" id="c1" name="item" value="Website / landing page"><label for="c1"><b>Website / landing page</b><small>Fast, responsive, built to convert</small></label></div>
+            <div class="opt"><input type="checkbox" id="c2" name="item" value="Web app / dashboard"><label for="c2"><b>Web app / dashboard</b><small>Accounts, logic, charts, admin</small></label></div>
+            <div class="opt"><input type="checkbox" id="c3" name="item" value="REST API / backend"><label for="c3"><b>REST API / backend</b><small>Node.js or PHP, clean endpoints</small></label></div>
+            <div class="opt"><input type="checkbox" id="c4" name="item" value="Database design"><label for="c4"><b>Database design</b><small>MySQL or MongoDB schemas</small></label></div>
+            <div class="opt"><input type="checkbox" id="c5" name="item" value="Online store"><label for="c5"><b>Online store</b><small>Catalog, cart, checkout, orders</small></label></div>
+            <div class="opt"><input type="checkbox" id="c6" name="item" value="Fix & polish an existing site"><label for="c6"><b>Fix &amp; polish</b><small>Speed, bugs, cleanup, pixel-perfect</small></label></div>
+          </div>
+        </div>
+        <div class="step rv">
+          <h3><i>2</i>How do we work together?</h3><p>Choose one.</p>
+          <div class="opts three">
+            <div class="opt r"><input type="radio" id="e1" name="kind" value="Freelance project" checked><label for="e1"><b>Freelance</b><small>Per project</small></label></div>
+            <div class="opt r"><input type="radio" id="e2" name="kind" value="Full-time role"><label for="e2"><b>Full-time</b><small>Join your team</small></label></div>
+            <div class="opt r"><input type="radio" id="e3" name="kind" value="Collaboration"><label for="e3"><b>Collab</b><small>Build together</small></label></div>
+          </div>
+        </div>
+        <div class="step rv">
+          <h3><i>3</i>When do you need it?</h3><p>A rough idea is fine.</p>
+          <div class="opts three">
+            <div class="opt r"><input type="radio" id="t1" name="when" value="ASAP"><label for="t1"><b>ASAP</b><small>It's urgent</small></label></div>
+            <div class="opt r"><input type="radio" id="t2" name="when" value="Within a month" checked><label for="t2"><b>This month</b><small>Soon-ish</small></label></div>
+            <div class="opt r"><input type="radio" id="t3" name="when" value="Flexible"><label for="t3"><b>Flexible</b><small>No rush</small></label></div>
+          </div>
+        </div>
+        <div class="step rv" style="margin-bottom:0">
+          <h3><i>4</i>Who are you, and what's the idea?</h3><p>A couple of lines is plenty.</p>
+          <label class="fld"><span>// your name</span><input id="nm" name="name" type="text" autocomplete="name" placeholder="Jane Doe"></label>
+          <label class="fld"><span>// the idea (optional)</span><textarea id="msg" name="msg" placeholder="What it is, who it's for, links or references…"></textarea></label>
+        </div>
+      </form>
+
+      <aside class="rc-wrap rv">
+        <div class="receipt" aria-live="polite">
+          <div class="rc-h"><b>HIRE HAMMAD™</b><small>full-stack dev · karachi, pk</small></div>
+          <div class="rc-meta"><span id="oid">ORDER #0000</span><span id="odate"></span></div>
+          <ul class="rc-lines" id="lines"></ul>
+          <div class="rc-row"><span>engagement</span><b id="rKind"></b></div>
+          <div class="rc-row"><span>timeline</span><b id="rWhen"></b></div>
+          <div class="rc-row"><span>client</span><b id="rName">—</b></div>
+          <div class="rc-tot"><span>QUOTE</span><span>on request</span></div>
+          <p class="rc-note">* I reply with scope, timeline and price.<br>Thank you for your order ♥</p>
+        </div>
+        <div class="rc-cta">
+          <button class="btn wa" id="send" type="button"><svg viewBox="0 0 24 24" fill="currentColor" data-ico="wa"></svg>Send this order on WhatsApp</button>
+          <p>or <a id="viaMail">email it instead</a></p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="work" id="work">
+  <div class="wrap">
+    <p class="eyebrow rv"><b>02</b>receipts, not promises</p>
+    <h2 class="rv">Five projects. All <em>live.</em></h2>
+    <p class="sub rv">Real, deployed, working right now. Hover a row to peek, click to open.</p>
+    <div class="list" id="list"></div>
+    <p class="more">There's more where that came from → <a href="https://github.com/hammadjawaiddev" target="_blank" rel="noopener">github.com/hammadjawaiddev</a></p>
+  </div>
+</section>
+<div class="pv" id="pv"><img alt="" src=""></div>
+
+<section id="process">
+  <div class="wrap">
+    <p class="eyebrow rv"><b>03</b>how it ships</p>
+    <h2 class="rv">From first message to <em>production.</em></h2>
+    <div class="git">
+      <div class="commit rv"><div class="h"><b>a1f3c9e</b><span>feat: first conversation</span></div><h3>Talk</h3><p>You tell me the idea on WhatsApp. I ask the right questions and tell you honestly what it takes.</p></div>
+      <div class="commit rv"><div class="h"><b>7be20d4</b><span>docs: scope + stack + timeline</span></div><h3>Plan</h3><p>Clear scope, stack and dates before a single line of code. No surprises later.</p></div>
+      <div class="commit rv"><div class="h"><b>c94e18a</b><span>feat: interface, API, database</span></div><h3>Build</h3><p>Readable, maintainable code that's fast on every device. You see progress as it happens.</p></div>
+      <div class="commit rv" style="padding-bottom:0"><div class="h"><b>3d07fb2</b><span>release: v1.0 is live 🚀</span></div><h3>Launch</h3><p>Tested, deployed and handed over. I'd rather take extra time than ship something I'm not proud of.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <p class="eyebrow rv"><b>04</b>quick answers</p>
+    <h2 class="rv">Things people <em>ask.</em></h2>
+    <div class="fq rv">
+      <details><summary>What can you build on your own?</summary><p>The full stack: responsive front ends in HTML, CSS and JavaScript, backends and APIs in PHP or Node.js, databases in MySQL or MongoDB, and deployment. One person, no hand-offs.</p></details>
+      <details><summary>Can I see work that's actually live?</summary><p>Yes, all five projects above are deployed. Open them, register, add to cart. The code lives on GitHub too.</p></details>
+      <details><summary>How do we communicate?</summary><p>WhatsApp is fastest, with email whenever you need things in writing. You see progress as it happens instead of waiting for a big reveal.</p></details>
+      <details><summary>How do you handle timelines and cost?</summary><p>Every project is different, so send me the idea and I'll reply with an honest scope, timeline and quote. I'd rather take extra time than rush something out.</p></details>
+      <details><summary>Are you open to full-time roles?</summary><p>Yes. I take freelance work, contracts and full-time opportunities. Pick "Full-time" in the order above and tell me about the role.</p></details>
+      <details><summary>Where are you based?</summary><p>Karachi, Pakistan, building for clients anywhere. Message me whenever suits you and I'll reply as soon as I'm online.</p></details>
+    </div>
+  </div>
+</section>
+
+<footer class="end">
+  <div class="wrap">
+    <h2 class="rv">Let's ship <em>it.</em></h2>
+    <p class="sub rv">Your idea, my stack. One message is all it takes to start.</p>
+    <div class="cta rv">
+      <a class="btn dark" href="#" data-wa><svg viewBox="0 0 24 24" fill="currentColor" data-ico="wa"></svg>Hire me on WhatsApp</a>
+      <a class="btn ghost" href="mailto:droidhammad2006@gmail.com">Email me</a>
+    </div>
+    <div class="foot">
+      <span>droidhammad2006@gmail.com<button class="cp" id="cp" type="button">copy</button></span>
+      <div class="l"><a href="https://www.linkedin.com/in/hammad-jawaid-4610793ba/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/hammadjawaiddev" target="_blank" rel="noopener">GitHub</a><a href="Hammad-Jawaid-CV.pdf" target="_blank" rel="noopener">Résumé</a><a href="index.html">← Portfolio</a></div>
+      <span>© 2026 Hammad Jawaid · Karachi</span>
+    </div>
+  </div>
+</footer>
+
+<a class="fab" href="#" data-wa aria-label="Hire me on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" data-ico="wa"></svg><span>Hire me</span></a>
+
+<script>
+/* ═════════ CONFIG: put your WhatsApp number here ═════════
+   country code + number, digits only, no + or spaces. Pakistan example: 923001234567 */
+var WA_NUMBER = '923152087079';
+var EMAIL = 'droidhammad2006@gmail.com';
+/* ═══════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); }, $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
+  var numOK = /^\d{8,15}$/.test(WA_NUMBER);
+  function waLink(t) { return 'https://wa.me/' + (numOK ? WA_NUMBER : '') + '?text=' + encodeURIComponent(t); }
+  var WA = '<path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.8-.7-1.4-1.6-1.6-1.9-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3ZM12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-2.9-.4-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/>';
+  $$('[data-ico=wa]').forEach(function (s) { s.innerHTML = WA; });
+  $$('[data-wa]').forEach(function (a) { a.href = waLink("Hi Hammad, I found your portfolio and I'd like to talk about working together."); a.target = '_blank'; a.rel = 'noopener'; });
+
+  /* clock */
+  function tick() { try { $('#clock').textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Karachi' }); } catch (e) {} } tick(); setInterval(tick, 20000);
+
+  /* ticker */
+  var words = ['HTML', 'CSS', 'JavaScript', 'PHP', 'Node.js', 'MySQL', 'MongoDB', 'REST APIs', 'Responsive', 'Full-stack'], h = '';
+  words.forEach(function (w) { h += '<span>' + w + '</span>'; }); $('#tk').innerHTML = h + h + h + h;
+
+  /* terminal typing */
+  var out = $('#termOut'), script = [
+    ['p', '$ ', 'hammad --hire "your idea"'],
+    ['d', '', 'connecting to karachi… done'],
+    ['ok', '✔ ', 'interface   HTML · CSS · JS'],
+    ['ok', '✔ ', 'backend     PHP · Node.js'],
+    ['ok', '✔ ', 'database    MySQL · MongoDB'],
+    ['ok', '✔ ', 'deploy      live, tested'],
+    ['d', '', ''],
+    ['p', '$ ', 'open whatsapp']
+  ];
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function typeTerm() {
+    var html = '', li = 0, ci = 0;
+    function render(c) { out.innerHTML = html + (c || '') + '<span class="caret"></span>'; }
+    (function step() {
+      if (li >= script.length) { render(''); return; }
+      var L = script[li], cls = L[0], pre = L[1], txt = L[2];
+      var base = pre ? '<span class="p">' + esc(pre) + '</span>' : '';
+      if (cls === 'p') { // typed
+        if (ci <= txt.length) { render(base + esc(txt.slice(0, ci))); ci++; setTimeout(step, 38); }
+        else { html += base + esc(txt) + '\n'; li++; ci = 0; setTimeout(step, 320); }
+      } else { html += '<span class="' + cls + '">' + esc(pre) + esc(txt) + '</span>\n'; li++; render(''); setTimeout(step, 340); }
+    })();
+  }
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { out.innerHTML = script.map(function (l) { return '<span class="' + l[0] + '">' + esc(l[1] + l[2]) + '</span>'; }).join('\n'); } else typeTerm();
+
+  /* reveal + counters */
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) {
+    if (!e.isIntersecting) return; e.target.classList.add('in'); io.unobserve(e.target);
+    $$('[data-n]', e.target).forEach(function (b) { var n = +b.dataset.n, t0 = performance.now(); (function f(t) { var p = Math.min(1, (t - t0) / 1200); b.textContent = Math.round(n * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(f); })(t0); });
+  }); }, { threshold: .12, rootMargin: '0px 0px -5% 0px' });
+  $$('.rv').forEach(function (el) { io.observe(el); });
+
+  /* work list + cursor preview */
+  var WORK = [
+    ['PhysioSync', 'Physiotherapy clinic', 'A calm, conversion-oriented site that reads clearly on any device and loads quickly.', 'https://physiosync-pk.vercel.app/', 'shot-physiosync.jpg'],
+    ['CTRL ZONE', 'Gaming peripherals store', 'A complete working storefront: browse, register, cart and checkout, with the owner managing catalog and orders.', 'http://ctrlzone.infinityfreeapp.com/', 'shot-ctrlzone.jpg'],
+    ['PathSeeker', 'Career discovery app', 'An interactive app that turns a broad career question into a tailored path.', 'https://careerpassporttw.vercel.app/', 'shot-pathseeker.jpg'],
+    ['FurShield', 'Pet care · full stack', 'One platform for pet owners, vets and shelters, with a health timeline, documents and insurance per pet.', 'https://furshiel.vercel.app/', 'shot-furshield.jpg'],
+    ['Campus Coin', 'Student fintech', 'A budget tracker for students paid by allowance: type or import a CSV, it categorises, charts and warns you.', 'https://campuscoin-sable.vercel.app/', 'shot-campuscoin.jpg']
+  ];
+  $('#list').innerHTML = WORK.map(function (w, i) { return '<a class="row rv" style="--d:' + (i * .05) + 's" href="' + w[3] + '" target="_blank" rel="noopener noreferrer" data-i="' + i + '"><span class="n">0' + (i + 1) + '</span><h3>' + w[0] + '</h3><div class="t">' + w[1] + '<p>' + w[2] + '</p></div><span class="ar">↗</span><div class="shot"><img src="' + w[4] + '" alt="' + w[0] + ' homepage" loading="lazy"></div></a>'; }).join('');
+  $$('#list .rv').forEach(function (el) { io.observe(el); });
+  var pv = $('#pv'), pvi = $('img', pv), tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
+  function follow() { cx += (tx - cx) * .18; cy += (ty - cy) * .18; pv.style.left = cx + 'px'; pv.style.top = cy + 'px'; raf = requestAnimationFrame(follow); }
+  $$('#list .row').forEach(function (r) {
+    r.addEventListener('mouseenter', function (e) { pvi.src = WORK[+r.dataset.i][4]; tx = cx = e.clientX; ty = cy = e.clientY; pv.classList.add('on'); if (!raf) follow(); });
+    r.addEventListener('mousemove', function (e) { tx = e.clientX + 40; ty = e.clientY; });
+    r.addEventListener('mouseleave', function () { pv.classList.remove('on'); cancelAnimationFrame(raf); raf = null; });
+  });
+
+  /* order receipt */
+  var form = $('#form'), lines = $('#lines');
+  $('#oid').textContent = 'ORDER #HJ-' + String(Math.floor(1000 + Math.random() * 9000));
+  $('#odate').textContent = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase();
+  function data() { var d = new FormData(form); return { items: d.getAll('item'), kind: d.get('kind'), when: d.get('when'), name: (d.get('name') || '').trim(), msg: (d.get('msg') || '').trim() }; }
+  var prevN = -1;
+  function paint() {
+    var d = data();
+    lines.innerHTML = d.items.length ? d.items.map(function (it, i) { return '<li><span>' + (i + 1) + '× ' + it.replace(/&/g, '&amp;') + '</span><em>✓</em></li>'; }).join('') : '<li class="empty">— nothing selected yet —</li>';
+    $('#rKind').textContent = d.kind; $('#rWhen').textContent = d.when; $('#rName').textContent = d.name || '—';
+  }
+  function text() {
+    var d = data(), t = 'Hi Hammad, this is ' + (d.name || 'a new client') + '.\n\nOrder from your hire page:\n';
+    t += d.items.length ? d.items.map(function (i) { return '• ' + i; }).join('\n') : '• (not sure yet, let\'s talk)';
+    t += '\n\nEngagement: ' + d.kind + '\nTimeline: ' + d.when;
+    if (d.msg) t += '\n\nThe idea:\n' + d.msg;
+    return t;
+  }
+  form.addEventListener('input', paint); form.addEventListener('change', paint); paint();
+  function need() { var n = $('#nm'); if (!n.value.trim()) { n.focus(); n.scrollIntoView({ block: 'center', behavior: 'smooth' }); n.style.boxShadow = '4px 4px 0 #ff5a5f,4px 4px 0 2px #0d0d0d'; setTimeout(function () { n.style.boxShadow = ''; }, 1600); return false; } return true; }
+  $('#send').addEventListener('click', function () { if (!need()) return; window.open(waLink(text()), '_blank', 'noopener'); });
+  $('#viaMail').addEventListener('click', function () { if (!need()) return; location.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Project enquiry from ' + data().name) + '&body=' + encodeURIComponent(text()); });
+  $('#cp').addEventListener('click', function () { try { navigator.clipboard.writeText(EMAIL); } catch (e) {} var b = this; b.textContent = 'copied ✓'; setTimeout(function () { b.textContent = 'copy'; }, 1300); });
+})();
+</script>
+</body>
+</html>
